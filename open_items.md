@@ -88,6 +88,11 @@ remove the `.links-note` line under the row.
 ### C2 — Nav GitHub button **TODO**
 Currently `href="#resources"`. Point at the code repository once public.
 
+### C0 — Turn GitHub Pages on **TODO**
+The code is pushed but the site is not served yet. Repository → Settings →
+Pages → Source: *Deploy from a branch*, branch `main`, folder `/ (root)`.
+No `.nojekyll` is needed: nothing in the tree starts with an underscore.
+
 ### C3 — Deployment host **BLOCKED**
 `og:image` and `og:url` are absolute and assume `https://osreward.github.io/`.
 The git remote is `OS-Copilot/OSReward-Home`. If the site deploys to a
