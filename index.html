@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents</title>
+  <meta name="description"
+    content="OSReward is a benchmark of 1,019 human-gold cross-platform CUA trajectories that measures how reliably VLM judges score them, plus OS-Shepherd-100K and open 9B/35B reward models.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#02091a">
+
+  <link rel="icon" href="public/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16.png">
+  <link rel="apple-touch-icon" href="public/apple-touch-icon.png">
+
+  <!-- Open Graph / Twitter.
+       NOTE: absolute URLs are required by social scrapers. Update the host if
+       the site is deployed somewhere other than osreward.github.io. -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://osreward.github.io/">
+  <meta property="og:site_name" content="OSReward">
+  <meta property="og:title" content="OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents">
+  <meta property="og:description"
+    content="Are VLM judges reliable enough to reward computer-using agents? 1,019 human-gold trajectories, 27 judges benchmarked, and OS-Shepherd — open reward models at 30–60x lower cost.">
+  <meta property="og:image" content="https://osreward.github.io/public/social/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qiushi_sun">
+  <meta name="twitter:title" content="OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents">
+  <meta name="twitter:description"
+    content="Are VLM judges reliable enough to reward computer-using agents? 1,019 human-gold trajectories, 27 judges benchmarked, and OS-Shepherd — open reward models at 30–60x lower cost.">
+  <meta name="twitter:image" content="https://osreward.github.io/public/social/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="static/css/main.css">
+  <!-- Reveal-on-scroll hides content until JS un-hides it, so only opt in when
+       JS is running; and the theme must be set before first paint. Both happen
+       here, before the body renders. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.className += " js";
+      var t;
+      try { t = localStorage.getItem("osreward-theme"); } catch (e) { /* private mode */ }
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      d.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="cosmos" aria-hidden="true"></div>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ==================================================================== -->
+  <!-- Navigation                                                            -->
+  <!-- ==================================================================== -->
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a class="nav-brand" href="#top">
+        <img src="public/favicon-512.png" alt="">
+        <span>OSReward<span class="brand-suffix"> <i>&amp;</i> OS-Shepherd</span></span>
+      </a>
+      <button class="icon-btn nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M2 4h12M2 8h12M2 12h12" stroke-linecap="round" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-more" id="navMore" data-open="false">
+          <button type="button" aria-expanded="false" aria-haspopup="true">
+            More research
+            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M1.5 3.5 5 7l3.5-3.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <ul>
+            <li><a href="https://qiushisun.github.io/OS-Sentinel-Home/" target="_blank" rel="noopener">
+              <img src="public/logos/projects/os-sentinel.png" alt="">
+              <span>OS-Sentinel <small>Mobile GUI Safety</small></span></a></li>
+            <li><a href="https://qiushisun.github.io/ScienceBoard-Home/" target="_blank" rel="noopener">
+              <img src="public/logos/projects/scienceboard.png" alt="">
+              <span>ScienceBoard <small>CUA for Science</small></span></a></li>
+            <li><a href="https://qiushisun.github.io/OS-Genesis-Home/" target="_blank" rel="noopener">
+              <img src="public/logos/projects/os-genesis.png" alt="">
+              <span>OS-Genesis <small>Annotation-Free Trajectory Synthesis</small></span></a></li>
+            <li><a href="https://osatlas.github.io/" target="_blank" rel="noopener">
+              <img src="public/logos/projects/os-atlas.png" alt="">
+              <span>OS-Atlas <small>GUI Action Foundation Model</small></span></a></li>
+            <!-- TODO: point at a project page if OpenMobile gets one; see open_items.md -->
+            <li><a href="https://arxiv.org/abs/2604.15093" target="_blank" rel="noopener">
+              <img src="public/logos/projects/openmobile.png" alt="">
+              <span>OpenMobile <small>Open Mobile Agents</small></span></a></li>
+            <li><a href="https://aclanthology.org/2024.acl-long.505" target="_blank" rel="noopener">
+              <img src="public/logos/projects/seeclick.png" alt="">
+              <span>SeeClick <small>GUI Grounding</small></span></a></li>
+          </ul>
+        </li>
+        <li><a href="#abstract">Overview</a></li>
+        <li><a href="#benchmark">Benchmark</a></li>
+        <li><a href="#findings">Findings</a></li>
+        <li><a href="#leaderboard">Leaderboard</a></li>
+        <li><a href="#shepherd">OS-Shepherd</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+      <div class="nav-tools">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to light theme">
+          <svg class="i-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"
+            aria-hidden="true">
+            <path d="M14 9.3A6 6 0 0 1 6.7 2a6.2 6.2 0 1 0 7.3 7.3Z" stroke-linejoin="round" />
+          </svg>
+          <svg class="i-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"
+            aria-hidden="true">
+            <circle cx="8" cy="8" r="3.1" />
+            <path d="M8 1v1.7M8 13.3V15M1 8h1.7M13.3 8H15M3 3l1.2 1.2M11.8 11.8 13 13M13 3l-1.2 1.2M4.2 11.8 3 13"
+              stroke-linecap="round" />
+          </svg>
+        </button>
+        <!-- TODO: point at the code repository once it is public. -->
+        <a class="icon-btn" href="#resources" aria-label="GitHub">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================================================================== -->
+  <!-- Hero — split layout: content left, key art right                      -->
+  <!-- ==================================================================== -->
+  <header class="hero" id="top">
+    <div class="wrap wrap-wide hero-split">
+      <div class="hero-content">
+        <h1><span class="gilt">OSReward</span></h1>
+        <p class="tagline">Instituting Standardized Reward Evaluation<br class="br-lg">
+          for Cross-Platform Computer-Using Agents</p>
+        <p class="lede">A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions
+          and reasoning. Deciding whether it fulfilled the instruction is the reward signal behind
+          evaluation, data curation and RL. How well the models we now use as judges actually make that
+          call had gone unexamined.</p>
+
+        <ul class="bullets">
+          <li>
+            <span class="b-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 21h8M12 18v3" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span><b>1,019 human-gold trajectories</b> across web, Windows, Ubuntu and mobile, labeled by
+              three annotators each</span>
+          </li>
+          <li>
+            <span class="b-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span><b>27 VLM judges</b> benchmarked under one protocol, on the full set and on the
+              OSReward-Hard challenge set</span>
+          </li>
+          <li>
+            <span class="b-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 3 3 20h18L12 3Z" stroke-linejoin="round" /><path d="M12 9v5M12 17h.01" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span>One <b>shared leniency bias</b>: every family accepts incomplete tasks as successes,
+              and the verdict lives in the text, not the screen</span>
+          </li>
+          <li>
+            <span class="b-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 3l7.5 4.2v9.6L12 21l-7.5-4.2V7.2L12 3Z" stroke-linejoin="round" />
+                <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span><b>OS-Shepherd</b>: an open corpus and open 9B / 35B reward models, level with mid-tier
+              commercial judges at 30–60× lower cost</span>
+          </li>
+        </ul>
+
+      <div class="links">
+          <a class="btn btn-gold pending" role="link" aria-disabled="true" title="Coming soon" data-link="paper">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M9.5 0H3.75A1.75 1.75 0 0 0 2 1.75v12.5c0 .97.78 1.75 1.75 1.75h8.5c.97 0 1.75-.78 1.75-1.75V4.5L9.5 0Zm0 1.5L12.5 4.5H10a.5.5 0 0 1-.5-.5V1.5ZM5 8h6v1.2H5V8Zm0 2.6h6v1.2H5v-1.2ZM5 5.4h3v1.2H5V5.4Z" />
+            </svg>
+            Paper
+          </a>
+          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="arxiv">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M2 2h12v1.4H2V2Zm0 5.3h12v1.4H2V7.3ZM2 12.6h12V14H2v-1.4Z" />
+            </svg>
+            arXiv
+          </a>
+          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="code">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+            </svg>
+            Code
+          </a>
+          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="benchmark">
+            <span class="ic" aria-hidden="true">🤗</span>
+            OSReward
+          </a>
+          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="corpus">
+            <span class="ic" aria-hidden="true">🤗</span>
+            OS-Shepherd-100K
+          </a>
+          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="models">
+            <span class="ic" aria-hidden="true">🤗</span>
+            OS-Shepherd-9B/35B
+          </a>
+        </div>
+        <p class="links-note">Dashed links go live as each artifact lands.</p>
+      </div>
+
+      <figure class="hero-art plate">
+        <picture>
+          <source srcset="public/cover.webp" type="image/webp">
+          <img src="public/cover.png" width="900" height="900" fetchpriority="high"
+            alt="OSReward key art: an agent working across a phone, a desktop and a browser while a golden reward star hovers above.">
+        </picture>
+      </figure>
+    </div>
+  </header>
+
+  <!-- ==================================================================== -->
+  <!-- Byline                                                                -->
+  <!-- ==================================================================== -->
+  <section class="byline">
+    <div class="wrap wrap-wide">
+      <div class="panel">
+      <p class="authors">
+        <span class="au eq"><a href="https://qiushisun.github.io/" target="_blank" rel="noopener">Qiushi Sun</a><sup>1,†</sup></span>,
+        <span class="au eq"><a href="https://njucckevin.github.io/" target="_blank" rel="noopener">Kanzhi Cheng</a><sup>2,†</sup></span>,
+        <span class="au eq">Yian Wang<sup>1,3</sup></span>,
+        <span class="au eq">Bowen Yang<sup>4</sup></span>,
+        <span class="au eq">Hang Yan<sup>5</sup></span>,
+        <span class="au eq"><a href="https://lihengchen.com/" target="_blank" rel="noopener">Liheng Chen</a><sup>6</sup></span>,
+        <span class="au"><a href="https://xufangzhi.github.io/" target="_blank" rel="noopener">Fangzhi Xu</a><sup>5</sup></span>,
+        <span class="au"><a href="https://heroding77.github.io/" target="_blank" rel="noopener">Zichen Ding</a></span>,
+        <span class="au">Nuo Chen<sup>2</sup></span>,
+        <span class="au">Jialin Cao<sup>2</sup></span>,
+        <span class="au">Xingdong Gong<sup>2</sup></span>,
+        <span class="au">Zehao Li<sup>4</sup></span>,
+        <span class="au">Kaiming Jin<sup>3</sup></span>,
+        <span class="au">Xinfeng Yuan<sup>7</sup></span>,
+        <span class="au"><a href="https://github.com/ShiinaHiiragi" target="_blank" rel="noopener">Zhoumianze Liu</a><sup>7</sup></span>,
+        <span class="au"><a href="https://scholar.google.com/citations?user=cBoG7ZMAAAAJ" target="_blank" rel="noopener">Jingyang Gong</a><sup>1</sup></span>,
+        <span class="au"><a href="https://yinzhangyue.github.io/" target="_blank" rel="noopener">Zhangyue Yin</a><sup>7</sup></span>,
+        <span class="au">Jiahui Gao<sup>1</sup></span>,
+        <span class="au"><a href="https://lividwo.github.io/zywu.github.io/" target="_blank" rel="noopener">Zhiyong Wu</a><sup>1</sup></span>,
+        <span class="au"><a href="https://tianbaoxie.com/" target="_blank" rel="noopener">Tianbao Xie</a><sup>1</sup></span>,
+        <span class="au">Jianbing Zhang<sup>2,✉</sup></span>,
+        <span class="au"><a href="https://www.cs.hku.hk/index.php/people/academic-staff/kao" target="_blank" rel="noopener">Ben Kao</a><sup>1,✉</sup></span>,
+        <span class="au"><a href="https://ikekonglp.github.io/" target="_blank" rel="noopener">Lingpeng Kong</a><sup>1</sup></span>
+      </p>
+
+      <!-- Affiliation marks, normalised to 96x96 transparent PNGs. -->
+      <ul class="affils">
+        <li><span class="mark"><img class="lt" src="public/affil/hku.png" alt=""><img class="dk" src="public/affil/hku-dark.png" alt=""></span><span class="nm"><sup>1</sup>The University of Hong Kong</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/nju.png" alt=""><img class="dk" src="public/affil/nju-dark.png" alt=""></span><span class="nm"><sup>2</sup>Nanjing University</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/nus.png" alt=""><img class="dk" src="public/affil/nus-dark.png" alt=""></span><span class="nm"><sup>3</sup>National University of Singapore</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/ustc.png" alt=""><img class="dk" src="public/affil/ustc-dark.png" alt=""></span><span class="nm"><sup>4</sup>University of Science and Technology of China</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/xjtu.png" alt=""><img class="dk" src="public/affil/xjtu-dark.png" alt=""></span><span class="nm"><sup>5</sup>Xi'an Jiaotong University</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/oxford.png" alt=""><img class="dk" src="public/affil/oxford-dark.png" alt=""></span><span class="nm"><sup>6</sup>University of Oxford</span></li>
+        <li><span class="mark"><img class="lt" src="public/affil/fudan.png" alt=""><img class="dk" src="public/affil/fudan-dark.png" alt=""></span><span class="nm"><sup>7</sup>Fudan University</span></li>
+      </ul>
+
+      <p class="legend"><span class="eq-key">Equal contribution</span> &nbsp;
+        <sup>†</sup>Project co-lead &nbsp; <sup>✉</sup>Corresponding author</p>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ================================================================== -->
+    <!-- News                                                                -->
+    <!-- ================================================================== -->
+    <section class="band-tight">
+      <div class="wrap">
+        <div class="card rise" style="padding:22px 26px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span class="eyebrow" style="margin:0">News</span>
+          </div>
+          <ul style="list-style:none;padding:0;margin:0;font-size:15.5px;line-height:1.9">
+            <!-- TODO: keep the newest item first; use YYYY-MM-DD. -->
+            <li><b style="color:var(--gold-300);font-family:var(--font-mono);font-size:13px">2026-07</b>
+              &nbsp; The OSReward project page is live. Paper, code, benchmark, corpus and model checkpoints are
+              on their way.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Overview                                                            -->
+    <!-- ================================================================== -->
+    <section class="band-tight" id="abstract">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Overview</span>
+          <h2 class="section-title">Judging <span class="gilt">the judge</span></h2>
+        </div>
+
+        <div class="card abstract rise">
+          <p>A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions and
+            reasoning. Deciding whether it fulfilled its instruction is the reward signal behind
+            evaluation, data curation and reinforcement learning. Human-written verifiers cover only a
+            handful of curated tasks and cannot inspect a static corpus at all; human annotation cannot
+            keep pace. The field has therefore settled on vision-language models as judges — without ever
+            measuring how reliable those judges are.</p>
+          <p><strong>OSReward measures it</strong>, on trajectories built for the purpose rather than
+            recycled from benchmarks whose own flaws would be indistinguishable from judge error.</p>
+
+          <ol class="contribs">
+            <li>
+              <a href="#benchmark"><b>A standardized benchmark for the CUA reward signal.</b></a>
+              1,019 human-gold trajectories collected on cross-platform infrastructure we build and
+              operate end to end, each labeled by three annotators with meta-review on disagreements.
+              Read three ways: the full set, the <em>OSReward-Hard</em> challenge set, and
+              <em>OSReward-Multi</em> for alignment and efficiency grading.
+            </li>
+            <li>
+              <a href="#findings"><b>The broadest evaluation of VLM judges for CUA to date.</b></a>
+              27 models under one fixed protocol. Every family shares one lenient failure mode, the
+              verdict turns out to live in the text history rather than the screen, and the aggregate
+              ~90% collapses on hard cases. The judges reliable enough to trust cost too much to run at
+              the scale evaluation and training demand.
+            </li>
+            <li>
+              <a href="#shepherd"><b>An open reward model, and the corpus behind it.</b></a>
+              <em>OS-Shepherd-100K</em>, a reasoning-annotated judge corpus, and
+              <em>OS-Shepherd</em> 9B and 35B — open, self-hostable, trained to target the false-success
+              mode directly, and level with mid-tier commercial judges at 30–60× lower cost.
+            </li>
+          </ol>
+        </div>
+
+        <div class="grid grid-4 rise" style="margin-top:22px">
+          <a class="card feature" href="#benchmark">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="4" width="18" height="14" rx="2" />
+                <path d="M8 20h8M12 18v2M7 9h4M7 12.5h6" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>The benchmark</h3>
+            <p>1,019 human-gold trajectories across web, Windows, Ubuntu and mobile, read as three views.</p>
+          </a>
+          <a class="card feature" href="#findings">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>What we found</h3>
+            <p>One shared failure mode, a text-driven verdict, and a hard set where the field collapses.</p>
+          </a>
+          <a class="card feature" href="#leaderboard">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 0 1-12 0V4Z" stroke-linecap="round" />
+                <path d="M6 6H3v2a3 3 0 0 0 3 3M18 6h3v2a3 3 0 0 1-3 3" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Leaderboard</h3>
+            <p>27 VLM judges scored under one protocol, on both the full set and the hard set.</p>
+          </a>
+          <a class="card feature" href="#shepherd">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 3l7.5 4.2v9.6L12 21l-7.5-4.2V7.2L12 3Z" stroke-linejoin="round" />
+                <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>OS-Shepherd</h3>
+            <p>An open corpus and open 9B / 35B reward models a lab can run at training scale.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- The problem                                                         -->
+    <!-- ================================================================== -->
+    <section class="band" id="problem">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">The problem</span>
+          <h2 class="section-title">The whole field <span class="gilt">leans lenient</span></h2>
+          <p class="section-sub">Place every judge at its recall on truly-failed runs against its recall on
+            truly-successful ones. Almost every point sits above the diagonal: judges accept far more failures
+            than they reject successes.</p>
+        </div>
+
+        <div class="card chart-card rise">
+          <div class="chart-head">
+            <h3>Strict–lenient plane</h3>
+          </div>
+          <p class="chart-note">Above the dashed diagonal is lenient (a failed run scored SUCCESS); below is strict.
+            Switch to OSReward-Hard and the cloud drifts left — leniency does not just persist on hard cases,
+            it widens. Hover any point; click a family to mute it.</p>
+          <div id="chart-bias"></div>
+        </div>
+
+        <div class="grid grid-3 rise" style="margin-top:26px">
+          <div class="card feature">
+            <h3 style="color:var(--gold-200)">Not measurable before</h3>
+            <p>Human-written verifiers cover a handful of curated tasks and cannot inspect a static corpus at all.
+              Human annotation cannot keep pace. A model judge is the only practical route — and its own
+              reliability had gone untested.</p>
+          </div>
+          <div class="card feature">
+            <h3 style="color:var(--gold-200)">Harder than judging text</h3>
+            <p>A CUA verdict means reading a long, interleaved record of states, actions and reasoning, then
+              deciding whether the environment truly reached the goal rather than whether the agent
+              merely claims it did.</p>
+          </div>
+          <div class="card feature">
+            <h3 style="color:var(--gold-200)">Built from scratch</h3>
+            <p>Reusing existing benchmarks' rollouts would confound judge errors with flaws in the runs. OSReward is
+              built on dedicated cross-platform infrastructure so a wrong verdict is attributable to the judge.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Benchmark                                                           -->
+    <!-- ================================================================== -->
+    <section class="band" id="benchmark">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">OSReward</span>
+          <h2 class="section-title">A gold set built for <span class="gilt">judging the judge</span></h2>
+          <p class="section-sub">Realistic environments on four platforms, human-vetted instructions, rollouts from
+            four agent families, and three independent annotators per trajectory — roughly 800 human hours.</p>
+        </div>
+
+        <!-- Infrastructure pipeline (paper Fig. 3) -->
+        <div class="card chart-card rise">
+          <div class="chart-head">
+            <h3>From realistic environments to trajectories</h3>
+          </div>
+          <p class="chart-note">Stock benchmark images are extended into lived-in machines: everyday and
+            professional applications, real files, user profiles, seeded databases, distractor content. Web tasks
+            run on live websites.</p>
+          <div class="flow" style="margin-top:6px">
+            <div class="flow-node">
+              <span class="step-n">1</span>
+              <h4>Realistic environment</h4>
+              <p>Web · Windows · Ubuntu · Mobile<br>everyday + professional apps, files, state</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node human">
+              <span class="step-n">2</span>
+              <h4>Annotators explore</h4>
+              <p>learn the apps, build profiles,<br>seed files, initialize state</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node human">
+              <span class="step-n">3</span>
+              <h4>Human-vetted instructions</h4>
+              <p>grounded · answerable · open-ended<br>peer cross-checked (~1500 → ~800)</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node">
+              <span class="step-n">4</span>
+              <h4>Agent rollout</h4>
+              <p>Claude · Gemini · Kimi · Qwen<br>screenshot → thought → action</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node out">
+              <span class="step-n">5</span>
+              <h4>Raw trajectories</h4>
+              <p>up to 100 steps<br>to annotation</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Annotation pipeline (paper Fig. 4) -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head">
+            <h3>From raw trajectories to the gold benchmark</h3>
+          </div>
+          <p class="chart-note">Three annotators label every surviving trajectory independently. Unanimous verdicts
+            are final; splits escalate to a two-reviewer meta-review — deliberation, not a majority vote — so no
+            gold verdict rests on a single reader. One deliberately strict rule: an answer the agent did not obtain
+            or verify through the environment is a FAIL even when it happens to be correct.</p>
+          <div class="flow" style="margin-top:6px">
+            <div class="flow-node">
+              <span class="step-n">1</span>
+              <h4>Automatic pre-filter</h4>
+              <p>drop persistently blocked<br>or failed runs</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node human">
+              <span class="step-n">2</span>
+              <h4>Three annotators, independently</h4>
+              <p>SUCCESS → alignment + efficiency<br>FAIL → error types</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node human">
+              <span class="step-n">3</span>
+              <h4>Meta-review on splits</h4>
+              <p>two senior reviewers deliberate;<br>residual-quality runs discarded</p>
+            </div>
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="flow-node out">
+              <span class="step-n">4</span>
+              <h4>Gold benchmark</h4>
+              <p>read as three views:<br>OSReward · Hard · Multi</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three views -->
+        <div class="grid grid-3 rise" style="margin-top:24px">
+          <div class="card feature">
+            <div class="ico" style="color:var(--cyan-300)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+              </svg>
+            </div>
+            <h3>OSReward</h3>
+            <p>The full set. Four platforms, four agent families, GUI-only and GUI+CLI action spaces, from
+              dozen-step chores to 100-step professional workflows. Balanced 43 / 57 success / fail, so binary
+              accuracy is not majority-driven.</p>
+          </div>
+          <div class="card feature">
+            <div class="ico" style="color:#eb8b6e">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M12 3 3 20h18L12 3Z" stroke-linejoin="round" />
+                <path d="M12 9v5M12 17h.01" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>OSReward-Hard</h3>
+            <p>A challenge subset drawn mostly from the trajectories the annotators themselves split on, each
+              re-verified under meta-review — so the difficulty is real, not annotation error. Deceptive runs that
+              read like completed tasks, at a 30 / 70 success / fail split.</p>
+          </div>
+          <div class="card feature">
+            <div class="ico" style="color:#b18bf2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 20V10M10 20V4M16 20v-7M22 20h-2M2 20h2" stroke-linecap="round" />
+                <circle cx="10" cy="4" r="1.6" fill="currentColor" stroke="none" />
+              </svg>
+            </div>
+            <h3>OSReward-Multi</h3>
+            <p>The successful trajectories carry human <em>alignment</em> (did the actions match the task intent)
+              and <em>efficiency</em> (how free the run was of wasted steps) sub-labels — a finer quality grading
+              existing CUA-judge benchmarks do not measure.</p>
+          </div>
+        </div>
+
+        <!-- Composition -->
+        <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Outcome composition</h3></div>
+            <p class="chart-note">The Hard set deliberately raises the share of failures, to expose how easily
+              judges are fooled by false successes. Failed runs are markedly longer — a first sign that length
+              confounds verification.</p>
+            <div id="chart-composition"></div>
+          </div>
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Platform mix</h3></div>
+            <p class="chart-note">Ubuntu contributes the most trajectories and is the only platform collected in
+              both a pure-GUI and a GUI+CLI action space.</p>
+            <div id="chart-platform"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Findings                                                            -->
+    <!-- ================================================================== -->
+    <section class="band" id="findings">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Findings</span>
+          <h2 class="section-title">Four things the <span class="gilt">judge study</span> settles</h2>
+          <p class="section-sub">27 VLM judges under one fixed protocol: read the trajectory's last N states with
+            the per-step reasoning and action text, return a verdict. No task-specific harness, no tool access, no
+            step-level supervision.</p>
+        </div>
+
+        <div class="grid grid-2 rise">
+          <div class="takeaway">
+            <span class="k">01</span>
+            <p>State-of-the-art VLMs judge CUA success at just under <strong>90%</strong> binary accuracy, with no
+              clear single winner — the top three sit within 0.2 pp. The open/closed gap is mostly a small-model
+              long tail, not a frontier advantage.</p>
+          </div>
+          <div class="takeaway">
+            <span class="k">02</span>
+            <p>Every judge family shares one dominant failure: <strong>accepting an incomplete task as a
+                success</strong>. It is two-thirds of all errors, and it is the leading error mode of every
+              judge at no less than 48% of its mistakes. Over-accepts outnumber over-rejects more than
+              three to one.</p>
+          </div>
+          <div class="takeaway">
+            <span class="k">03</span>
+            <p>The verdict lives in the <strong>text history</strong>, not the screen. Dropping the per-step thought
+              and action text costs 7.2 pp on average and flips 22.7% of verdicts; the visual choices that look
+              essential barely move accuracy at all.</p>
+          </div>
+          <div class="takeaway">
+            <span class="k">04</span>
+            <p>Reliability can be bought, but not afforded. The judges that hold ~70% on OSReward-Hard cost
+              <strong>$45–100</strong> to judge the full set once, which does not scale to training-time reward.</p>
+          </div>
+        </div>
+
+        <!-- Pareto -->
+        <div class="card chart-card rise" style="margin-top:28px">
+          <div class="chart-head">
+            <h3>Cost against accuracy</h3>
+          </div>
+          <p class="chart-note" id="pareto-note">Accuracy and cost are in direct tension, sharpest on
+            OSReward-Hard. The dashed line traces the frontier: the best accuracy reachable at each price. The
+            OS-Shepherd models are the low-cost points nearest it.</p>
+          <div id="chart-pareto"></div>
+        </div>
+
+        <!-- Failure modes -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head">
+            <h3>What judges get wrong</h3>
+          </div>
+          <p class="chart-note">Every incorrect verdict, labeled into over-accepts and over-rejects with three
+            modes each. One mode dominates every family: over-accepting a task the agent never completed. That is
+            the mechanism behind the leniency bias — the verdict leans on the agent's own closing claim.</p>
+          <div id="chart-failure"></div>
+        </div>
+
+        <!-- Hard-set breakdown -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head">
+            <h3>Where the hard set bites</h3>
+          </div>
+          <p class="chart-note">Mean per-judge binary accuracy on OSReward-Hard. Windows is the hardest platform to
+            judge and mobile the easiest; failures that hinge on reading the screen — perception, then action — are
+            markedly harder to catch than planning-and-reasoning failures, which are the dominant type in the data
+            and legible in the thought and action text. Failure types are multi-label, so their counts exceed the
+            number of failed trajectories.</p>
+          <div id="chart-hard"></div>
+        </div>
+
+        <!-- Ablations -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head">
+            <h3>What actually drives a verdict</h3>
+          </div>
+          <p class="chart-note">Change in binary accuracy against the main setting, one input component perturbed
+            at a time. Removing step-level text dominates; the visual settings barely register. Aggregate accuracy
+            is stable, but each visually harmless setting still flips 5–7% of individual verdicts — which matters
+            when a label is consumed on its own, as in reward labeling. The <code>avg</code> column is the
+            mean over the eleven judges shown.</p>
+          <div id="chart-ablation"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Leaderboard                                                         -->
+    <!-- ================================================================== -->
+    <section class="band" id="leaderboard">
+      <div class="wrap wrap-wide">
+        <div class="section-head">
+          <span class="eyebrow">Leaderboard</span>
+          <h2 class="section-title">27 judges, <span class="gilt">one protocol</span></h2>
+          <p class="section-sub">Binary accuracy decomposed into success recall (low means strict) and fail recall
+            (low means lenient); balanced accuracy is their mean, which the 43 / 57 class mix cannot inflate.</p>
+        </div>
+        <div class="card chart-card rise">
+          <div class="chart-head" style="margin-bottom:14px">
+            <h3>Main-setting results</h3>
+          </div>
+          <div id="table-leaderboard"></div>
+          <p class="chart-note" style="margin:16px 0 0">Sort any column. <span
+              style="color:var(--gold-300)">Gold rows</span> are ours. Best value per column is highlighted.
+            OS-Shepherd is evaluated held-out: it is trained on OS-Shepherd-100K, which is disjoint from this
+            benchmark.</p>
+        </div>
+
+        <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Finer-grained grading</h3></div>
+            <p class="chart-note">On OSReward-Multi every judge additionally rates alignment and efficiency.
+              Quality grading is far weaker than outcome judging: the best judge falls from ~90% on the binary
+              verdict to the low sixties. The AUC–macro-recall gap is the diagnostic — judges rank the levels
+              better than they score them, so the discrimination is there but the thresholds are miscalibrated,
+              worst on alignment.</p>
+            <div class="table-shell">
+              <div class="table-scroll">
+                <table class="data" id="table-multi">
+                  <thead>
+                    <tr class="group">
+                      <th></th>
+                      <th colspan="3">Macro-recall</th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <th>Judge</th>
+                      <th title="alignment with the task intent">Align</th>
+                      <th title="freedom from wasted steps">Effic</th>
+                      <th>Multi</th>
+                      <th title="threshold-free ranking quality">AUC</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Judge agreement and ensembling</h3></div>
+            <p class="chart-note">No model-side knob buys reliability.</p>
+            <ul style="list-style:none;padding:0;margin:0;font-size:15.5px;line-height:1.75">
+              <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">κ ≈ 0.71</b> — pairwise agreement
+                among top judges. They herd on the <em>same</em> hard trajectories, so a wider pool mostly adds
+                copies of the same mistake.</li>
+              <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">6–9%</b> — verdicts flipped by
+                re-running the same judge on the same input at T = 0.7. Aggregate accuracy is stable under
+                temperature; individual labels are not, and that is what a reward model consumes.</li>
+              <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">+1 pp</b> — what a top-3 majority
+                vote buys over the best single judge, at several times the cost.</li>
+              <li style="padding:12px 0">
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">99.2%</b> — the oracle: accepting
+                <em>any</em> pooled judge's correct verdict. The pool almost always contains a correct answer;
+                what a vote cannot recover is <em>which</em> judge to trust on which trajectory.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- OS-Shepherd                                                         -->
+    <!-- ================================================================== -->
+    <section class="band" id="shepherd">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">OS-Shepherd</span>
+          <h2 class="section-title">An open reward model a lab <span class="gilt">can actually run</span></h2>
+          <p class="section-sub">Reliable judging is unaffordable at the call volumes rejection sampling, RL and
+            trajectory mining need. OS-Shepherd is trained on a corpus we release, aimed squarely at the
+            false-success mode, and cheap enough to run at training scale.</p>
+        </div>
+
+        <div class="grid grid-2 rise" style="align-items:start">
+          <div class="card chart-card">
+            <div class="chart-head"><h3>OS-Shepherd-100K</h3></div>
+            <p class="chart-note">A judge instance is one judge's verdict on one trajectory. Every kept trajectory
+              is scored by an ensemble of strong judges under varied screenshot settings, and enters the corpus
+              only when they independently agree — voting cannot sharpen a verdict, but corpus building, unlike
+              evaluation, is free to discard trajectories. About 85% of judged trajectories survive the agreement
+              filter, distilled into ~96.6K training samples.</p>
+            <div id="chart-corpus"></div>
+          </div>
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Two-stage recipe</h3></div>
+            <p class="chart-note">Start from Qwen3.5. Build accurate judging first, then target the sharpest
+              failure the study exposes.</p>
+            <div class="flow" style="gap:12px;margin-top:8px">
+              <div class="flow-node" style="text-align:left">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                  <span class="step-n">S</span>
+                  <h4 style="margin:0">SFT stage</h4>
+                </div>
+                <p>Fine-tune on the 96.6K agreement-filtered samples to judge under the main setting. This alone
+                  lifts the 9B far above its base, primarily by correcting the base model's near-total leniency.</p>
+              </div>
+              <div class="flow-node human" style="text-align:left">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                  <span class="step-n">R</span>
+                  <h4 style="margin:0">RL stage</h4>
+                </div>
+                <p>What SFT leaves behind is the <em>false success</em> — the most harmful error for a reward
+                  signal, since it directly reinforces incorrect behavior. The ability to catch it is latent
+                  rather than missing, so those cases are mined and optimized with GRPO.</p>
+              </div>
+            </div>
+            <div class="takeaway" style="margin-top:16px">
+              <span class="k">Why</span>
+              <p>Every sample carries the judge's <em>reasoning</em>, not just a binary verdict — the natural
+                target, given that the verdict lives mainly in text.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corpus pipeline (paper Fig. 10) -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head">
+            <h3>How the corpus is built</h3>
+          </div>
+          <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with
+            open-source trajectories; the pool is then ensemble-judged and distilled. The first four
+            columns count trajectories on one scale. After that the unit changes — a judge instance is
+            one judge's verdict on one trajectory, and the corpus is counted in training samples — so the
+            right-hand columns are drawn on their own scale. Hover any band.</p>
+          <div id="chart-corpus-flow"></div>
+        </div>
+
+        <!-- Model cards -->
+        <div class="grid grid-2 rise" style="margin-top:24px">
+          <div class="card model-card">
+            <div class="top">
+              <img src="public/logos/OS-Shepherd.png" alt="">
+              <h3>OS-Shepherd-9B</h3>
+            </div>
+            <p style="font-size:15px;color:var(--text-dim);margin:0">Moves from the bottom third of the field into
+              the mid-tier commercial band on the full set — and holds the balanced diagonal on OSReward-Hard,
+              catching 57.6% of hard false successes where the cheap and lenient field misses nearly all of them.
+              At $1.36 to judge the full set, about a third cheaper than its nearest commercial tier-mate.</p>
+            <dl>
+              <dt>OSReward accuracy</dt><dd>86.1<span class="up">+9.4</span></dd>
+              <dt>OSReward-Hard accuracy</dt><dd>60.2<span class="up">+20.8</span></dd>
+              <dt>Hard fail recall</dt><dd>57.6<span class="up">+43.5</span></dd>
+              <dt>Base</dt><dd>Qwen3.5-9B</dd>
+            </dl>
+          </div>
+          <div class="card model-card">
+            <div class="top">
+              <img src="public/logos/OS-Shepherd.png" alt="">
+              <h3>OS-Shepherd-35B-A3B</h3>
+            </div>
+            <p style="font-size:15px;color:var(--text-dim);margin:0">The identical recipe at four times the
+              parameters lands beside the 9B: a small further gain on OSReward-Hard, level full-set accuracy, the
+              same balanced diagonal. Scale buys 2.4 pp of hard-set balanced accuracy; what transfers is the
+              recipe. On the quality axes it grades noticeably better than the 9B.</p>
+            <dl>
+              <dt>OSReward accuracy</dt><dd>85.6<span class="up">+3.4</span></dd>
+              <dt>OSReward-Hard accuracy</dt><dd>62.7<span class="up">+11.6</span></dd>
+              <dt>Hard fail recall</dt><dd>60.1<span class="up">+23.2</span></dd>
+              <dt>Base</dt><dd>Qwen3.5-35B-A3B</dd>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Training deltas -->
+        <div class="card chart-card rise" style="margin-top:24px">
+          <div class="chart-head"><h3>Against the untuned base</h3></div>
+          <p class="chart-note">Both base models are near-total accepters: the 9B base catches 14.1% of hard
+            failures. Training relocates the operating point rather than trading one error for another — far more
+            failure recall, a little less success recognition, at higher balanced accuracy.</p>
+          <div class="table-shell">
+            <div class="table-scroll">
+              <table class="data" id="table-training">
+                <thead>
+                  <tr class="group">
+                    <th></th>
+                    <th colspan="4">OSReward</th>
+                    <th colspan="4">OSReward-Hard</th>
+                  </tr>
+                  <tr>
+                    <th>Model</th>
+                    <th>Acc</th><th>sRec</th><th>fRec</th><th>BalAcc</th>
+                    <th>Acc</th><th>sRec</th><th>fRec</th><th>BalAcc</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generalization -->
+        <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Held-out benchmarks</h3></div>
+            <p class="chart-note">Agreement with each benchmark's own human-written verifier, on matched subsets.
+              Agreement is platform-driven, not judge-driven: every judge does best on mobile and falls well short
+              on desktop. The OS-Shepherd models are the best open judges on OSWorld and AndroidWorld, and sit in the frontier cluster on WebArena — beating every general open model
+              tested, up to one ~44× the 9B's size.</p>
+            <div id="chart-general"></div>
+          </div>
+          <div class="card chart-card">
+            <div class="chart-head"><h3>Leniency resistance transfers</h3></div>
+            <p class="chart-note">Recall on truly-failed runs. General Qwen judges stay lenient at every size from
+              30B to 397B; OS-Shepherd-9B catches far more real failures on all three. The resistance is learned,
+              and from training rather than size. None of these benchmarks' tasks or trajectories enter training —
+              OSWorld contributes neither, making it the cleanest out-of-distribution evidence.</p>
+            <div id="chart-leniency"></div>
+          </div>
+        </div>
+
+        <div class="takeaway rise" style="margin-top:24px">
+          <span class="k">Net</span>
+          <p>A single 9B, trained on none of them, carries its de-biasing across all three at a cost that scales to
+            training-time reward. It does not yet match frontier accuracy, but closes most of the gap at a fraction
+            of the scale — the direction a scalable CUA reward signal must move.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Resources                                                           -->
+    <!-- ================================================================== -->
+    <section class="band" id="resources">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Resources</span>
+          <h2 class="section-title">Open <span class="gilt">code, data and models</span></h2>
+          <p class="section-sub">The benchmark, the training corpus, both reward models and the evaluation
+            code are all released. Each link goes live as its artifact lands.</p>
+        </div>
+        <div class="grid grid-4 rise">
+          <!-- TODO: for each card, swap `pending` for a real href. -->
+          <a class="card feature pending-card" data-link="benchmark">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <ellipse cx="12" cy="6" rx="8" ry="3" />
+                <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+              </svg>
+            </div>
+            <h3>OSReward</h3>
+            <p>1,019 gold trajectories with verdicts, plus the Hard and Multi views.</p>
+            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
+          </a>
+          <a class="card feature pending-card" data-link="corpus">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>OS-Shepherd-100K</h3>
+            <p>~96.6K reasoning-annotated judgments distilled from 321,631 judge instances.</p>
+            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
+          </a>
+          <a class="card feature pending-card" data-link="models">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>OS-Shepherd 9B / 35B</h3>
+            <p>Open, self-hostable reward models. Weights plus the judging prompt.</p>
+            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
+          </a>
+          <a class="card feature pending-card" data-link="code">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 3l-4 18" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Code</h3>
+            <p>Evaluation harness, the judging protocol, and the training recipe.</p>
+            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- BibTeX                                                              -->
+    <!-- ================================================================== -->
+    <section class="band-tight" id="cite">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Citation</span>
+          <h2 class="section-title">BibTeX</h2>
+        </div>
+        <div class="bibtex rise">
+          <div class="bibtex-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="fn">osreward.bib</span>
+            <button class="copy-btn" id="copyBib" type="button">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="5.5" y="5.5" width="9" height="9" rx="1.6" />
+                <path d="M10.5 5.5v-3a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h3" />
+              </svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <!-- TODO: fill in eprint / journal once the arXiv id is assigned. -->
+          <pre id="bibtex">@article{sun2026osreward,
+  title   = {OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents},
+  author  = {Sun, Qiushi and Cheng, Kanzhi and Wang, Yian and Yang, Bowen and Yan, Hang and
+             Chen, Liheng and Xu, Fangzhi and Ding, Zichen and Chen, Nuo and Cao, Jialin and
+             Gong, Xingdong and Li, Zehao and Jin, Kaiming and Yuan, Xinfeng and Liu, Zhoumianze and
+             Gong, Jingyang and Yin, Zhangyue and Gao, Jiahui and Wu, Zhiyong and Xie, Tianbao and
+             Zhang, Jianbing and Kao, Ben and Kong, Lingpeng},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================================================================== -->
+  <!-- Footer                                                                -->
+  <!-- ==================================================================== -->
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <div class="brand-line">
+            <img src="public/favicon-512.png" alt="">
+            <span>OSReward</span>
+          </div>
+          <p style="font-size:14.5px;color:var(--text-dim);max-width:380px">
+            A standardized reward signal for computer-using agents: a human-gold benchmark, the broadest study of
+            VLM judges to date, and open reward models a lab can own.
+          </p>
+        </div>
+        <div>
+          <h4>Project</h4>
+          <ul>
+            <li><a href="#abstract">Overview</a></li>
+            <li><a href="#benchmark">Benchmark</a></li>
+            <li><a href="#findings">Findings</a></li>
+            <li><a href="#leaderboard">Leaderboard</a></li>
+            <li><a href="#shepherd">OS-Shepherd</a></li>
+            <li><a href="#cite">Cite</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Artifacts</h4>
+          <ul>
+            <li><a href="#resources">OSReward benchmark</a></li>
+            <li><a href="#resources">OS-Shepherd-100K</a></li>
+            <li><a href="#resources">OS-Shepherd 9B / 35B</a></li>
+            <li><a href="#resources">Code</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="fine">
+        <span>© 2026 The OSReward authors.</span>
+        <span>Page content licensed
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span>
+        <span style="margin-left:auto">Cover art and figures from the paper.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="static/js/osreward-data.js"></script>
+  <script src="static/js/osreward-charts.js"></script>
+  <script src="static/js/main.js"></script>
+</body>
+
+</html>

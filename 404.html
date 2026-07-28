@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — OSReward</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="public/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="public/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
+  <link rel="stylesheet" href="static/css/main.css">
+  <script>
+    (function () {
+      var d = document.documentElement, t;
+      try { t = localStorage.getItem("osreward-theme"); } catch (e) { /* private mode */ }
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      d.setAttribute("data-theme", t);
+    })();
+  </script>
+  <style>
+    .nf { min-height: 88vh; display: grid; place-items: center; text-align: center; }
+    .nf h1 { font-size: clamp(56px, 12vw, 108px); margin: 0 0 6px; letter-spacing: -0.03em; }
+    .nf p { color: var(--text-dim); max-width: 460px; margin: 0 auto 28px; }
+  </style>
+</head>
+
+<body>
+  <div class="cosmos" aria-hidden="true"></div>
+  <main class="nf">
+    <div class="wrap">
+      <img src="public/favicon-512.png" alt="" width="104" height="104" style="margin-bottom:14px">
+      <h1 class="gilt">404</h1>
+      <p>This page is not in the trajectory. It may have moved, or it may never have been rolled out.</p>
+      <a class="btn btn-gold" href="./">Back to OSReward</a>
+    </div>
+  </main>
+</body>
+
+</html>

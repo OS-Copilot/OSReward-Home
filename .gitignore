@@ -1,0 +1,17 @@
+# Local working material: paper drafts, raw cover art, scratch assets.
+figure/
+
+# Session-continuity notes. Local by design: it is a working log for whoever
+# picks the repo up next, not part of the published site.
+HANDOFF.md
+
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+
+# Node (only if a build step is ever added)
+node_modules/
