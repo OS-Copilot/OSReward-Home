@@ -575,13 +575,17 @@
       var t = html("table", "data", scroll);
       var thead = html("thead", null, t);
       var hr = html("tr", null, thead);
-      html("th", null, hr, "#").className = "rank";
+      var thRank = html("th", null, hr, "#");
+      thRank.className = "rank";
+      thRank.setAttribute("scope", "col");
       var thName = html("th", "sortable", hr);
+      thName.setAttribute("scope", "col");
       thName.innerHTML = "Judge<span class='arrow'>▼</span>";
       thName.addEventListener("click", function () { sortBy("name"); });
-      html("th", null, hr, "Access");
+      html("th", null, hr, "Access").setAttribute("scope", "col");
       COLS.forEach(function (c) {
         var th = html("th", "sortable", hr);
+        th.setAttribute("scope", "col");
         th.innerHTML = c.t + "<span class='arrow'>▼</span>";
         th.title = c.hint;
         if (state.sort === c.k) th.setAttribute("aria-sort", state.dir < 0 ? "descending" : "ascending");
@@ -739,7 +743,8 @@
         var labelW = 106, rowH = 30, gap = 9;
         var ih = grp.items.length * (rowH + gap) - gap;
         var iw = cw - labelW - 62;   /* room for the value label past the bar */
-        var svg = el("svg", { viewBox: "0 0 " + cw + " " + (ih + 26), width: cw, height: ih + 26 }, cell);
+        var svg = el("svg", { viewBox: "0 0 " + cw + " " + (ih + 26), width: cw, height: ih + 26,
+          role: "img", "aria-label": grp.title + ", " + grp.unit }, cell);
         var g = el("g", { transform: "translate(" + labelW + ",0)" }, svg);
         var trackFill = cssVar("--chart-track", "rgba(126,168,214,.07)");
         var max = Math.max.apply(null, grp.items.map(function (d) { return d.acc; }));

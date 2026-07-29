@@ -91,6 +91,13 @@ colour into an SVG attribute goes through `cssVar()` in the chart library, and
 
 ## Deploying
 
-GitHub Pages from a branch, served at the repository root. Update the absolute
-`og:image` and `og:url` in `<head>` if the site is hosted anywhere other than
-`https://osreward.github.io/`.
+GitHub Pages from a branch, folder `/ (root)`, served at
+`https://os-copilot.github.io/OSReward-Home/`. No `.nojekyll` is needed —
+nothing in the tree starts with an underscore.
+
+Two things hardcode that address. The Open Graph tags in `<head>` are absolute,
+because social scrapers do not resolve relative URLs. And `404.html` uses
+root-absolute `/OSReward-Home/…` paths, because Pages serves it for a miss at
+any depth below the project path, where relative paths would resolve against
+the wrong directory. Everything else on the page is relative and survives a
+move on its own. Change those two together if the site is hosted elsewhere.

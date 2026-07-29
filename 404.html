@@ -6,13 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found — OSReward</title>
   <meta name="robots" content="noindex">
-  <link rel="icon" href="public/favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="public/apple-touch-icon.png">
+  <!-- Paths here are root-absolute, unlike index.html. GitHub Pages serves this
+       file for any miss under the project path, including deep ones such as
+       /OSReward-Home/a/b, where relative paths would resolve against the wrong
+       directory and leave the page unstyled with a dead back-link. The prefix
+       is the repository name and must change with the deployment host. -->
+  <link rel="icon" href="/OSReward-Home/public/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/OSReward-Home/public/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
-  <link rel="stylesheet" href="static/css/main.css">
+  <link rel="stylesheet" href="/OSReward-Home/static/css/main.css">
   <script>
     (function () {
       var d = document.documentElement, t;
@@ -34,10 +39,10 @@
   <div class="cosmos" aria-hidden="true"></div>
   <main class="nf">
     <div class="wrap">
-      <img src="public/favicon-512.png" alt="" width="104" height="104" style="margin-bottom:14px">
+      <img src="/OSReward-Home/public/favicon-512.png" alt="" width="104" height="104" style="margin-bottom:14px">
       <h1 class="gilt">404</h1>
       <p>This page is not in the trajectory. It may have moved, or it may never have been rolled out.</p>
-      <a class="btn btn-gold" href="./">Back to OSReward</a>
+      <a class="btn btn-gold" href="/OSReward-Home/">Back to OSReward</a>
     </div>
   </main>
 </body>

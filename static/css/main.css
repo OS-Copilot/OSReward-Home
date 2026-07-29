@@ -1266,7 +1266,10 @@ footer.site {
   margin-top: 30px;
 }
 footer.site .cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 36px; margin-bottom: 28px; }
-footer.site h4 {
+/* The footer sits outside <main>, so its column labels are top-level headings,
+   not subsections of the last section. h2 keeps the outline free of a level
+   skip; this rule carries the small-caps look the h4 used to give them. */
+footer.site h2 {
   font-family: var(--font-body);
   font-size: 11px;
   letter-spacing: 0.13em;
