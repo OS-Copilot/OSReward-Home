@@ -1290,7 +1290,7 @@
       hoverable(ro, "Agreement filter",
         [["Trajectories kept", F.agreement.keptTraj.toLocaleString()],
          ["Share kept", F.agreement.keptPct + "%"],
-         ["Samples out", F.corpus.n.toLocaleString()]],
+         ["Samples out", F.corpus.show]],
         "kept only where strong judges independently agree", (X(4) + X(5)) / 2, outH / 2);
 
       var aH = judgeH - keptH, aLane = ih * 0.46, aEndX = X(4) + nodeW + gap * 0.46;
@@ -1309,7 +1309,11 @@
        [2, H(v[2]), C_KEEP, F.stages[2].label, F.stages[2].show, v[2], "Trajectories"],
        [3, finalH,  C_KEEP, F.stages[3].label, F.stages[3].show, F.stages[3].n, "Trajectories"],
        [4, judgeH,  C_JUDGE, F.judged.label,   F.judged.show,    F.judged.n, "Judge instances"],
-       [5, outH,    C_OUT,   F.corpus.label,   F.corpus.show,    F.corpus.n, "Training samples"]
+       /* 8th slot overrides the tooltip figure. Only the corpus uses it: the
+          page presents that node as 100K, its name, so the hover must not
+          contradict the headline with a raw count. */
+       [5, outH,    C_OUT,   F.corpus.label,   F.corpus.show,    F.corpus.n, "Training samples",
+        F.corpus.show]
       ].forEach(function (n) {
         var x = X(n[0]);
         el("rect", { x: x, y: 0, width: nodeW, height: Math.max(4, n[1]), rx: 3,
@@ -1317,7 +1321,7 @@
         caption(n[0], n[4], n[3], n[0] === 5 ? C_OUT : "var(--gold-300)");
         var hit = el("rect", { x: x - 5, y: -40, width: nodeW + 10, height: n[1] + 44,
           fill: "transparent" }, g);
-        hoverable(hit, n[3], [[n[6], n[5].toLocaleString()]], null, x + nodeW / 2, n[1] / 2);
+        hoverable(hit, n[3], [[n[6], n[7] || n[5].toLocaleString()]], null, x + nodeW / 2, n[1] / 2);
       });
 
       var lg = html("div", "legend-row", host);

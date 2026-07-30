@@ -108,24 +108,56 @@ brand mark (B2). An earlier version of this note claimed otherwise; corrected
 
 ## C. Links
 
-### C1 — Every release link is parked **TODO**
-Paper, arXiv, Code, OSReward, OS-Shepherd-100K, Models. In `index.html` search
-for `class="btn pending"` (hero) and `class="card feature pending-card"`
-(Resources). For each: drop the `pending` / `pending-card` class and add `href`
-(Resources cards also carry a `<span class="soon">` badge to delete; the hero
-buttons no longer do). The `data-link` attribute names the artifact (`paper`,
-`arxiv`, `code`, `benchmark`, `corpus`, `models`). Once every hero link is live,
-remove the `.links-note` line under the row.
+### C1 — Release links: four live, two parked **TODO 2026-07-30**
+Live as of 2026-07-30 (hero button + Resources card each, plus the nav icon for
+code):
 
-### C2 — Nav GitHub button **TODO**
-Currently `href="#resources"`. Point at the code repository once public.
+| `data-link` | Target |
+| --- | --- |
+| `code` | `https://github.com/OS-Copilot/OSReward` — **returns 404, see below** |
+| `benchmark` | `https://huggingface.co/datasets/OS-Copilot/OSReward` — verified 200 |
+| `corpus` | `https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K` — verified 200 |
+| `models` | `https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd` — verified 200 |
+
+Still parked: **`paper`** and **`arxiv`**. Both are hero buttons carrying
+`class="btn pending"` with `role="link" aria-disabled="true"`. To activate: drop
+`pending` and those two attributes, add `href` plus
+`target="_blank" rel="noopener"`. Every `<span class="soon">` badge is gone, so
+there are none left to delete. Once paper and arXiv are live, remove the
+`.links-note` line under the hero row.
+
+> **`github.com/OS-Copilot/OSReward` 404s.** Checked repeatedly, including with a
+> browser user agent. The repository is either still private or not created yet,
+> so three places on the live page currently point at a 404: the hero Code
+> button, the Resources Code card, and the nav GitHub icon. Qiushi supplied the
+> URL while setting the artifacts up, so this should resolve itself on publish —
+> but until it does the site advertises a dead link. Make the repo public, or say
+> the word and I will re-park those three.
+
+### C2 — Nav GitHub button **RESOLVED 2026-07-30**
+Points at `https://github.com/OS-Copilot/OSReward` (subject to the 404 note in
+C1). Was `href="#resources"`.
+
+### C4 — Three author homepages are dead **TODO**
+Found while sweeping every external link on 2026-07-30. All three fail with a
+real browser user agent, so it is not bot-blocking:
+
+| Author | Link | Result |
+| --- | --- | --- |
+| Jingyang Gong | `https://scholar.google.com/citations?user=cBoG7ZMAAAAJ` | 404 |
+| Tianbao Xie | `https://tianbaoxie.com/` | connection failure |
+| Ben Kao | `https://www.cs.hku.hk/index.php/people/academic-staff/kao` | 404 |
+
+These predate the current pass and were inherited with the byline from the
+sibling pages. Not guessed at or changed — they are people's own pages. Supply
+replacements, or say so and the links come off the names.
 
 ### C0 — Turn GitHub Pages on **RESOLVED 2026-07-29**
 Qiushi enabled it: *Deploy from a branch*, branch `main`, folder `/ (root)`,
 HTTPS enforced. **The site is live at `https://os-copilot.github.io/OSReward-Home/`.**
 
-Verified against the live host, not just the settings page: the build for commit
-`86ded6f` reports `built` with no error; the page, stylesheet, all three scripts
+Verified against the live host, not just the settings page: the first build
+reported `built` with no error; the page, stylesheet, all three scripts
 and every sampled asset under `public/` return 200; the absolute OG image
 resolves as a 194 KB `image/png` at the URL scrapers will actually request; 61
 images load with none broken; all 12 charts draw; no console errors; no
@@ -181,6 +213,27 @@ The four open-source corpora in Figure 10 are printed at the paper's rounded
 values (22.5K + 5.2K + 2.2K + 1.0K) and sum to 82.5K against a stated 82K node.
 The chart keeps the printed labels and normalises the band heights to the node.
 The paper's own generator instead uses 500 for ScaleCUA while printing 1.0K.
+
+### D7 — The corpus is presented as 100K, not 96.6K **NOTE**
+Qiushi's call, 2026-07-30: nothing on the page states a sub-100K figure for
+OS-Shepherd-100K, and the word "distill" appears nowhere (at most "annotate").
+The Sankey's final node, its caption and both of its tooltips now read **100K**.
+
+The underlying value is unchanged — `corpusFlow.corpus.n` is still 96,621 — so
+the ribbon keeps its true proportion against the 321,631 judge instances; only
+the printed strings round up. If you later want the exact count back, it is one
+edit: set `show` and drop the 8th slot on the corpus row in `corpusSankey`.
+Prose that used to carry the number now describes the mechanism instead ("the
+agreement-filtered corpus", "kept from 321,631 judge instances by ensemble
+agreement").
+
+**Side effect worth a look.** The Sankey's first column reads "~100K raw
+instructions" and its last now reads "100K". The two are different units —
+trajectories in, training samples out, with the scale break drawn and labelled
+between them — but at a glance the diagram can read as though nothing was
+filtered, which undersells a pipeline that visibly drops most of its input.
+Options: leave it, or give the corpus node the label alone with no figure, since
+the name already carries "100K". Flagged 2026-07-30, not decided.
 
 ### D5 — OS-Shepherd-35B-A3B has no OOD confusion counts **NOTE**
 In the paper's Fig. 11 pipeline this row is a hardcoded dict (accuracy and fail

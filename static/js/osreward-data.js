@@ -294,7 +294,11 @@
     },
     agreement: { label: "Cross-model agreement filter", dropped: 12337, show: "−12.3K",
                  keptTraj: 69663, keptPct: 85 },
-    corpus: { label: "OS-Shepherd-100K", n: 96621, show: "96.6K",
+    /* Presented as 100K, the corpus's name (Qiushi's call, 2026-07-30). `n`
+       stays the true count so the ribbon keeps its real proportion, but nothing
+       renders it — the node caption and both tooltips read `show`. See
+       open_items D7. */
+    corpus: { label: "OS-Shepherd-100K", n: 96621, show: "100K",
               note: "reasoning-annotated training samples" }
   };
 

@@ -126,8 +126,8 @@
               stroke-linecap="round" />
           </svg>
         </button>
-        <!-- TODO: point at the code repository once it is public. -->
-        <a class="icon-btn" href="#resources" aria-label="GitHub">
+        <a class="icon-btn" href="https://github.com/OS-Copilot/OSReward" target="_blank"
+          rel="noopener" aria-label="GitHub">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
           </svg>
@@ -166,8 +166,8 @@
                 <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
               </svg>
             </span>
-            <span><b>27 VLM judges</b> benchmarked under one protocol, on the full set and on the
-              OSReward-Hard challenge set</span>
+            <span><b>A comprehensive judge evaluation</b>: 27 models under one protocol, on the full
+              set and on the OSReward-Hard challenge set</span>
           </li>
           <li>
             <span class="b-ico" aria-hidden="true">
@@ -176,8 +176,8 @@
                 <path d="M3 12.5 12 17l9-4.5M3 16.5 12 21l9-4.5" stroke-linejoin="round" />
               </svg>
             </span>
-            <span><b>OS-Shepherd-100K</b>: 96.6K reasoning-annotated judge samples, distilled from
-              321,631 ensemble verdicts by a pipeline built around those findings</span>
+            <span><b>OS-Shepherd-100K</b>: the largest reasoning-annotated corpus of CUA judge samples
+              to date, built by a pipeline those findings shape</span>
           </li>
           <li>
             <span class="b-ico" aria-hidden="true">
@@ -204,21 +204,25 @@
             </svg>
             arXiv
           </a>
-          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="code">
+          <a class="btn" href="https://github.com/OS-Copilot/OSReward" target="_blank" rel="noopener"
+            data-link="code">
             <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
             </svg>
             Code
           </a>
-          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="benchmark">
+          <a class="btn" href="https://huggingface.co/datasets/OS-Copilot/OSReward" target="_blank"
+            rel="noopener" data-link="benchmark">
             <span class="ic" aria-hidden="true">🤗</span>
             OSReward
           </a>
-          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="corpus">
+          <a class="btn" href="https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K"
+            target="_blank" rel="noopener" data-link="corpus">
             <span class="ic" aria-hidden="true">🤗</span>
             OS-Shepherd-100K
           </a>
-          <a class="btn pending" role="link" aria-disabled="true" title="Coming soon" data-link="models">
+          <a class="btn" href="https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd"
+            target="_blank" rel="noopener" data-link="models">
             <span class="ic" aria-hidden="true">🤗</span>
             OS-Shepherd-9B/35B
           </a>
@@ -342,10 +346,10 @@
               the scale evaluation and training demand.
             </li>
             <li>
-              <a href="#shepherd"><b>OS-Shepherd-100K, the corpus those findings imply.</b></a>
-              A reasoning-annotated judge corpus: 96.6K samples distilled from 321,631 ensemble
-              verdicts over self-collected rollouts and four open trajectory sets. Every sample carries
-              the judge's reasoning, not just a binary verdict.
+              <a href="#shepherd"><b>OS-Shepherd-100K, the corpus derived from those findings.</b></a>
+              The largest reasoning-annotated judge corpus for CUA to date, selected from 321,631
+              ensemble verdicts over self-collected rollouts and four open trajectory sets. Every
+              sample carries the judge's reasoning, not just a binary verdict.
             </li>
             <li>
               <a href="#shepherd"><b>Open reward models a lab can host.</b></a>
@@ -790,7 +794,8 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow">OS-Shepherd</span>
-          <h2 class="section-title">An open reward model a lab <span class="gilt">can actually run</span></h2>
+          <h2 class="section-title">An open reward model a lab can run
+            <span class="gilt">on an academic budget</span></h2>
           <p class="section-sub">Reliable judging is unaffordable at the call volumes rejection sampling, RL and
             trajectory mining need. OS-Shepherd is trained on a corpus we release, aimed squarely at the
             false-success mode, and cheap enough to run at training scale.</p>
@@ -803,7 +808,7 @@
               is scored by an ensemble of strong judges under varied screenshot settings, and enters the corpus
               only when they independently agree — voting cannot sharpen a verdict, but corpus building, unlike
               evaluation, is free to discard trajectories. About 85% of judged trajectories survive the agreement
-              filter, distilled into ~96.6K training samples.</p>
+              filter and carry their reasoning into the training corpus.</p>
             <div id="chart-corpus"></div>
           </div>
           <div class="card chart-card">
@@ -816,7 +821,7 @@
                   <span class="step-n">S</span>
                   <h4 style="margin:0">SFT stage</h4>
                 </div>
-                <p>Fine-tune on the 96.6K agreement-filtered samples to judge under the main setting. This alone
+                <p>Fine-tune on the agreement-filtered corpus to judge under the main setting. This alone
                   lifts the 9B far above its base, primarily by correcting the base model's near-total leniency.</p>
               </div>
               <div class="flow-node human" style="text-align:left">
@@ -843,7 +848,8 @@
             <h3>How the corpus is built</h3>
           </div>
           <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with
-            open-source trajectories; the pool is then ensemble-judged and distilled. The first four
+            open-source trajectories; the pool is then ensemble-judged, and only the verdicts the judges
+            agree on are kept. The first four
             columns count trajectories on one scale. After that the unit changes — a judge instance is
             one judge's verdict on one trajectory, and the corpus is counted in training samples — so the
             right-hand columns are drawn on their own scale. Hover any band.</p>
@@ -975,8 +981,8 @@
             code are all released. Each link goes live as its artifact lands.</p>
         </div>
         <div class="grid grid-4 rise">
-          <!-- TODO: for each card, swap `pending` for a real href. -->
-          <a class="card feature pending-card" data-link="benchmark">
+          <a class="card feature" href="https://huggingface.co/datasets/OS-Copilot/OSReward"
+            target="_blank" rel="noopener" data-link="benchmark">
             <div class="ico">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                 <ellipse cx="12" cy="6" rx="8" ry="3" />
@@ -985,19 +991,20 @@
             </div>
             <h3>OSReward</h3>
             <p>1,019 gold trajectories with verdicts, plus the Hard and Multi views.</p>
-            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
           </a>
-          <a class="card feature pending-card" data-link="corpus">
+          <a class="card feature" href="https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K"
+            target="_blank" rel="noopener" data-link="corpus">
             <div class="ico">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                 <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" stroke-linejoin="round" />
               </svg>
             </div>
             <h3>OS-Shepherd-100K</h3>
-            <p>~96.6K reasoning-annotated judgments distilled from 321,631 judge instances.</p>
-            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
+            <p>Reasoning-annotated judgments, kept from 321,631 judge instances by ensemble
+              agreement.</p>
           </a>
-          <a class="card feature pending-card" data-link="models">
+          <a class="card feature" href="https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd"
+            target="_blank" rel="noopener" data-link="models">
             <div class="ico">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                 <circle cx="12" cy="12" r="3" />
@@ -1006,9 +1013,9 @@
             </div>
             <h3>OS-Shepherd 9B / 35B</h3>
             <p>Open, self-hostable reward models. Weights plus the judging prompt.</p>
-            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
           </a>
-          <a class="card feature pending-card" data-link="code">
+          <a class="card feature" href="https://github.com/OS-Copilot/OSReward" target="_blank"
+            rel="noopener" data-link="code">
             <div class="ico">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                 <path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 3l-4 18" stroke-linecap="round" stroke-linejoin="round" />
@@ -1016,7 +1023,6 @@
             </div>
             <h3>Code</h3>
             <p>Evaluation harness, the judging protocol, and the training recipe.</p>
-            <span class="soon" style="margin-top:12px;display:inline-block">coming soon</span>
           </a>
         </div>
       </div>
