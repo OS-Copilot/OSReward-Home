@@ -166,7 +166,7 @@
     }
 
     /* highlight the section in view */
-    var ids = ["abstract", "benchmark", "findings", "leaderboard", "shepherd", "resources"];
+    var ids = ["abstract", "benchmark", "findings", "leaderboard", "shepherd", "viewer", "resources"];
     var map = {};
     ids.forEach(function (id) {
       var a = document.querySelector('.nav-links a[href="#' + id + '"]');
@@ -286,6 +286,99 @@
     });
   }
 
+  /* -------------------------------------------------------- 6.5 dataviewer */
+  /* One example at a time out of OSRewardData.viewer, stepped with the pager.
+     A step may carry an optional `shot` image path; without one a labelled
+     dashed frame is drawn, which is where a real screenshot belongs. The
+     placeholder banner is driven by the data, not hardcoded here, so it
+     disappears the moment real records land. */
+  function dataViewer() {
+    var host = document.getElementById("viewer-body");
+    if (!host || !D || !D.viewer || !D.viewer.examples || !D.viewer.examples.length) return;
+    var EX = D.viewer.examples;
+    var idx = 0;
+
+    function h(tag, cls, parent, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined) n.textContent = text;
+      if (parent) parent.appendChild(n);
+      return n;
+    }
+
+    if (D.viewer.placeholder) {
+      var warn = h("div", "viewer-warn", host);
+      h("b", null, warn, "Placeholder.");
+      h("span", null, warn, " These examples exist to build the viewer. The instructions, steps and " +
+        "judge verdicts are invented, not drawn from the benchmark. Real records replace them when " +
+        "the export lands.");
+    }
+
+    var bar = h("div", "viewer-bar", host);
+    var meta = h("div", "viewer-meta", bar);
+    var platform = h("span", "viewer-plat", meta);
+    var ident = h("span", "viewer-id", meta);
+
+    var pager = h("div", "viewer-pager", bar);
+    var prev = h("button", "viewer-nav", pager, "‹ Prev");
+    prev.type = "button";
+    var count = h("span", "viewer-count", pager);
+    var next = h("button", "viewer-nav", pager, "Next ›");
+    next.type = "button";
+
+    var stage = h("div", null, host);
+
+    function render() {
+      var e = EX[idx];
+      stage.textContent = "";
+      platform.textContent = e.platform;
+      ident.textContent = e.id;
+      count.textContent = (idx + 1) + " / " + EX.length;
+      prev.disabled = idx === 0;
+      next.disabled = idx === EX.length - 1;
+
+      h("span", "viewer-k", stage, "Instruction");
+      h("p", "viewer-task", stage, e.instruction);
+
+      h("span", "viewer-k", stage, "Trajectory · " + e.steps.length + " steps");
+      var strip = h("div", "viewer-strip", stage);
+      e.steps.forEach(function (s, n) {
+        var card = h("div", "viewer-step", strip);
+        h("div", "viewer-step-n", card, "Step " + (n + 1));
+        if (s.shot) {
+          var im = document.createElement("img");
+          im.src = s.shot; im.alt = ""; im.loading = "lazy";
+          im.className = "viewer-shot";
+          card.appendChild(im);
+        } else {
+          var ph = h("div", "viewer-shot viewer-shot-empty", card);
+          h("span", null, ph, "screenshot");
+        }
+        h("code", "viewer-act", card, s.action);
+        h("p", "viewer-thought", card, s.thought);
+      });
+
+      h("span", "viewer-k", stage, "Human verdict");
+      var vr = h("div", "viewer-verdict", stage);
+      h("span", "viewer-tag viewer-tag-" + e.gold, vr, e.gold);
+      h("p", "viewer-why", vr, e.goldWhy);
+
+      h("span", "viewer-k", stage, "What the judges called it");
+      var jr = h("div", "viewer-judges", stage);
+      e.judges.forEach(function (j) {
+        var row = h("div", "viewer-judge" + (j.correct ? "" : " wrong"), jr);
+        row.title = j.correct ? "matches the human verdict" : "disagrees with the human verdict";
+        h("span", "jn", row, j.name);
+        h("span", "jv", row, j.verdict);
+        h("span", "jm", row, j.correct ? "✓" : "✗");
+      });
+    }
+
+    prev.addEventListener("click", function () { if (idx > 0) { idx--; render(); } });
+    next.addEventListener("click", function () { if (idx < EX.length - 1) { idx++; render(); } });
+    render();
+  }
+
   /* ------------------------------------------------------------- 7. charts */
   function charts() {
     if (!C || !D) return;
@@ -390,6 +483,7 @@
     copyBib();
     tableMulti();
     tableTraining();
+    dataViewer();
     charts();
   }
 

@@ -306,6 +306,102 @@
     { name: "OS-Shepherd-35B-A3B", role: "ours",  full: [85.6, 85.0, 86.2, 85.6], hard: [62.7, 68.6, 60.1, 64.3] }
   ];
 
+  /* ------------------------------------------------------------------
+     DataViewer examples — PLACEHOLDER CONTENT, NOT BENCHMARK DATA.
+
+     These three records exist so the viewer can be built and styled
+     before the real export is ready. Nothing here was taken from the
+     benchmark: the instructions, steps and judge verdicts are invented,
+     including the verdicts attributed to named models. `placeholder`
+     drives a visible banner on the page — replace this array with real
+     records and set it to false in the same commit, so the viewer can
+     never be advertised while showing invented data.
+     ------------------------------------------------------------------ */
+  var VIEWER = {
+    placeholder: true,
+    examples: [
+      {
+        id: "web-0142",
+        platform: "Web",
+        instruction: "Find the cheapest direct flight from Newark to Lisbon in the first week of " +
+          "September, then add it to the cart.",
+        gold: "failure",
+        goldWhy: "A direct flight is found and priced, but the run stops on the fare page — the " +
+          "itinerary is never added to the cart, so the instruction is not fulfilled.",
+        steps: [
+          { action: "click(\"Departure airport\")",
+            thought: "Set the origin first; the date pickers stay disabled until both airports are chosen." },
+          { action: "type(\"Newark EWR\") → click(\"Newark Liberty Intl (EWR)\")",
+            thought: "Take the airport from the autocomplete rather than the free-text city match." },
+          { action: "click(\"Nonstop only\")",
+            thought: "The instruction says direct, so filter before comparing fares." },
+          { action: "click(\"Sort: price, lowest first\")",
+            thought: "Cheapest direct is now the first row." },
+          { action: "click(\"Select · $412\")",
+            thought: "This is the cheapest nonstop in the requested week." },
+          { action: "stop()",
+            thought: "The fare is selected, so the task looks complete." }
+        ],
+        judges: [
+          { name: "GPT-5.5", verdict: "success", correct: false },
+          { name: "Claude-Opus-4-8", verdict: "failure", correct: true },
+          { name: "Qwen3-VL-30B", verdict: "success", correct: false },
+          { name: "OS-Shepherd-9B", verdict: "failure", correct: true }
+        ]
+      },
+      {
+        id: "ubuntu-0067",
+        platform: "Ubuntu",
+        instruction: "In the open spreadsheet, sort the rows by the Revenue column in descending " +
+          "order and save the file in place.",
+        gold: "success",
+        goldWhy: "The range is selected, sorted descending on the right column, and saved to the " +
+          "original path without a dialog left open.",
+        steps: [
+          { action: "click(cell A1) → key(\"ctrl+shift+End\")",
+            thought: "Select the used range so the sort covers every row." },
+          { action: "menu(\"Data\" → \"Sort…\")",
+            thought: "The toolbar sort would key on the active column only." },
+          { action: "select(\"Sort Key 1: Revenue\") → click(\"Descending\")",
+            thought: "Revenue descending is what was asked for." },
+          { action: "click(\"OK\")", thought: "Apply and close the dialog." },
+          { action: "key(\"ctrl+s\") → click(\"Use ODF Format\")",
+            thought: "Save in place; keep the existing format so the path does not change." }
+        ],
+        judges: [
+          { name: "GPT-5.5", verdict: "success", correct: true },
+          { name: "Claude-Opus-4-8", verdict: "success", correct: true },
+          { name: "Qwen3-VL-30B", verdict: "success", correct: true },
+          { name: "OS-Shepherd-9B", verdict: "success", correct: true }
+        ]
+      },
+      {
+        id: "mobile-0231",
+        platform: "Mobile",
+        instruction: "Turn on battery saver and set the screen timeout to 30 seconds.",
+        gold: "failure",
+        goldWhy: "Battery saver is enabled, but the timeout is left at 1 minute: the agent opens the " +
+          "right menu and selects the wrong entry. Only the second half of the instruction fails.",
+        steps: [
+          { action: "swipe(down, from: status_bar)", thought: "Quick settings is the shortest route." },
+          { action: "click(\"Battery Saver\")", thought: "First half of the instruction done." },
+          { action: "click(\"Settings\") → click(\"Display\")",
+            thought: "Screen timeout lives under Display." },
+          { action: "click(\"Screen timeout\")", thought: "Open the interval list." },
+          { action: "click(\"1 minute\")",
+            thought: "Picking the shortest available interval." },
+          { action: "click(\"Back\")", thought: "Both settings look applied." }
+        ],
+        judges: [
+          { name: "GPT-5.5", verdict: "success", correct: false },
+          { name: "Claude-Opus-4-8", verdict: "success", correct: false },
+          { name: "Qwen3-VL-30B", verdict: "success", correct: false },
+          { name: "OS-Shepherd-9B", verdict: "failure", correct: true }
+        ]
+      }
+    ]
+  };
+
   global.OSRewardData = {
     families: FAMILIES,
     judges: JUDGES,
@@ -319,6 +415,7 @@
     corpus: { platforms: CORPUS_PLATFORMS, total: CORPUS_TOTAL },
     corpusFlow: CORPUS_FLOW,
     training: TRAINING,
+    viewer: VIEWER,
     logoPath: "public/logos/",
     /* convenience lookup */
     byName: JUDGES.reduce(function (m, j) { m[j.name] = j; return m; }, {})

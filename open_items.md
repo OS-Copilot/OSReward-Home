@@ -20,9 +20,14 @@ to be public. No code change; the byline block stands as written. This item is
 closed and should not be reopened without a new instruction.
 
 ### A2 — Venue line **TODO**
-`index.html`, hero: `<p class="venue">Preprint</p>`. Replace with the venue on
-acceptance. "Under review" was deliberately not written since the status could
-not be confirmed from the sources.
+There is currently **no** venue line at all: the third revision pass removed it
+along with the stat strip, so the hero states no publication status. Add one
+under the hero subtitle on acceptance. "Under review" was deliberately not
+written, since the status could not be confirmed from the sources.
+
+*Corrected 2026-07-29: this item used to describe a `<p class="venue">Preprint</p>`
+in the hero, which had already been deleted. Nothing to replace — it is an
+addition.*
 
 ### A3 — Author homepages **BLOCKED**
 12 of 23 authors link to a homepage, reused from the OS-Genesis / OS-Sentinel /
@@ -45,6 +50,12 @@ printed link is dead. The two have to agree before the paper is public. Either:
 
 Option 2 keeps the shorter URL and survives the repo moving later; option 1 is
 free. Raised 2026-07-27 when C3 was decided.
+
+**Escalated 2026-07-29:** C0 is done, so the site is public and this is no longer
+hypothetical. `https://osreward.github.io/` was checked and returns **404** —
+that GitHub account either does not exist or serves no Pages site. Any reader
+who types the URL from the paper reaches nothing. This is now the most urgent
+item on the list.
 
 ---
 
@@ -105,15 +116,18 @@ remove the `.links-note` line under the row.
 ### C2 — Nav GitHub button **TODO**
 Currently `href="#resources"`. Point at the code repository once public.
 
-### C0 — Turn GitHub Pages on **TODO — Qiushi**
-The code is pushed but the site is not served yet; `gh api
-repos/OS-Copilot/OSReward-Home/pages` returned 404 on 2026-07-27, confirming
-Pages is still off. Qiushi is doing this by hand: Repository → Settings → Pages
-→ Source: *Deploy from a branch*, branch `main`, folder `/ (root)`. No
-`.nojekyll` is needed — nothing in the tree starts with an underscore. The site
-should then answer at `https://os-copilot.github.io/OSReward-Home/`; check that
-the stylesheet and `public/` assets load, since a wrong folder setting fails
-quietly with an unstyled page.
+### C0 — Turn GitHub Pages on **RESOLVED 2026-07-29**
+Qiushi enabled it: *Deploy from a branch*, branch `main`, folder `/ (root)`,
+HTTPS enforced. **The site is live at `https://os-copilot.github.io/OSReward-Home/`.**
+
+Verified against the live host, not just the settings page: the build for commit
+`86ded6f` reports `built` with no error; the page, stylesheet, all three scripts
+and every sampled asset under `public/` return 200; the absolute OG image
+resolves as a 194 KB `image/png` at the URL scrapers will actually request; 61
+images load with none broken; all 12 charts draw; no console errors; no
+horizontal overflow. A deep miss at `/OSReward-Home/a/b` correctly serves our
+404 page with a resolving stylesheet and a working back-link — the case the
+root-absolute paths in `404.html` were introduced for.
 
 ### C3 — Deployment host **RESOLVED 2026-07-27**
 Settled on `https://os-copilot.github.io/OSReward-Home/`, a project page under
@@ -174,10 +188,42 @@ or a precision figure for it. Do not add one without re-running the eval.
 ## E. Content decisions to confirm
 
 ### E1 — News list **TODO**
-One placeholder entry. Add real dated items, newest first, `YYYY-MM` format.
+One entry, dated `2026-07`: "The OSReward project page is live." As of C0 that
+is now accurate, so it can stand as the first item. Add the real dated items
+above it as they happen, newest first. Two details to settle while there: the
+entry uses `YYYY-MM` while the inline TODO comment above it asks for
+`YYYY-MM-DD`, and the section has no `id`, so nothing can link to it.
 
 ### E2 — BibTeX **TODO**
 `journal = {arXiv preprint}` with no eprint id. Fill in on arXiv submission.
+
+### E3 — DataViewer ships invented examples **BLOCKED — replace before advertising**
+The `#viewer` section is live with three **placeholder** records in
+`OSRewardData.viewer`. The instructions, steps and judge verdicts are all
+invented, including verdicts attributed to real named models (GPT-5.5,
+Claude-Opus-4-8, Qwen3-VL-30B). A prominent amber banner says so, and the banner
+is driven by `viewer.placeholder`, so replacing the array and setting that flag
+to `false` in the same commit removes it.
+
+Qiushi asked for a placeholder example and approved the push knowing this. Until
+real records land, do not link the section from anywhere external. Step objects
+accept an optional `shot` image path; supply it and the dashed placeholder frame
+becomes a real screenshot with no code change.
+
+### E4 — The held-out disclosure was deleted with the leaderboard note **TODO**
+Removing the "Sort any column…" note (§5 of the 2026-07-29 revision) also
+removed the page's only statement that **OS-Shepherd is evaluated held-out** —
+that it trains on OS-Shepherd-100K, which is disjoint from this benchmark.
+Nothing else on the page says it (`grep` for "disjoint" / "held-out" returns only
+the unrelated "Held-out benchmarks" generalization chart). This is a substantive
+methodological disclosure about our own models topping the table; it should get
+one line somewhere in the OS-Shepherd section. Raised and left for Qiushi's call.
+
+### E5 — One "mid-tier" left **TODO**
+"mid-tier" was dropped from the hero bullet and the Overview contribution on
+request. The OS-Shepherd-9B model card still reads "moves … into the mid-tier
+commercial band", which is a claim about where the model lands rather than a
+hedge. Left as written since only the bullet was flagged.
 
 ---
 

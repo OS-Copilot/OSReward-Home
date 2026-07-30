@@ -110,6 +110,7 @@
         <li><a href="#findings">Findings</a></li>
         <li><a href="#leaderboard">Leaderboard</a></li>
         <li><a href="#shepherd">OS-Shepherd</a></li>
+        <li><a href="#viewer">DataViewer</a></li>
         <li><a href="#resources">Resources</a></li>
       </ul>
       <div class="nav-tools">
@@ -171,11 +172,12 @@
           <li>
             <span class="b-ico" aria-hidden="true">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 3 3 20h18L12 3Z" stroke-linejoin="round" /><path d="M12 9v5M12 17h.01" stroke-linecap="round" />
+                <path d="M12 3 21 7.5 12 12 3 7.5 12 3Z" stroke-linejoin="round" />
+                <path d="M3 12.5 12 17l9-4.5M3 16.5 12 21l9-4.5" stroke-linejoin="round" />
               </svg>
             </span>
-            <span>One <b>shared leniency bias</b>: every family accepts incomplete tasks as successes,
-              and the verdict lives in the text, not the screen</span>
+            <span><b>OS-Shepherd-100K</b>: 96.6K reasoning-annotated judge samples, distilled from
+              321,631 ensemble verdicts by a pipeline built around those findings</span>
           </li>
           <li>
             <span class="b-ico" aria-hidden="true">
@@ -184,8 +186,8 @@
                 <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
               </svg>
             </span>
-            <span><b>OS-Shepherd</b>: an open corpus and open 9B / 35B reward models, level with mid-tier
-              commercial judges at 30–60× lower cost</span>
+            <span><b>OS-Shepherd 9B / 35B</b>: open, self-hostable reward models trained on that corpus,
+              level with commercial judges at 30–60× lower cost</span>
           </li>
         </ul>
 
@@ -311,7 +313,7 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow">Overview</span>
-          <h2 class="section-title">Judging <span class="gilt">the judge</span></h2>
+          <h2 class="section-title">How reliable is a <span class="gilt">VLM judge</span> for CUA?</h2>
         </div>
 
         <div class="card abstract rise">
@@ -340,10 +342,15 @@
               the scale evaluation and training demand.
             </li>
             <li>
-              <a href="#shepherd"><b>An open reward model, and the corpus behind it.</b></a>
-              <em>OS-Shepherd-100K</em>, a reasoning-annotated judge corpus, and
-              <em>OS-Shepherd</em> 9B and 35B — open, self-hostable, trained to target the false-success
-              mode directly, and level with mid-tier commercial judges at 30–60× lower cost.
+              <a href="#shepherd"><b>OS-Shepherd-100K, the corpus those findings imply.</b></a>
+              A reasoning-annotated judge corpus: 96.6K samples distilled from 321,631 ensemble
+              verdicts over self-collected rollouts and four open trajectory sets. Every sample carries
+              the judge's reasoning, not just a binary verdict.
+            </li>
+            <li>
+              <a href="#shepherd"><b>Open reward models a lab can host.</b></a>
+              <em>OS-Shepherd</em> 9B and 35B, trained on that corpus to target the false-success mode
+              directly, and level with commercial judges at 30–60× lower cost.
             </li>
           </ol>
         </div>
@@ -710,19 +717,15 @@
       <div class="wrap wrap-wide">
         <div class="section-head">
           <span class="eyebrow">Leaderboard</span>
-          <h2 class="section-title">27 judges, <span class="gilt">one protocol</span></h2>
-          <p class="section-sub">Binary accuracy decomposed into success recall (low means strict) and fail recall
-            (low means lenient); balanced accuracy is their mean, which the 43 / 57 class mix cannot inflate.</p>
+          <h2 class="section-title">A comprehensive <span class="gilt">judge evaluation</span></h2>
+          <p class="section-sub">Low success recall means a strict judge, low fail recall a lenient one.
+            Balanced accuracy is their mean.</p>
         </div>
         <div class="card chart-card rise">
           <div class="chart-head" style="margin-bottom:14px">
             <h3>Main-setting results</h3>
           </div>
           <div id="table-leaderboard"></div>
-          <p class="chart-note" style="margin:16px 0 0">Sort any column. <span
-              style="color:var(--gold-300)">Gold rows</span> are ours. Best value per column is highlighted.
-            OS-Shepherd is evaluated held-out: it is trained on OS-Shepherd-100K, which is disjoint from this
-            benchmark.</p>
         </div>
 
         <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
@@ -940,6 +943,27 @@
     </section>
 
     <!-- ================================================================== -->
+    <!-- DataViewer                                                          -->
+    <!-- Content comes from OSRewardData.viewer, which is placeholder until   -->
+    <!-- the real export lands. The banner below is driven by its             -->
+    <!-- `placeholder` flag — see the comment on VIEWER in osreward-data.js.  -->
+    <!-- ================================================================== -->
+    <section class="band" id="viewer">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">DataViewer</span>
+          <h2 class="section-title">Look at <span class="gilt">a trajectory</span></h2>
+          <p class="section-sub">A reward signal is only as good as what it is asked to read. Step through a
+            trajectory the way a judge sees it — the instruction, the agent's actions and reasoning, the
+            human verdict, and what each judge called it.</p>
+        </div>
+        <div class="card chart-card rise" id="viewer-card">
+          <div id="viewer-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
     <!-- Resources                                                           -->
     <!-- ================================================================== -->
     <section class="band" id="resources">
@@ -1059,6 +1083,7 @@
             <li><a href="#findings">Findings</a></li>
             <li><a href="#leaderboard">Leaderboard</a></li>
             <li><a href="#shepherd">OS-Shepherd</a></li>
+            <li><a href="#viewer">DataViewer</a></li>
             <li><a href="#cite">Cite</a></li>
           </ul>
         </div>

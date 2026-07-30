@@ -461,9 +461,9 @@ h2.section-title { font-size: clamp(28px, 3.6vw, 38px); margin-bottom: 12px; }
 }
 .hero .tagline {
   font-family: var(--font-display);
-  font-size: clamp(19px, 2.1vw, 24px);
+  font-size: clamp(21px, 2.35vw, 27px);
   font-weight: 400;
-  line-height: 1.32;
+  line-height: 1.3;
   color: var(--text-hi);
   margin: 0 0 10px;
 }
@@ -1091,7 +1091,7 @@ table.data .rank {
 /* --------------------------------------------------------------------------
    15. Charts
    -------------------------------------------------------------------------- */
-.chart-card { padding: 24px 26px 20px; }
+.chart-card { padding: 26px 34px 22px; }
 .chart-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
 .chart-head h3 { font-size: 20px; margin: 0; }
 .chart-head .fignum {
@@ -1191,6 +1191,177 @@ figcaption { font-size: 13px; color: var(--text-faint); margin-top: 11px; line-h
 .comp-bar .seg-bad { background: rgba(224, 115, 107, 0.28); color: #f8d6d2; }
 :root[data-theme="light"] .comp-bar .seg-ok  { background: rgba(31, 138, 104, 0.24); color: #10583f; }
 :root[data-theme="light"] .comp-bar .seg-bad { background: rgba(191, 74, 65, 0.22); color: #7d2b24; }
+
+/* --------------------------------------------------------------------------
+   15b. DataViewer
+   -------------------------------------------------------------------------- */
+.viewer-warn {
+  margin: 0 0 20px;
+  padding: 11px 15px;
+  border: 1px solid var(--gold-500);
+  border-left-width: 3px;
+  border-radius: 9px;
+  background: rgba(217, 165, 58, 0.1);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+.viewer-warn b { color: var(--gold-200); }
+:root[data-theme="light"] .viewer-warn b { color: var(--gold-600); }
+
+.viewer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--hairline-cool);
+}
+.viewer-meta { display: flex; align-items: baseline; gap: 10px; }
+.viewer-plat {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+  border: 1px solid var(--gold-600);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+.viewer-id { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); }
+.viewer-pager { display: flex; align-items: center; gap: 8px; }
+.viewer-nav {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--hairline-cool);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.viewer-nav:hover:not(:disabled) { color: var(--gold-200); border-color: var(--hairline-strong); }
+.viewer-nav:disabled { opacity: 0.35; cursor: default; }
+.viewer-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  min-width: 48px;
+  text-align: center;
+}
+
+.viewer-k {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 7px;
+}
+.viewer-task {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--text-hi);
+  margin: 0 0 22px;
+}
+
+/* The strip scrolls sideways rather than compressing the step cards; a
+   trajectory can run to a dozen steps and squeezing them is unreadable. */
+.viewer-strip {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 2px 2px 14px;
+  margin-bottom: 20px;
+}
+.viewer-step {
+  flex: 0 0 236px;
+  border: 1px solid var(--hairline-cool);
+  border-radius: 12px;
+  padding: 12px 13px 14px;
+  background: var(--surface-2);
+}
+.viewer-step-n {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 9px;
+}
+.viewer-shot {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+.viewer-shot-empty {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--hairline-strong);
+  background: var(--chart-track);
+}
+.viewer-shot-empty span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+.viewer-act {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--text-hi);
+  margin: 11px 0 7px;
+  overflow-wrap: break-word;
+}
+.viewer-thought { font-size: 12.5px; line-height: 1.55; color: var(--text-dim); margin: 0; }
+
+.viewer-verdict { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 22px; }
+.viewer-tag {
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+.viewer-tag-success { color: var(--ok); border: 1px solid var(--ok); background: rgba(63, 195, 162, 0.1); }
+.viewer-tag-failure { color: var(--bad); border: 1px solid var(--bad); background: rgba(224, 115, 107, 0.1); }
+.viewer-why { margin: 3px 0 0; font-size: 14.5px; line-height: 1.65; color: var(--text-dim); }
+
+.viewer-judges { display: flex; flex-wrap: wrap; gap: 8px; }
+.viewer-judge {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--hairline-cool);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.viewer-judge .jn { color: var(--text-hi); }
+.viewer-judge .jv { font-family: var(--font-mono); font-size: 11.5px; }
+.viewer-judge .jm { color: var(--ok); font-size: 12px; }
+.viewer-judge.wrong { border-color: rgba(224, 115, 107, 0.5); }
+.viewer-judge.wrong .jm { color: var(--bad); }
+
+@media (max-width: 620px) {
+  .viewer-bar { align-items: flex-start; }
+  .viewer-step { flex-basis: 200px; }
+}
 
 /* --------------------------------------------------------------------------
    16. Model cards

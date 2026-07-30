@@ -1147,7 +1147,7 @@
     var F = D.corpusFlow;
 
     var C_KEEP = "#4f97ee", C_DROP = "#c46a62", C_JUDGE = "#d9a53a", C_OUT = "#3fc3a2";
-    var MIN_W = 880;   /* six labelled columns will not compress below this */
+    var MIN_W = 964;   /* six labelled columns will not compress below this */
 
     function render(hostW) {
       hostW = hostW || host.clientWidth;
@@ -1161,7 +1161,10 @@
       }
 
       var h = 560;
-      var m = { t: 58, r: 10, b: 24, l: 10 };
+      /* The first and last column captions are centred on their node, so each
+         side must reserve half a caption's width. "OS-Shepherd-100K" is the
+         widest; at 10px the labels used to spill past the card edge. */
+      var m = { t: 58, r: 60, b: 24, l: 60 };
       var iw = w - m.l - m.r, ih = h - m.t - m.b;
 
       var svg = el("svg", { viewBox: "0 0 " + w + " " + h, width: w, height: h,
