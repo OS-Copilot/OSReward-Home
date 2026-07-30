@@ -1,7 +1,7 @@
 # OSReward — project page
 
-Source for the OSReward homepage: *Instituting Standardized Reward Evaluation for
-Cross-Platform Computer-Using Agents*.
+Source for the OSReward homepage: *Instituting Standardized Evaluation for
+Cross-Platform Computer-Use Reward Models*.
 
 Static HTML, CSS and vanilla JS. No build step, no framework, no CDN scripts —
 open `index.html` or serve the directory and it runs.

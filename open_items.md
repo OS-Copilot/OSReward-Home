@@ -95,10 +95,12 @@ and the `logos/OS-Shepherd.png` family mark).
 
 ### B3 — Cover art **NOTE**
 `public/cover.png` / `.webp` are 900×900 exports of
-`figure/resources/cover-2.jpg` (gitignored; it replaced the original
-`osreward-cover.png` on 2026-07-29). The social card is a 1200×630 composite of
-the same file. All of it is rebuilt by `python3 figure/build_cover_assets.py`,
-which also keeps the card's colours in step with the CSS `:root` tokens.
+`figure/resources/osreward-cover-3.jpg` (gitignored; the art has been replaced
+twice — `osreward-cover.png` → `cover-2.jpg` → this one). The social card is a
+1200×630 composite of the same file. All of it is rebuilt by
+`python3 figure/build_cover_assets.py`, which also keeps the card's colours in
+step with the CSS `:root` tokens **and bakes in the page title** — so a title
+change means re-running it, not just editing the HTML.
 
 The **favicons are not** built from the cover — they come from the OS-Shepherd
 brand mark (B2). An earlier version of this note claimed otherwise; corrected

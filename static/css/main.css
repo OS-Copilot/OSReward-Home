@@ -602,7 +602,6 @@ h2.section-title { font-size: clamp(28px, 3.6vw, 38px); margin-bottom: 12px; }
    9. Link row
    -------------------------------------------------------------------------- */
 .links { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
-.links-note { font-size: 12.5px; color: var(--text-faint); margin: 10px 0 0; }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1325,6 +1324,28 @@ figcaption { font-size: 13px; color: var(--text-faint); margin-top: 11px; line-h
   overflow-wrap: break-word;
 }
 .viewer-thought { font-size: 12.5px; line-height: 1.55; color: var(--text-dim); margin: 0; }
+
+/* Reveal control: the answer is deliberately withheld until clicked. */
+.viewer-reveal {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--gold-200);
+  background: rgba(217, 165, 58, 0.09);
+  border: 1px dashed var(--gold-500);
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.viewer-reveal:hover { background: rgba(217, 165, 58, 0.16); border-style: solid; }
+:root[data-theme="light"] .viewer-reveal { color: var(--gold-600); }
+.viewer-answer[hidden] { display: none; }
+.viewer-answer { animation: viewer-fade 0.22s ease-out both; }
+@keyframes viewer-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
 
 .viewer-verdict { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 22px; }
 .viewer-tag {

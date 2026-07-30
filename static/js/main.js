@@ -358,19 +358,39 @@
         h("p", "viewer-thought", card, s.thought);
       });
 
-      h("span", "viewer-k", stage, "Human verdict");
-      var vr = h("div", "viewer-verdict", stage);
+      /* The verdict stays hidden until asked for. A reader who sees "FAILURE"
+         before reading the steps never forms their own call, which is the one
+         thing this section is for (Qiushi, 2026-07-30). Rebuilt on every
+         render, so paging to another example hides the answer again. */
+      var answerId = "viewer-answer-" + idx;
+      var btn = h("button", "viewer-reveal", stage, "Did it succeed? Reveal the verdict");
+      btn.type = "button";
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-controls", answerId);
+
+      var panel = h("div", "viewer-answer", stage);
+      panel.id = answerId;
+      panel.hidden = true;
+
+      h("span", "viewer-k", panel, "Human verdict");
+      var vr = h("div", "viewer-verdict", panel);
       h("span", "viewer-tag viewer-tag-" + e.gold, vr, e.gold);
       h("p", "viewer-why", vr, e.goldWhy);
 
-      h("span", "viewer-k", stage, "What the judges called it");
-      var jr = h("div", "viewer-judges", stage);
+      h("span", "viewer-k", panel, "What the judges called it");
+      var jr = h("div", "viewer-judges", panel);
       e.judges.forEach(function (j) {
         var row = h("div", "viewer-judge" + (j.correct ? "" : " wrong"), jr);
         row.title = j.correct ? "matches the human verdict" : "disagrees with the human verdict";
         h("span", "jn", row, j.name);
         h("span", "jv", row, j.verdict);
         h("span", "jm", row, j.correct ? "✓" : "✗");
+      });
+
+      btn.addEventListener("click", function () {
+        panel.hidden = false;
+        btn.setAttribute("aria-expanded", "true");
+        btn.remove();
       });
     }
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents</title>
+  <title>OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models</title>
   <meta name="description"
     content="OSReward is a benchmark of 1,019 human-gold cross-platform CUA trajectories that measures how reliably VLM judges score them, plus OS-Shepherd-100K and open 9B/35B reward models.">
   <meta name="color-scheme" content="light dark">
@@ -22,7 +22,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://os-copilot.github.io/OSReward-Home/">
   <meta property="og:site_name" content="OSReward">
-  <meta property="og:title" content="OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents">
+  <meta property="og:title" content="OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models">
   <meta property="og:description"
     content="Are VLM judges reliable enough to reward computer-using agents? 1,019 human-gold trajectories, 27 judges benchmarked, and OS-Shepherd — open reward models at 30–60x lower cost.">
   <meta property="og:image" content="https://os-copilot.github.io/OSReward-Home/public/social/og-image.png">
@@ -30,7 +30,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@qiushi_sun">
-  <meta name="twitter:title" content="OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents">
+  <meta name="twitter:title" content="OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models">
   <meta name="twitter:description"
     content="Are VLM judges reliable enough to reward computer-using agents? 1,019 human-gold trajectories, 27 judges benchmarked, and OS-Shepherd — open reward models at 30–60x lower cost.">
   <meta name="twitter:image" content="https://os-copilot.github.io/OSReward-Home/public/social/og-image.png">
@@ -143,8 +143,8 @@
     <div class="wrap wrap-wide hero-split">
       <div class="hero-content">
         <h1><span class="gilt">OSReward</span></h1>
-        <p class="tagline">Instituting Standardized Reward Evaluation<br class="br-lg">
-          for Cross-Platform Computer-Using Agents</p>
+        <p class="tagline">Instituting Standardized Evaluation<br class="br-lg">
+          for Cross-Platform Computer-Use Reward Models</p>
         <p class="lede">A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions
           and reasoning. Deciding whether it fulfilled the instruction is the reward signal behind
           evaluation, data curation and RL. How well the models we now use as judges actually make that
@@ -157,8 +157,8 @@
                 <rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 21h8M12 18v3" stroke-linecap="round" />
               </svg>
             </span>
-            <span><b>1,019 human-gold trajectories</b> across web, Windows, Ubuntu and mobile, labeled by
-              three annotators each</span>
+            <span><b>A human-gold benchmark</b> of CUA trajectories across web, Windows, Ubuntu and
+              mobile, with an OSReward-Hard variant and OSReward-Multi for fine-grained grading</span>
           </li>
           <li>
             <span class="b-ico" aria-hidden="true">
@@ -166,8 +166,8 @@
                 <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
               </svg>
             </span>
-            <span><b>A comprehensive judge evaluation</b>: 27 models under one protocol, on the full
-              set and on the OSReward-Hard challenge set</span>
+            <span><b>The most comprehensive judge evaluation to date</b>, characterising models along
+              multiple dimensions, with extensive analysis and the insights it yields</span>
           </li>
           <li>
             <span class="b-ico" aria-hidden="true">
@@ -186,8 +186,8 @@
                 <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
               </svg>
             </span>
-            <span><b>OS-Shepherd 9B / 35B</b>: open, self-hostable reward models trained on that corpus,
-              level with commercial judges at 30–60× lower cost</span>
+            <span><b>OS-Shepherd 9B / 35B</b>: open-weight, open-data reward models trained on that
+              corpus, level with commercial judges at 30–60× lower cost</span>
           </li>
         </ul>
 
@@ -227,7 +227,6 @@
             OS-Shepherd-9B/35B
           </a>
         </div>
-        <p class="links-note">Dashed links go live as each artifact lands.</p>
       </div>
 
       <figure class="hero-art plate">
@@ -317,7 +316,8 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow">Overview</span>
-          <h2 class="section-title">How reliable is a <span class="gilt">VLM judge</span> for CUA?</h2>
+          <h2 class="section-title">How reliable is a <span class="gilt">VLM judge</span> for CUA
+            trajectories?</h2>
         </div>
 
         <div class="card abstract rise">
@@ -957,11 +957,11 @@
     <section class="band" id="viewer">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">DataViewer</span>
-          <h2 class="section-title">Look at <span class="gilt">a trajectory</span></h2>
-          <p class="section-sub">A reward signal is only as good as what it is asked to read. Step through a
-            trajectory the way a judge sees it — the instruction, the agent's actions and reasoning, the
-            human verdict, and what each judge called it.</p>
+          <span class="eyebrow">Explore</span>
+          <h2 class="section-title">Data <span class="gilt">Viewer</span></h2>
+          <p class="section-sub">Look at the cases yourself. Step through a trajectory the way a judge
+            sees it — the instruction, the agent's actions and its reasoning — make your own call, then
+            reveal what the annotators decided and how the judges scored it.</p>
         </div>
         <div class="card chart-card rise" id="viewer-card">
           <div id="viewer-body"></div>
@@ -1051,7 +1051,7 @@
           </div>
           <!-- TODO: fill in eprint / journal once the arXiv id is assigned. -->
           <pre id="bibtex">@article{sun2026osreward,
-  title   = {OSReward: Instituting Standardized Reward Evaluation for Cross-Platform Computer-Using Agents},
+  title   = {OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models},
   author  = {Sun, Qiushi and Cheng, Kanzhi and Wang, Yian and Yang, Bowen and Yan, Hang and
              Chen, Liheng and Xu, Fangzhi and Ding, Zichen and Chen, Nuo and Cao, Jialin and
              Gong, Xingdong and Li, Zehao and Jin, Kaiming and Yuan, Xinfeng and Liu, Zhoumianze and
