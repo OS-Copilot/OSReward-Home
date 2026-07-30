@@ -94,11 +94,15 @@ derivatives together (favicon 16/32/512, `favicon.ico`, `apple-touch-icon`
 and the `logos/OS-Shepherd.png` family mark).
 
 ### B3 — Cover art **NOTE**
-`public/cover.png` / `.webp` are 900×900 quantised exports of
-`figure/resources/osreward-cover.png` (gitignored). Favicons and the social card
-are crops of the same file, all generated from the gitignored original with
-PIL: 900x900 `quantize(224)` for the cover, a border flood-fill for the brand
-mark's background, and a 1200x630 composite for the social card.
+`public/cover.png` / `.webp` are 900×900 exports of
+`figure/resources/cover-2.jpg` (gitignored; it replaced the original
+`osreward-cover.png` on 2026-07-29). The social card is a 1200×630 composite of
+the same file. All of it is rebuilt by `python3 figure/build_cover_assets.py`,
+which also keeps the card's colours in step with the CSS `:root` tokens.
+
+The **favicons are not** built from the cover — they come from the OS-Shepherd
+brand mark (B2). An earlier version of this note claimed otherwise; corrected
+2026-07-29. Changing the key art therefore does *not* require regenerating them.
 
 ---
 
