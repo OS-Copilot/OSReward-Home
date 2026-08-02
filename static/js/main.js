@@ -286,12 +286,10 @@
     });
   }
 
-  /* -------------------------------------------------------- 6.5 dataviewer */
-  /* One example at a time out of OSRewardData.viewer, stepped with the pager.
-     A step may carry an optional `shot` image path; without one a labelled
-     dashed frame is drawn, which is where a real screenshot belongs. The
-     placeholder banner is driven by the data, not hardcoded here, so it
-     disappears the moment real records land. */
+  /* ----------------------------------------------------- 6.5 case studies */
+  /* One case at a time, following the paper site's DataViewer grammar:
+     instruction, trajectory, human verdict and expandable judge readings.
+     Cards load WebP previews; the lightbox uses untouched source frames. */
   function dataViewer() {
     var host = document.getElementById("viewer-body");
     if (!host || !D || !D.viewer || !D.viewer.examples || !D.viewer.examples.length) return;
@@ -306,6 +304,19 @@
       return n;
     }
 
+    function verdictTag(parent, verdict) {
+      return h("span", "viewer-tag viewer-tag-" + verdict, parent, verdict);
+    }
+
+    function markerTypes(step) {
+      return (step.markers || []).map(function (marker) { return marker.type; });
+    }
+
+    function thoughtSummary(thought) {
+      var clean = String(thought || "").replace(/\s+/g, " ").trim();
+      return clean.length > 94 ? clean.slice(0, 91) + "…" : clean;
+    }
+
     if (D.viewer.placeholder) {
       var warn = h("div", "viewer-warn", host);
       h("b", null, warn, "Placeholder.");
@@ -317,22 +328,60 @@
     var bar = h("div", "viewer-bar", host);
     var meta = h("div", "viewer-meta", bar);
     var platform = h("span", "viewer-plat", meta);
-    var ident = h("span", "viewer-id", meta);
+    var caseType = h("span", "viewer-case-type", meta);
 
     var pager = h("div", "viewer-pager", bar);
-    var prev = h("button", "viewer-nav", pager, "‹ Prev");
+    var prev = h("button", "viewer-nav", pager, "‹ Previous case");
     prev.type = "button";
     var count = h("span", "viewer-count", pager);
-    var next = h("button", "viewer-nav", pager, "Next ›");
+    var next = h("button", "viewer-nav", pager, "Next case ›");
     next.type = "button";
 
     var stage = h("div", null, host);
+
+    var lightbox = h("div", "viewer-lightbox", document.body);
+    lightbox.hidden = true;
+    var lightboxBar = h("div", "viewer-lightbox-bar", lightbox);
+    var lightboxCaption = h("span", null, lightboxBar);
+    var lightboxActions = h("div", null, lightboxBar);
+    var lightboxOriginal = h("a", "viewer-lightbox-link", lightboxActions, "Open original");
+    lightboxOriginal.target = "_blank";
+    lightboxOriginal.rel = "noopener";
+    var lightboxClose = h("button", "viewer-lightbox-close", lightboxActions, "Close ×");
+    lightboxClose.type = "button";
+    var lightboxImage = document.createElement("img");
+    lightboxImage.className = "viewer-lightbox-image";
+    lightboxImage.alt = "";
+    lightbox.appendChild(lightboxImage);
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImage.removeAttribute("src");
+      document.body.classList.remove("viewer-modal-open");
+    }
+
+    function openLightbox(step) {
+      lightboxCaption.textContent = "Step " + step.number + " · " + step.caption;
+      lightboxImage.src = step.shot;
+      lightboxOriginal.href = step.shot;
+      lightbox.hidden = false;
+      document.body.classList.add("viewer-modal-open");
+      lightboxClose.focus();
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !lightbox.hidden) closeLightbox();
+    });
 
     function render() {
       var e = EX[idx];
       stage.textContent = "";
       platform.textContent = e.platform;
-      ident.textContent = e.id;
+      caseType.textContent = e.caseType;
       count.textContent = (idx + 1) + " / " + EX.length;
       prev.disabled = idx === 0;
       next.disabled = idx === EX.length - 1;
@@ -340,28 +389,74 @@
       h("span", "viewer-k", stage, "Instruction");
       h("p", "viewer-task", stage, e.instruction);
 
-      h("span", "viewer-k", stage, "Trajectory · " + e.steps.length + " steps");
-      var strip = h("div", "viewer-strip", stage);
-      e.steps.forEach(function (s, n) {
-        var card = h("div", "viewer-step", strip);
-        h("div", "viewer-step-n", card, "Step " + (n + 1));
-        if (s.shot) {
-          var im = document.createElement("img");
-          im.src = s.shot; im.alt = ""; im.loading = "lazy";
-          im.className = "viewer-shot";
-          card.appendChild(im);
-        } else {
-          var ph = h("div", "viewer-shot viewer-shot-empty", card);
-          h("span", null, ph, "screenshot");
-        }
-        h("code", "viewer-act", card, s.action);
-        h("p", "viewer-thought", card, s.thought);
+      var trajectoryHead = h("div", "viewer-trajectory-head", stage);
+      h("span", "viewer-k", trajectoryHead, "Trajectory · " + e.steps.length + " selected states");
+      var legend = h("div", "viewer-legend", trajectoryHead);
+      [["focus", "Focus"], ["evidence", "Evidence"], ["verification", "Verification"]].forEach(function (item) {
+        var key = h("span", "viewer-legend-item viewer-legend-" + item[0], legend);
+        h("i", null, key);
+        h("span", null, key, item[1]);
       });
 
-      /* The verdict stays hidden until asked for. A reader who sees "FAILURE"
-         before reading the steps never forms their own call, which is the one
-         thing this section is for (Qiushi, 2026-07-30). Rebuilt on every
-         render, so paging to another example hides the answer again. */
+      var strip = h("div", "viewer-strip", stage);
+      var previousNumber = null;
+      e.steps.forEach(function (s, n) {
+        if (previousNumber !== null && s.number > previousNumber + 1) {
+          var gap = h("div", "viewer-gap-card", strip);
+          h("strong", null, gap, "…");
+          h("span", null, gap, (s.number - previousNumber - 1) + " state" +
+            (s.number - previousNumber - 1 === 1 ? "" : "s") + " omitted");
+        }
+        previousNumber = s.number;
+
+        var types = markerTypes(s);
+        var card = h("article", "viewer-step" + types.map(function (type) {
+          return " is-" + type;
+        }).join(""), strip);
+
+        var stepHead = h("div", "viewer-step-head", card);
+        h("span", "viewer-step-number", stepHead, "Step " + s.number);
+        if (s.markers && s.markers.length) {
+          var badges = h("span", "viewer-step-badges", stepHead);
+          s.markers.forEach(function (marker) {
+            h("span", "viewer-marker viewer-marker-" + marker.type, badges, marker.label);
+          });
+        }
+
+        var shotButton = h("button", "viewer-step-shot-button", card);
+        shotButton.type = "button";
+        shotButton.setAttribute("aria-label", "Open screenshot for step " + s.number + " at full resolution");
+        var image = document.createElement("img");
+        image.className = "viewer-shot";
+        image.src = s.thumb || s.shot;
+        image.alt = "Trajectory screenshot at step " + s.number + ": " + s.caption;
+        image.loading = n < 3 ? "eager" : "lazy";
+        image.decoding = "async";
+        shotButton.appendChild(image);
+        shotButton.addEventListener("click", function () { openLightbox(s); });
+
+        h("strong", "viewer-step-caption", card, s.caption);
+
+        var action = h("div", "viewer-step-field viewer-action", card);
+        h("span", null, action, "Action");
+        h("code", null, action, s.action || "No action recorded");
+
+        var thought = h("details", "viewer-thought", card);
+        var thoughtHead = h("summary", null, thought);
+        h("span", null, thoughtHead, "Thought");
+        h("em", null, thoughtHead, thoughtSummary(s.thought));
+        h("p", null, thought, s.thought || "No thought recorded");
+
+        if (s.actionRaw && s.actionRaw.trim() !== String(s.action || "").trim()) {
+          var raw = h("details", "viewer-raw-action", card);
+          h("summary", null, raw, "Raw tool call");
+          h("pre", null, raw, s.actionRaw);
+        }
+      });
+
+      /* Preserve the latest site's reveal-on-click reading flow: the human
+         verdict, analysis and model responses appear only after the reader
+         has inspected the trajectory. Paging resets the reveal. */
       var answerId = "viewer-answer-" + idx;
       var btn = h("button", "viewer-reveal", stage, "Did it succeed? Reveal the verdict");
       btn.type = "button";
@@ -372,19 +467,40 @@
       panel.id = answerId;
       panel.hidden = true;
 
-      h("span", "viewer-k", panel, "Human verdict");
-      var vr = h("div", "viewer-verdict", panel);
-      h("span", "viewer-tag viewer-tag-" + e.gold, vr, e.gold);
-      h("p", "viewer-why", vr, e.goldWhy);
+      var outcome = h("section", "viewer-verdict-block", panel);
+      h("span", "viewer-k", outcome, "Human verdict");
+      var verdictRow = h("div", "viewer-outcome-row", outcome);
+      verdictTag(verdictRow, e.gold);
+      h("span", "viewer-tendency", verdictRow, "Reference judges · " + e.tendency);
+      h("p", "viewer-gold-why", outcome, e.goldWhy);
 
-      h("span", "viewer-k", panel, "What the judges called it");
-      var jr = h("div", "viewer-judges", panel);
+      var reason = h("div", "viewer-reason-strip", panel);
+      h("span", "viewer-k", reason, e.reasonLabel);
+      h("p", null, reason, e.reason);
+
+      var account = h("section", "viewer-account", panel);
+      h("span", "viewer-k", account, "Agent’s account");
+      h("p", null, account, e.agentAccount);
+
+      var readings = h("section", "viewer-readings", panel);
+      h("span", "viewer-k", readings, "Model judge responses");
+      h("p", "viewer-judge-note", readings,
+        "Select a model to read its unedited response from the evaluation record.");
+      var jr = h("div", "viewer-judges", readings);
       e.judges.forEach(function (j) {
-        var row = h("div", "viewer-judge" + (j.correct ? "" : " wrong"), jr);
-        row.title = j.correct ? "matches the human verdict" : "disagrees with the human verdict";
-        h("span", "jn", row, j.name);
-        h("span", "jv", row, j.verdict);
-        h("span", "jm", row, j.correct ? "✓" : "✗");
+        var row = h("details", "viewer-judge" + (j.correct ? "" : " wrong"), jr);
+        var judgeHead = h("summary", "viewer-judge-head", row);
+        var identity = h("span", "viewer-judge-identity", judgeHead);
+        h("span", "jn", identity, j.name);
+        if (j.context) h("small", null, identity, j.context);
+        h("span", "jv viewer-tag viewer-tag-" + j.verdict, judgeHead, j.verdict);
+        h("span", "jm", judgeHead, j.correct ? "matches human" : "disagrees");
+        h("span", "viewer-judge-chevron", judgeHead, "⌄");
+        h("pre", "viewer-judge-response", row, j.response || j.reason);
+      });
+
+      requestAnimationFrame(function () {
+        strip.scrollLeft = 0;
       });
 
       btn.addEventListener("click", function () {
