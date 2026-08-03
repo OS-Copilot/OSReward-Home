@@ -627,14 +627,16 @@ h2.section-title { font-size: clamp(28px, 3.6vw, 38px); margin-bottom: 12px; }
 .btn:active { transform: none; }
 
 .btn-gold {
-  background: linear-gradient(180deg, var(--gold-300), var(--gold-500));
+  background: linear-gradient(180deg, var(--gold-200), var(--gold-400));
   border-color: var(--hairline-strong);
   color: #201502;
   font-weight: 650;
 }
-.btn-gold:hover { background: linear-gradient(180deg, var(--gold-200), var(--gold-400)); color: #1a1002; }
-:root[data-theme="light"] .btn-gold { color: #fffaf0; }
-:root[data-theme="light"] .btn-gold:hover { color: #fff; }
+.btn-gold:hover { background: linear-gradient(180deg, var(--gold-100), var(--gold-300)); color: #1a1002; }
+/* The gold ramp inverts on the light theme (100 = darkest), so the button pins
+   its own light golds there and keeps dark text for contrast. */
+:root[data-theme="light"] .btn-gold { background: linear-gradient(180deg, #f0dca2, #cfa54b); color: #201502; }
+:root[data-theme="light"] .btn-gold:hover { background: linear-gradient(180deg, #fbf4d6, #e2c377); color: #1a1002; }
 
 /* Parked links: clearly not-yet-live, but still readable. The dashed border
    carries the "not yet" signal, so the label itself keeps normal contrast. */

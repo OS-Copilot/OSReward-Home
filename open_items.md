@@ -39,23 +39,10 @@ block.
 Note: Zichen Ding intentionally carries no affiliation superscript, following
 the `r73` directive in `main.tex`.
 
-### A4 — The paper advertises a URL the site will not serve **BLOCKED**
-The abstract points readers at `https://osreward.github.io/`, but C3 settled the
-deployment on `https://os-copilot.github.io/OSReward-Home/`. As it stands the
-printed link is dead. The two have to agree before the paper is public. Either:
-
-1. change the URL in `main.tex` to the OS-Copilot subpath, or
-2. register the `osreward` GitHub account, create `osreward/osreward.github.io`,
-   and serve a redirect (or the site itself) from it.
-
-Option 2 keeps the shorter URL and survives the repo moving later; option 1 is
-free. Raised 2026-07-27 when C3 was decided.
-
-**Escalated 2026-07-29:** C0 is done, so the site is public and this is no longer
-hypothetical. `https://osreward.github.io/` was checked and returns **404** —
-that GitHub account either does not exist or serves no Pages site. Any reader
-who types the URL from the paper reaches nothing. This is now the most urgent
-item on the list.
+### A4 — The paper advertises a URL the site will not serve **RESOLVED 2026-08-03**
+Qiushi updated the link in the paper (and on the homepage) to
+`https://os-copilot.github.io/OSReward-Home/`, matching the deployment. The
+`osreward.github.io` URL is no longer printed anywhere, so its 404 is moot.
 
 ---
 
@@ -110,49 +97,50 @@ brand mark (B2). An earlier version of this note claimed otherwise; corrected
 
 ## C. Links
 
-### C1 — Release links: four live, two parked **TODO 2026-07-30**
-Live as of 2026-07-30 (hero button + Resources card each, plus the nav icon for
-code):
+### C1 — Release links: five live, none parked **TODO 2026-08-03**
+Live (hero button + Resources card each for the artifacts, plus the nav icon
+for code):
 
 | `data-link` | Target |
 | --- | --- |
+| `paper` | `https://arxiv.org/abs/2607.28609` — verified 200 |
 | `code` | `https://github.com/OS-Copilot/OSReward` — **returns 404, see below** |
 | `benchmark` | `https://huggingface.co/datasets/OS-Copilot/OSReward` — verified 200 |
 | `corpus` | `https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K` — verified 200 |
 | `models` | `https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd` — verified 200 |
 
-Still parked: **`paper`** and **`arxiv`**. Both are hero buttons carrying
-`class="btn pending"` with `role="link" aria-disabled="true"`. To activate: drop
-`pending` and those two attributes, add `href` plus
-`target="_blank" rel="noopener"`. Every `<span class="soon">` badge is gone, so
-there are none left to delete. Once paper and arXiv are live, remove the
-`.links-note` line under the hero row.
+The paper went live 2026-08-03 as a single gold **Paper** button carrying the
+arXiv logomark (inlined from `public/logos/arxiv-logomark-small.svg`, grey
+chevrons switched to `currentColor` for legibility on the gold field). The
+separate dashed arXiv button was removed on request, so the hero has five
+buttons and `data-link="arxiv"` no longer exists. The `.btn.pending` /
+`.pending-card` CSS rules are now unused; kept in case the code links need
+re-parking.
 
 > **`github.com/OS-Copilot/OSReward` 404s.** Checked repeatedly, including with a
-> browser user agent. The repository is either still private or not created yet,
-> so three places on the live page currently point at a 404: the hero Code
-> button, the Resources Code card, and the nav GitHub icon. Qiushi supplied the
-> URL while setting the artifacts up, so this should resolve itself on publish —
-> but until it does the site advertises a dead link. Make the repo public, or say
-> the word and I will re-park those three.
+> browser user agent (last re-checked 2026-08-03). The repository is either
+> still private or not created yet, so three places on the live page currently
+> point at a 404: the hero Code button, the Resources Code card, and the nav
+> GitHub icon. Qiushi supplied the URL while setting the artifacts up, so this
+> should resolve itself on publish — but until it does the site advertises a
+> dead link. Make the repo public, or say the word and I will re-park those
+> three.
 
 ### C2 — Nav GitHub button **RESOLVED 2026-07-30**
 Points at `https://github.com/OS-Copilot/OSReward` (subject to the 404 note in
 C1). Was `href="#resources"`.
 
-### C4 — Three author homepages are dead **TODO**
-Found while sweeping every external link on 2026-07-30. All three fail with a
-real browser user agent, so it is not bot-blocking:
+### C4 — Three author homepages are dead **RESOLVED 2026-08-03**
+Replacements supplied by Qiushi and applied, each verified 200 with a browser
+user agent (Scholar times out on a first curl and passes on retry — that is the
+same behaviour that looked like a "connection failure" elsewhere, so always
+retry before calling a link dead):
 
-| Author | Link | Result |
-| --- | --- | --- |
-| Jingyang Gong | `https://scholar.google.com/citations?user=cBoG7ZMAAAAJ` | 404 |
-| Tianbao Xie | `https://tianbaoxie.com/` | connection failure |
-| Ben Kao | `https://www.cs.hku.hk/index.php/people/academic-staff/kao` | 404 |
-
-These predate the current pass and were inherited with the byline from the
-sibling pages. Not guessed at or changed — they are people's own pages. Supply
-replacements, or say so and the links come off the names.
+| Author | New link |
+| --- | --- |
+| Jingyang Gong | `https://gonggongjohn.me/` |
+| Tianbao Xie | `https://scholar.google.com/citations?user=8sdGK_0AAAAJ` |
+| Ben Kao | `https://www.ai.hku.hk/people/academic-staff/kao` |
 
 ### C0 — Turn GitHub Pages on **RESOLVED 2026-07-29**
 Qiushi enabled it: *Deploy from a branch*, branch `main`, folder `/ (root)`,
@@ -253,8 +241,13 @@ above it as they happen, newest first. Two details to settle while there: the
 entry uses `YYYY-MM` while the inline TODO comment above it asks for
 `YYYY-MM-DD`, and the section has no `id`, so nothing can link to it.
 
-### E2 — BibTeX **TODO**
-`journal = {arXiv preprint}` with no eprint id. Fill in on arXiv submission.
+### E2 — BibTeX **RESOLVED 2026-08-03**
+Final entry supplied by Qiushi on the arXiv release: compact `field={…}`
+formatting, `journal={arXiv preprint arXiv:2607.28609}`. His message truncated
+the authors with "and others"; the full 23-author list was restored on his
+instruction, wrapped across lines as before. The entry lives inline in
+`index.html` (`<pre id="bibtex">`, ~line 1052) — there is no separate `.bib`
+file, the "osreward.bib" in the code-box bar is decoration.
 
 ### E3 — DataViewer ships invented examples **BLOCKED — replace before advertising**
 The `#viewer` section is live with three **placeholder** records in
@@ -269,7 +262,10 @@ real records land, do not link the section from anywhere external. Step objects
 accept an optional `shot` image path; supply it and the dashed placeholder frame
 becomes a real screenshot with no code change.
 
-### E4 — The held-out disclosure was deleted with the leaderboard note **TODO**
+### E4 — The held-out disclosure was deleted with the leaderboard note **CLOSED 2026-08-03**
+Qiushi's call: leave it as is, no held-out line to be added. Closed, not to be
+reopened without a new instruction. Original item kept below for context.
+
 Removing the "Sort any column…" note (§5 of the 2026-07-29 revision) also
 removed the page's only statement that **OS-Shepherd is evaluated held-out** —
 that it trains on OS-Shepherd-100K, which is disjoint from this benchmark.
@@ -287,6 +283,14 @@ hedge. Left as written since only the bullet was flagged.
 ---
 
 ## Resolved
+
+- *2026-08-03, session 5* — arXiv release wired in: the hero's parked Paper /
+  arXiv pair became one live gold **Paper** button (arXiv logomark,
+  `https://arxiv.org/abs/2607.28609`), the BibTeX journal line gained the
+  eprint id (E2), the three dead author homepages got their replacements (C4),
+  the paper's printed URL now matches the deployment (A4), and E4 was closed
+  as won't-fix. Still open: the code repo 404 (C1), the DataViewer placeholder
+  data (E3), and D7.
 
 - *2026-07-29, session 3* — Accessibility and semantics pass. All 31 inline icon
   SVGs now carry `aria-hidden="true"`; `chart-hard` gained the container label
