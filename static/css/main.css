@@ -1440,7 +1440,7 @@ figcaption { font-size: 13px; color: var(--text-faint); margin-top: 11px; line-h
 :root[data-theme="light"] .comp-bar .seg-bad { background: rgba(191, 74, 65, 0.22); color: #7d2b24; }
 
 /* --------------------------------------------------------------------------
-   15b. DataViewer
+   15b. Data Viewer
    -------------------------------------------------------------------------- */
 .viewer-warn {
   margin: 0 0 20px;
@@ -1534,7 +1534,7 @@ figcaption { font-size: 13px; color: var(--text-faint); margin-top: 11px; line-h
   margin: 0 0 24px;
 }
 
-/* Reveal control retained from the latest upstream DataViewer. */
+/* Reveal control retained from the latest upstream Data Viewer. */
 .viewer-reveal {
   font-family: var(--font-body);
   font-size: 13.5px;
