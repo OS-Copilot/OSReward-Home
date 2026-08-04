@@ -69,22 +69,20 @@ CASES = [
             39: "Incorrect value repeated at completion",
         },
         "focus": [7, 32, 35, 36],
-        "evidence": {36: "Visible Beta: 2.38"},
+        "evidence": {36: "On-screen evidence · Beta (5Y Monthly): 2.38"},
     },
     {
-        "id": "3f2b353a-709d-40ac-9126-7dc9823c2e62",
-        "slug": "audacity_fadeout_llm_miss",
-        "source": Path("/root/RMAnnot/data/raw_traces_phase2/ubuntu_0411_147/0301/meta_3f2b353a-709d-40ac-9126-7dc9823c2e62.json"),
-        "steps": [0, 2, 4, 6, 8, 9, 12, 15, 18, 19],
+        "id": "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c",
+        "slug": "horse_product_ui_state_failure",
+        "source": Path("/root/RMAnnot/data/raw_traces_phase2/inconsistency_phase2/trajectories/1a1f2d7b-b2a7-50cb-8f16-3bdae408818c.json"),
+        "steps": [0, 1, 4],
         "captions": {
-            0: "Original waveform loaded",
-            8: "Fade Out targeted for 0 to 10 seconds",
-            9: "Waveform after applying the effect",
-            18: "Export reaches metadata stage",
-            19: "Final waveform requires verification",
+            0: "Horse.com starting state",
+            1: "Product options become visible",
+            4: "Disabled variants reported as available",
         },
-        "focus": [8, 9, 18, 19],
-        "evidence": {19: "Final waveform"},
+        "focus": [1, 4],
+        "evidence": {1: "Struck-through variants"},
     },
     {
         "id": "37c7fcf5-d656-40ca-842d-8bb09f0d6a06",
@@ -131,19 +129,31 @@ CASES = [
         "verification": {7: "Open-status verification", 12: "Final-route verification"},
     },
     {
-        "id": "da372ad2-063e-5dfd-a822-36f7167598ee",
-        "slug": "rome_hotel_restaurant_web_hard_case",
-        "source": Path("/root/RMAnnot/data/raw_traces/web_0315_160/trajectories/e7b83a42-174a-5d65-84dd-fe9863d4f748.json"),
-        "steps": [0, 4, 8, 12, 16, 18, 20, 23, 26, 28],
+        "id": "73243cf3-bed7-48fc-8cdd-c6542a90466b",
+        "slug": "obs_resolution_long_horizon_hard_case",
+        "source": Path("/root/RMAnnot/data/raw_traces_phase2/inconsistency_phase2/trajectories/73243cf3-bed7-48fc-8cdd-c6542a90466b_20260405@194959.json"),
+        "steps": [0, 1, 4, 21, 30, 33, 35, 37, 39, 41, 42, 43, 44],
         "captions": {
-            0: "Initial hotel search",
-            18: "EUR 161 for two nights; rating 8.3",
-            20: "Exact hotel address recovered",
-            26: "Yelp anti-bot block",
-            28: "Two nearby options rated above 4",
+            0: "Desktop and OBS starting state",
+            1: "Source file created in terminal",
+            4: "Text source named StatusText",
+            21: "Read from file enabled",
+            30: "File picker reached after recovery",
+            33: "stream_info.txt selected",
+            35: "File-backed text visibly rendered",
+            37: "Video settings opened",
+            39: "Canvas resolution set to 1280x720",
+            41: "Preset list lacks the exact output size",
+            42: "Exact 854x480 value entered",
+            43: "Enter closes and commits the dialog",
+            44: "Agent completes the task",
         },
-        "focus": [18, 20, 26, 28],
-        "verification": {18: "Hotel constraints verified", 28: "Restaurant evidence verified"},
+        "focus": [21, 35, 41, 42, 43],
+        "evidence": {42: "Action enters 854x480"},
+        "verification": {
+            35: "File-backed text verified",
+            43: "Settings accepted after Enter",
+        },
     },
 ]
 
@@ -170,11 +180,11 @@ JUDGE_CASES = {
         "path": Path("/root/selected_traces_export/37b29158-fde9-4e99-a382-1bec564db773/model_judge_results.json"),
         "indices": [0, 1, 2, 3],
     },
-    "3f2b353a-709d-40ac-9126-7dc9823c2e62": {
+    "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c": {
         "human": "failure",
-        "kind": "json",
-        "path": Path("/root/case_study_traces/3f2b353a-709d-40ac-9126-7dc9823c2e62_20260324@132004/model_judge_results.json"),
-        "indices": [0, 1, 7, 9],
+        "kind": "hard_db",
+        "trace_id": "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c",
+        "path": Path("/root/RMAnnot/data/hard_review.db"),
     },
     "37c7fcf5-d656-40ca-842d-8bb09f0d6a06": {
         "human": "failure",
@@ -197,10 +207,10 @@ JUDGE_CASES = {
             Path("/root/RM_Data_Eval/results/judge_593_aug_qwen3vl.jsonl"),
         ],
     },
-    "da372ad2-063e-5dfd-a822-36f7167598ee": {
+    "73243cf3-bed7-48fc-8cdd-c6542a90466b": {
         "human": "success",
         "kind": "hard_db",
-        "trace_id": "e7b83a42-174a-5d65-84dd-fe9863d4f748",
+        "trace_id": "73243cf3-bed7-48fc-8cdd-c6542a90466b_20260405@194959",
         "path": Path("/root/RMAnnot/data/hard_review.db"),
     },
 }
@@ -337,17 +347,14 @@ def normalize_judge(record: dict, human: str) -> dict:
     if not response:
         raise ValueError("Selected judge record has no raw response")
 
-    version = record.get("version")
     last_n = record.get("last_n")
-    if version and str(version)[0].isdigit():
-        context = f"{version} · last {last_n} states" if last_n else str(version)
-    elif last_n:
-        context = f"Last {last_n} states"
+    if last_n:
+        context = f"Evaluation setting · Last {last_n} states"
     else:
         context = "Hard-set review record"
 
     return {
-        "name": record.get("judge_model") or record.get("model") or record.get("model_raw"),
+        "name": record.get("judge_model") or record.get("model_raw") or record.get("model"),
         "verdict": verdict,
         "correct": verdict == human,
         "context": context,

@@ -412,7 +412,7 @@ window.OSRewardCaseSteps = {
         },
         {
           "type": "evidence",
-          "label": "Visible Beta: 2.38"
+          "label": "On-screen evidence · Beta (5Y Monthly): 2.38"
         }
       ]
     },
@@ -437,120 +437,25 @@ window.OSRewardCaseSteps = {
       "markers": []
     }
   ],
-  "3f2b353a-709d-40ac-9126-7dc9823c2e62": [
+  "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c": [
     {
       "number": 0,
-      "caption": "Original waveform loaded",
-      "action": "drag_and_drop(destination_x=158, destination_y=250, x=105, y=250)",
-      "actionRaw": "{\"name\": \"drag_and_drop\", \"arguments\": {\"destination_x\": 158, \"destination_y\": 250, \"x\": 105, \"y\": 250}}",
-      "thought": "**Pinpointing Audio Segments**\n\nI've been honing in on the selection process. Using the selection toolbar seems most precise. I've pinpointed the correct coordinates to click for the \"End\" time, and calculated the pixel coordinates for dragging to select the first 10 seconds. Now I'm ready to execute the selection.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_0.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_0.png",
+      "caption": "Horse.com starting state",
+      "action": "type(box2d=[92,329,130,671], text=\"Tabelo Waterproof 1200D T/O Blanket\\n\", x=960, y=120)",
+      "actionRaw": "{\"action_key\": \"type\", \"action_kwargs\": {\"box2d\": [92, 329, 130, 671], \"text\": \"Tabelo Waterproof 1200D T/O Blanket\\n\", \"x\": 960, \"y\": 120}}",
+      "thought": "To find the available color and size options for the 'Tabelo Waterproof 1200D T/O Blanket', I need to navigate to the specific product page on Horse.com. Currently, I am on the homepage. The most efficient way to locate the item is to use the search bar located at the top of the page.\n\nMy plan is as follows:\n1.  **Search for the product**: I will type \"Tabelo Waterproof 1200D T/O Blanket\" into the search input field and execute the search.\n2.  **Select the product**: From the search results, I will identify and click on the correct blanket to go to its detailed product page.\n3.  **Identify options**: Once on the product page, I will look for the selection menus or swatches for \"Color\" and \"Size\". I will note all the available options presented in these sections.\n4.  **Report findings**: After gathering the list of colors and sizes, I will provide the final answer.\n\nIn the current view, the search bar is clearly visible in the header. I will start by clicking into it and typing the product name.",
+      "thumb": "public/cases/horse_product_ui_state_failure/step_0.webp",
+      "shot": "public/cases/horse_product_ui_state_failure/full_step_0.jpg",
       "markers": []
     },
     {
-      "number": 2,
-      "caption": "Trajectory context",
-      "action": "click_at(x=300, y=395)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 300, \"y\": 395}}",
-      "thought": "No thinking.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_2.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_2.png",
-      "markers": []
-    },
-    {
-      "number": 4,
-      "caption": "Trajectory context",
-      "action": "click_at(x=290, y=960)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 290, \"y\": 960}}",
-      "thought": "**Selecting Audio for Editing**\n\nI'm zeroing in on selecting the first ten seconds within Audacity. My strategy now involves directly manipulating the \"End\" time field in the selection toolbar. Initial attempts were thwarted by not selecting any audio, which gave errors. I've pinpointed the coordinates for the \"End\" time input box and will now use `click_at` at x=290, y=960 to get ready to set the time.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_4.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_4.png",
-      "markers": []
-    },
-    {
-      "number": 6,
-      "caption": "Trajectory context",
-      "action": "type_text_at(clear_before_typing=false, press_enter=true, text=\"10\", x=292, y=963)",
-      "actionRaw": "{\"name\": \"type_text_at\", \"arguments\": {\"clear_before_typing\": false, \"press_enter\": true, \"text\": \"10\", \"x\": 292, \"y\": 963}}",
-      "thought": "No thinking.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_6.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_6.png",
-      "markers": []
-    },
-    {
-      "number": 8,
-      "caption": "Fade Out targeted for 0 to 10 seconds",
-      "action": "click_at(x=300, y=395)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 300, \"y\": 395}}",
-      "thought": "**Selecting the Tool**\n\nI've zeroed in on the `click_at` tool. Given the need to select \"Fade Out,\" specifically at the identified coordinates, it's the most targeted approach. I've discarded the idea of using something more general, opting for the precision of `click_at`. Next up, the call!",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_8.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_8.png",
-      "markers": [
-        {
-          "type": "focus",
-          "label": "Focus state"
-        }
-      ]
-    },
-    {
-      "number": 9,
-      "caption": "Waveform after applying the effect",
-      "action": "click_at(x=45, y=70)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 45, \"y\": 70}}",
-      "thought": "No thinking.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_9.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_9.png",
-      "markers": [
-        {
-          "type": "focus",
-          "label": "Focus state"
-        }
-      ]
-    },
-    {
-      "number": 12,
-      "caption": "Trajectory context",
-      "action": "click_at(x=45, y=70)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 45, \"y\": 70}}",
-      "thought": "**Examining the Export Process**\n\nI'm focused on exporting the audio as an MP3. I've successfully faded out the first 10 seconds. Now, I'm attempting the export. I started by clicking \"File\" and then was aiming for \"Export,\" but the submenu was missed in the last attempt. Trying again, this time with a direct click on \"Export as MP3\".",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_12.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_12.png",
-      "markers": []
-    },
-    {
-      "number": 15,
-      "caption": "Trajectory context",
-      "action": "click_at(x=250, y=230)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 250, \"y\": 230}}",
-      "thought": "No thinking.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_15.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_15.png",
-      "markers": []
-    },
-    {
-      "number": 18,
-      "caption": "Export reaches metadata stage",
-      "action": "click_at(x=610, y=715)",
-      "actionRaw": "{\"name\": \"click_at\", \"arguments\": {\"x\": 610, \"y\": 715}}",
-      "thought": "**Starting Audio Edit in Audacity**\n\nI've located Audacity and am in the process of launching it. My next step will be to import the specified MP3 file. Once the file is loaded, I plan to select the initial 10 seconds of the audio for editing.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_18.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_18.png",
-      "markers": [
-        {
-          "type": "focus",
-          "label": "Focus state"
-        }
-      ]
-    },
-    {
-      "number": 19,
-      "caption": "Final waveform requires verification",
-      "action": "done",
-      "actionRaw": "done",
-      "thought": "No thinking.",
-      "thumb": "public/cases/audacity_fadeout_llm_miss/step_19.webp",
-      "shot": "public/cases/audacity_fadeout_llm_miss/full_step_19.png",
+      "number": 1,
+      "caption": "Product options become visible",
+      "action": "click(box2d=[94,671,127,715], x=1331, y=119)",
+      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [94, 671, 127, 715], \"x\": 1331, \"y\": 119}}",
+      "thought": "The initial step of the task was to navigate to Horse.com and search for the \"Tabelo Waterproof 1200D T/O Blanket.\" Based on the previous action, a search query was initiated by typing the product name into the search bar. The goal is to reach the specific product detail page where attributes such as color and size are listed.\n\nUpon executing the search, the browser should transition to a search results page. From there, I will need to identify the correct product entry. Horse blankets often come in various weights (Lite, Medium, Heavy), so I must ensure I select the standard \"Tabelo Waterproof 1200D T/O Blanket\" or the specific variation requested. Once the product page loads, I will look for dropdown menus, radio buttons, or color swatches that define the available inventory.\n\nThe current state requires confirming if the search was successful. If the search results page is displayed, I will locate the product image or title and click it. If the search directly redirected to a product page (which sometimes happens with specific queries), I will immediately begin extracting the required information.\n\nMy plan is as follows:\n1.  **Verify Search Results**: Confirm that the page has loaded with relevant results for the Tabelo 1200D blanket.\n2.  **Navigate to Product Page**: Click on the primary product listing to view full details.\n3.  **Identify Attributes**: Locate the \"Color\" selection area and the \"Size\" selection area. I will check for all selectable options, noting any that might be out of stock if they are still visible.\n4.  **Synthesize Data**: Compile the list of colors and sizes to provide a comprehensive answer.\n\nThe next logical step is to click the search button (the magnifying glass icon) to ensure the search is processed if the previous \"Enter\" keypress didn't trigger it, or to select the product from the resulting list.",
+      "thumb": "public/cases/horse_product_ui_state_failure/step_1.webp",
+      "shot": "public/cases/horse_product_ui_state_failure/full_step_1.jpg",
       "markers": [
         {
           "type": "focus",
@@ -558,7 +463,22 @@ window.OSRewardCaseSteps = {
         },
         {
           "type": "evidence",
-          "label": "Final waveform"
+          "label": "Struck-through variants"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "caption": "Disabled variants reported as available",
+      "action": "stop(answer=\"The available color options for the 'Tabelo Waterproof 1200D T/O Blanket' are Blue, Hunter, Purple, and Red. The available size options are 69, 72, 75, 78, 81, and 84.\")",
+      "actionRaw": "{\"action_key\": \"stop\", \"action_kwargs\": {\"answer\": \"The available color options for the 'Tabelo Waterproof 1200D T/O Blanket' are Blue, Hunter, Purple, and Red. The available size options are 69, 72, 75, 78, 81, and 84.\"}}",
+      "thought": "I have successfully navigated to the product detail page for the 'Tabelo Waterproof 1200D T/O Blanket' on Horse.com. The page provides a clear overview of the available options for this specific item.\n\nBased on the visual information in the current viewport:\n1.  **Product Identification**: The page title confirms we are looking at the \"Tabelo Waterproof 1200D T/O Blanket\".\n2.  **Color Options**: There are four color buttons visible under the \"Color\" heading. These are:\n    *   Blue\n    *   Hunter\n    *   Purple\n    *   Red\n3.  **Size Options**: There are six size buttons visible under the \"Size\" heading. These are:\n    *   69\n    *   72\n    *   75\n    *   78\n    *   81\n    *   84\n\nThe task was to identify the available color and size options for this specific blanket. I have identified all the options presented on the product page. No further navigation or interaction is required to fulfill the request, as the information is explicitly displayed. I will now synthesize this information into a final response.",
+      "thumb": "public/cases/horse_product_ui_state_failure/step_4.webp",
+      "shot": "public/cases/horse_product_ui_state_failure/full_step_4.jpg",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
         }
       ]
     }
@@ -955,65 +875,80 @@ window.OSRewardCaseSteps = {
       "markers": []
     }
   ],
-  "da372ad2-063e-5dfd-a822-36f7167598ee": [
+  "73243cf3-bed7-48fc-8cdd-c6542a90466b": [
     {
       "number": 0,
-      "caption": "Initial hotel search",
-      "action": "click(box2d=[400,597,415,611], x=1546, y=587)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [400, 597, 415, 611], \"x\": 1546, \"y\": 587}}",
-      "thought": "The task is to find a hotel in Rome for under 180 euros per night for the upcoming weekend and then locate highly-rated Italian restaurants nearby using Yelp. I have started at Booking.com as required.\n\nCurrently, the homepage is partially obscured by a \"Sign in, save money\" promotional pop-up. To proceed with the search, I must first dismiss this modal. The close button (an 'X' icon) is located in the top-right corner of the pop-up box.\n\nOnce the pop-up is closed, I will interact with the search interface. My plan is as follows:\n1.  **Destination**: Enter \"Rome\" into the \"Where are you going?\" input field.\n2.  **Dates**: Select the dates for \"next weekend.\" Assuming a standard Friday-to-Sunday stay, I will look for the first available weekend in the calendar picker.\n3.  **Search**: Execute the search to bring up the list of available properties in Rome.\n4.  **Filters**: Apply a price filter to ensure properties are under 180 euros per night. I will also ensure the currency is set to Euros if it isn't already (the current screenshot shows SGD).\n5.  **Selection**: Identify a suitable hotel and record its name and approximate location/address.\n6.  **Yelp Search**: Navigate to Yelp.com using the `goto` action.\n7.  **Restaurant Search**: Search for \"Italian restaurants\" using the hotel's name or address as the location.\n8.  **Refine**: Filter the results for a rating of 4 stars or higher and verify they are within walking distance.\n\nThe immediate next step is to clear the overlay so I can access the search form.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_0.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_0.png",
+      "caption": "Desktop and OBS starting state",
+      "action": "key_combination(keys=\"ctrl+alt+t\")",
+      "actionRaw": "{\"action_key\": \"key_combination\", \"action_kwargs\": {\"keys\": \"ctrl+alt+t\"}}",
+      "thought": "Opening terminal to create the stream_info.txt file.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_0.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_0.png",
+      "markers": []
+    },
+    {
+      "number": 1,
+      "caption": "Source file created in terminal",
+      "action": "type_text_at(clear_before_typing=false, press_enter=true, text=\"echo \\\"Be right back\\\" > ~/Desktop/stream_info.txt\", x=181, y=80)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": false, \"press_enter\": true, \"text\": \"echo \\\"Be right back\\\" > ~/Desktop/stream_info.txt\", \"x\": 181, \"y\": 80}}",
+      "thought": "Typing the command to create the file and write the text into it.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_1.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_1.png",
       "markers": []
     },
     {
       "number": 4,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[478,513,502,533], x=1339, y=706)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [478, 513, 502, 533], \"x\": 1339, \"y\": 706}}",
-      "thought": "The search for a hotel in Rome is underway on Booking.com. Currently, the destination \"Rome City Center\" has been selected, and the date picker is active. According to the calendar, the current date is Sunday, March 15, 2026. For the purpose of this task, \"next weekend\" is defined as the upcoming Friday-to-Sunday period, which falls on March 20 to March 22, 2026.\n\nIn the previous step, an attempt was made to select the check-in date. However, the screenshot indicates that March 27 was inadvertently selected instead of March 20, as shown by the blue highlight on the 27th and the text in the check-in field. To correct this and align with the \"next weekend\" requirement, I must first select Friday, March 20, as the check-in date and then Sunday, March 22, as the check-out date.\n\nOnce the dates are correctly set, I will proceed by clicking the \"Search\" button. On the results page, I have two immediate priorities:\n1.  **Currency Conversion**: The current interface is displaying prices in SGD. I will need to locate the currency picker in the top navigation bar and switch it to Euros (€) to ensure the price filters match the task's budget of under 180 euros per night.\n2.  **Price Filtering**: I will apply a filter for properties priced under 180 euros.\n\nAfter identifying a suitable hotel, I will note its name and address. The next phase will involve navigating to Yelp.com to find highly-rated Italian restaurants (4 stars and above) within walking distance of the chosen hotel.\n\nThe immediate next action is to select March 20 in the calendar to correct the check-in date.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_4.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_4.png",
+      "caption": "Text source named StatusText",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"StatusText\", x=291, y=339)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"StatusText\", \"x\": 291, \"y\": 339}}",
+      "thought": "Naming the new text source 'StatusText'.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_4.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_4.png",
       "markers": []
     },
     {
-      "number": 8,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[10,505,38,538], x=1335, y=35)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [10, 505, 38, 538], \"x\": 1335, \"y\": 35}}",
-      "thought": "The search results for Rome for the weekend of March 20–22, 2026, have been generated. However, the current interface is displaying prices in Singapore Dollars (SGD), which makes it difficult to precisely apply the budget constraint of under 180 euros per night. To proceed accurately, the first priority is to change the currency to Euros (€).\n\nThe currency selector is located in the top navigation bar, currently showing \"SGD.\" Once the currency is switched, the price filters in the left sidebar will update to Euro denominations. Since the stay is for two nights, a budget of under 180 euros per night equates to a total of under 360 euros for the entire stay. I will look for the price filter section to select a range that fits this criteria.\n\nThe current view is dominated by a map overlay. While useful for seeing general locations, it may be more efficient to close the map or use the list view to quickly filter and select a hotel based on price and rating. Once a suitable hotel is found—ideally one centrally located to facilitate finding nearby dining—I will record its name and address.\n\nThe second part of the task requires a transition to Yelp.com. After selecting the hotel, I will navigate to Yelp and search for \"Italian restaurants\" using the hotel's specific location. I will then apply a filter for ratings of 4 stars or higher. Finally, I will verify that the top-rated results are within a reasonable walking distance (typically under 1 km or a 10-15 minute walk) from the hotel.\n\nThe immediate next step is to click the currency picker in the top header to switch the display from SGD to EUR.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_8.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_8.png",
+      "number": 21,
+      "caption": "Read from file enabled",
+      "action": "click_at(x=250, y=602)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 250, \"y\": 602}}",
+      "thought": "Ah, there's the 'Read from file' option! It's below the text input area. Clicking it.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_21.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_21.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "caption": "File picker reached after recovery",
+      "action": "click_at(x=482, y=616)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 482, \"y\": 616}}",
+      "thought": "There it is! The \"Browse\" button has appeared. I will click it to select the text file.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_30.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_30.png",
       "markers": []
     },
     {
-      "number": 12,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[134,511,164,594], x=1414, y=215)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [134, 511, 164, 594], \"x\": 1414, \"y\": 215}}",
-      "thought": "The search for a hotel in Rome for the weekend of March 20–22, 2026, is moving into its final refinement phase on Booking.com. We have successfully navigated the search process, set the correct dates, and transitioned to the list view. To ensure we adhere strictly to the budget of under 180 euros per night, we are currently in the process of changing the display currency from Singapore Dollars (SGD) to Euros (EUR).\n\nThe current screenshot shows the \"Select your currency\" modal. \"Euro\" is conveniently listed in the \"Suggested for you\" section at the top of the overlay. Once this selection is made, the page will refresh, displaying all property prices in the requested denomination. This is a vital step, as it allows us to use the sidebar's \"Your budget (per night)\" filter with precision, selecting the range that encompasses our €180 limit.\n\nFollowing the currency update, the plan is as follows:\n1.  **Apply Price Filter**: Use the left-hand sidebar to filter for hotels priced under €180 per night.\n2.  **Select Hotel**: Identify a well-rated hotel (ideally 8.0 or higher) in a central location. I will record the hotel's name and address.\n3.  **Navigate to Yelp**: Use the `goto` action to move to https://www.yelp.com.\n4.  **Restaurant Search**: Search for \"Italian restaurants\" near the selected hotel's address.\n5.  **Filter and Verify**: Apply a filter for ratings of 4 stars or higher and confirm that the top results are within walking distance (typically under 1 km) of the hotel.\n\nThe immediate next action is to click on \"Euro EUR\" in the currency selection modal to finalize the currency change.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_12.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_12.png",
+      "number": 33,
+      "caption": "stream_info.txt selected",
+      "action": "click_at(x=270, y=298)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 270, \"y\": 298}}",
+      "thought": "Selecting the 'stream_info.txt' file.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_33.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_33.png",
       "markers": []
     },
     {
-      "number": 16,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[198,439,219,482], x=1179, y=300)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [198, 439, 219, 482], \"x\": 1179, \"y\": 300}}",
-      "thought": "The search for a hotel in Rome for the weekend of March 20–22, 2026, is currently in the results phase on Booking.com. We have successfully updated the currency to Euros (€), which is essential for adhering to the budget of under 180 euros per night. For a two-night stay, this translates to a total budget of under 360 euros.\n\nReviewing the current results, most properties displayed exceed the budget. For instance, Hotel Quirinale is priced at €501, and Hotel Sonya is listed at €388 (approximately €194 per night). To efficiently find a property within the €180/night limit, I need to apply a specific price filter or sort the results by price.\n\nMy plan is as follows:\n1.  **Find a Budget-Friendly Hotel**: I will use the \"Sort by\" dropdown menu to sort results by \"Price (lowest first)\". This will allow me to quickly identify properties that fall under the €360 total limit for the two-night stay.\n2.  **Select a Hotel**: From the sorted list, I will identify a hotel with a strong guest rating (8.0 or higher) and a central location. I will record its name and address.\n3.  **Yelp Search**: I will then use the `goto` action to navigate to Yelp.com.\n4.  **Find Restaurants**: On Yelp, I will search for \"Italian restaurants\" near the hotel's address, filter for ratings of 4 stars or higher, and verify they are within walking distance.\n\nThe immediate next step is to click the \"Sort by\" dropdown to change the sorting criteria to \"Price (lowest first)\".",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_16.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_16.png",
-      "markers": []
-    },
-    {
-      "number": 18,
-      "caption": "EUR 161 for two nights; rating 8.3",
-      "action": "click(box2d=[488,545,505,592], x=1455, y=715)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [488, 545, 505, 592], \"x\": 1455, \"y\": 715}}",
-      "thought": "The search for a hotel in Rome for the weekend of March 20–22, 2026, has yielded several options within the budget of under 180 euros per night. By sorting the results by \"Price (lowest first),\" we have identified \"Soha's Holiday\" as a strong candidate. It is priced at €161 for the two-night stay (approximately €80.50 per night), which is well within the specified limit. Furthermore, it boasts a \"Very Good\" guest rating of 8.3, making it a reliable choice for quality.\n\nThe property is located in the \"Central Station\" area of Rome. This location is a major transportation hub, which should provide ample dining options nearby. Now that a suitable hotel has been identified, the next phase of the task is to find highly-rated Italian restaurants within walking distance.\n\nMy plan is as follows:\n1.  **Confirm Hotel Details**: I will click on \"Soha's Holiday\" to access its specific page. This will allow me to obtain the exact street address, which is essential for a precise \"walking distance\" search on Yelp.\n2.  **Navigate to Yelp**: Once the address is secured, I will use the `goto` action to navigate to https://www.yelp.com.\n3.  **Restaurant Search**: On Yelp, I will search for \"Italian restaurants\" and enter the hotel's specific address in the location field.\n4.  **Filter and Select**: I will apply a filter for restaurants with a rating of 4 stars or higher. I will then identify at least one restaurant that is clearly within walking distance (e.g., within 0.5 miles or 1 km) of the hotel.\n\nThe immediate next action is to click on the \"Soha's Holiday\" listing to retrieve its full address.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_18.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_18.png",
+      "number": 35,
+      "caption": "File-backed text visibly rendered",
+      "action": "click_at(x=440, y=651)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 440, \"y\": 651}}",
+      "thought": "Clicking OK to close the properties dialog.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_35.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_35.png",
       "markers": [
         {
           "type": "focus",
@@ -1021,43 +956,38 @@ window.OSRewardCaseSteps = {
         },
         {
           "type": "verification",
-          "label": "Hotel constraints verified"
+          "label": "File-backed text verified"
         }
       ]
     },
     {
-      "number": 20,
-      "caption": "Exact hotel address recovered",
-      "action": "goto(url=\"https://www.yelp.com\")",
-      "actionRaw": "{\"action_key\": \"goto\", \"action_kwargs\": {\"url\": \"https://www.yelp.com\"}}",
-      "thought": "The search for a hotel in Rome for the upcoming weekend (March 20–22, 2026) has been successfully completed. By sorting results by \"Price (lowest first)\" and ensuring the currency was set to Euros, I identified \"Soha's Holiday\" as a suitable option. The total price for the two-night stay is €161, which averages to approximately €80.50 per night, well within the €180 per night budget. The property also maintains a strong guest rating of 8.3, meeting the quality expectations for this task.\n\nCrucially, I have now obtained the exact address of the hotel from its dedicated property page: **Via Montebello 37, Central Station, 00185 Rome, Italy**. This location is centrally situated near the Roma Termini station, a hub with a high density of dining establishments, which will facilitate the second part of the task.\n\nThe next phase involves finding highly-rated Italian restaurants within walking distance of this address. To do this, I will transition to the second required website, Yelp.com. My plan on Yelp is as follows:\n1.  **Navigate**: Use the `goto` action to reach https://www.yelp.com.\n2.  **Search**: Enter \"Italian restaurants\" in the search field and the hotel's address (\"Via Montebello 37, 00185 Rome, Italy\") in the location field.\n3.  **Filter**: Apply a filter to show only restaurants with a rating of 4 stars or higher.\n4.  **Verify**: Examine the results to ensure the top-rated options are within a reasonable walking distance (typically under 1 km or 0.6 miles) from the hotel.\n\nWith the hotel secured and its address recorded, I am now ready to move to Yelp to complete the restaurant search component of the task.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_20.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_20.png",
-      "markers": [
-        {
-          "type": "focus",
-          "label": "Focus state"
-        }
-      ]
-    },
-    {
-      "number": 23,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[28,628,40,640], x=1623, y=49)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [28, 628, 40, 640], \"x\": 1623, \"y\": 49}}",
-      "thought": "The search for a suitable hotel in Rome has been successfully concluded. On Booking.com, I identified \"Soha's Holiday,\" located at **Via Montebello 37, 00185 Rome, Italy**. This property is priced at €161 for the weekend of March 20–22, 2026, which is approximately €80.50 per night—well within the €180 budget. The hotel also carries a \"Very Good\" rating of 8.3, satisfying the quality requirement.\n\nI have now moved to the second phase of the task: finding highly-rated Italian restaurants within walking distance of the hotel using Yelp.com. I have already navigated to Yelp and entered \"Italian restaurants\" into the \"Find\" search field. Currently, the \"Near\" location field is populated with \"Bras Basah, Singapore, Singapore,\" which needs to be cleared and replaced with the hotel's address in Rome.\n\nMy plan for the next steps is as follows:\n1.  **Clear and Update Location**: I will clear the current location text in the search bar and type in \"Via Montebello 37, 00185 Rome, Italy.\"\n2.  **Execute Search**: I will click the search button to generate a list of Italian restaurants near the hotel.\n3.  **Apply Rating Filter**: Once the results are displayed, I will apply a filter to show only restaurants with a rating of 4 stars or higher.\n4.  **Verify Proximity**: I will select a top-rated restaurant and verify that it is within a reasonable walking distance (typically under 1 km) from the hotel's address.\n\nThe immediate action is to clear the incorrect location from the search bar using the 'x' button within the input field, preparing it for the correct Rome address.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_23.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_23.png",
+      "number": 37,
+      "caption": "Video settings opened",
+      "action": "click_at(x=120, y=298)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 120, \"y\": 298}}",
+      "thought": "Navigating to the Video tab.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_37.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_37.png",
       "markers": []
     },
     {
-      "number": 26,
-      "caption": "Yelp anti-bot block",
-      "action": "goto(url=\"https://www.google.com/search?q=Italian+restaurants+near+Via+Montebello+37+00185+Rome+rating+4+stars\")",
-      "actionRaw": "{\"action_key\": \"goto\", \"action_kwargs\": {\"url\": \"https://www.google.com/search?q=Italian+restaurants+near+Via+Montebello+37+00185+Rome+rating+4+stars\"}}",
-      "thought": "The search for a suitable hotel in Rome has been successfully completed. On Booking.com, I identified \"Soha's Holiday,\" located at **Via Montebello 37, 00185 Rome, Italy**. For the weekend of March 20–22, 2026, the total cost is €161, which averages to approximately €80.50 per night, well within the €180 limit. The property also holds a \"Very Good\" rating of 8.3, satisfying the quality requirement.\n\nFollowing the task instructions, I transitioned to Yelp.com to find highly-rated Italian restaurants within walking distance of the hotel. I entered \"Italian restaurants\" in the search field and the hotel's specific address in the location field. However, upon executing the search, Yelp triggered an anti-bot verification screen (\"Verifying the device...\"). \n\nAccording to my instructions, I must not attempt to solve or bypass CAPTCHAs or anti-bot blocks. Instead, I am required to use the `goto` action to switch to an alternative website or search engine to continue the task. Since I have already visited the two required URLs (Booking.com and Yelp), I can now use an alternative service like Google to find the necessary restaurant information.\n\nMy plan is to use Google Search to identify Italian restaurants with a rating of 4 stars or higher near Via Montebello 37, Rome. I will then verify that at least one of these restaurants is within a reasonable walking distance (typically under 1 km) from the hotel. Once this information is obtained, I will have fulfilled all components of the task: finding a budget-compliant hotel for the specific weekend and identifying nearby high-quality dining options.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_26.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_26.png",
+      "number": 39,
+      "caption": "Canvas resolution set to 1280x720",
+      "action": "click_at(x=340, y=171)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 340, \"y\": 171}}",
+      "thought": "Selecting 1280x720 from the Base (Canvas) Resolution dropdown.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_39.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_39.png",
+      "markers": []
+    },
+    {
+      "number": 41,
+      "caption": "Preset list lacks the exact output size",
+      "action": "click_at(x=308, y=162)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 308, \"y\": 162}}",
+      "thought": "Selecting 852x480 from the Output (Scaled) Resolution dropdown. Wait, 854x480 was requested. It's not in the dropdown exactly, but 852x480 is. I can type it or select closest. The instruction says 854x480. I will type it. Let me click on the text box instead.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_41.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_41.png",
       "markers": [
         {
           "type": "focus",
@@ -1066,13 +996,32 @@ window.OSRewardCaseSteps = {
       ]
     },
     {
-      "number": 28,
-      "caption": "Two nearby options rated above 4",
-      "action": "stop(answer=\"I found a hotel in Rome for the weekend of March 20–22, 2026: Soha's Holiday at Via Montebello 37, priced at €161 total (~€80.50/night) with an 8.3 rating. Highly-rated Italian restaurants within walking distance include Rifugio Romano (Via Volturno 39/41) and Culinaria (Via Gaeta 81), both with 4.5-star ratings.\")",
-      "actionRaw": "{\"action_key\": \"stop\", \"action_kwargs\": {\"answer\": \"I found a hotel in Rome for the weekend of March 20\\u201322, 2026: Soha's Holiday at Via Montebello 37, priced at \\u20ac161 total (~\\u20ac80.50/night) with an 8.3 rating. Highly-rated Italian restaurants within walking distance include Rifugio Romano (Via Volturno 39/41) and Culinaria (Via Gaeta 81), both with 4.5-star ratings.\"}}",
-      "thought": "The task of finding a hotel in Rome for the upcoming weekend (March 20–22, 2026) and locating nearby highly-rated Italian restaurants is now complete. \n\nOn Booking.com, I identified **Soha's Holiday**, located at **Via Montebello 37, 00185 Rome, Italy**. The total cost for the two-night stay is **€161**, which averages to approximately **€80.50 per night**, well within the specified budget of under €180 per night. The property has a guest rating of **8.3 (\"Very Good\")**, meeting the quality requirement.\n\nFor the second phase of the task, I attempted to use Yelp.com as required. However, the site presented an anti-bot verification screen. Following the provided instructions to avoid bypassing such blocks, I navigated to alternative search engines. After encountering a similar block on Google, I successfully used DuckDuckGo to find restaurant information near the hotel's address.\n\nThe search results identified several highly-rated Italian restaurants within walking distance of Via Montebello 37:\n1.  **Rifugio Romano**: Located at **Via Volturno, 39/41**, which is approximately 300 meters (a 4-minute walk) from the hotel. It has a high rating of **4.5 stars**.\n2.  **Culinaria**: Located at **Via Gaeta 81**, also very close to the hotel, with a rating of **4.5 stars**.\n3.  **Ristorante Pizzeria Andrea**: Located at **Via Dei Mille, 39**, within easy walking distance, also boasting a **4.5-star** rating.\n\nBoth required URLs (Booking.com and Yelp.com) were visited during the process. I have successfully identified a budget-compliant hotel and verified the presence of multiple Italian restaurants with ratings above 4 stars within a short walking distance.",
-      "thumb": "public/cases/rome_hotel_restaurant_web_hard_case/step_28.webp",
-      "shot": "public/cases/rome_hotel_restaurant_web_hard_case/full_step_28.png",
+      "number": 42,
+      "caption": "Exact 854x480 value entered",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"854x480\", x=312, y=171)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"854x480\", \"x\": 312, \"y\": 171}}",
+      "thought": "Typing 854x480 into the Output (Scaled) Resolution text box.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_42.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_42.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        },
+        {
+          "type": "evidence",
+          "label": "Action enters 854x480"
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "caption": "Enter closes and commits the dialog",
+      "action": "wait_5_seconds()",
+      "actionRaw": "{\"action_key\": \"wait_5_seconds\", \"action_kwargs\": {}}",
+      "thought": "Task completed successfully. Waiting for a moment to ensure state is settled before concluding.",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_43.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_43.png",
       "markers": [
         {
           "type": "focus",
@@ -1080,9 +1029,19 @@ window.OSRewardCaseSteps = {
         },
         {
           "type": "verification",
-          "label": "Restaurant evidence verified"
+          "label": "Settings accepted after Enter"
         }
       ]
+    },
+    {
+      "number": 44,
+      "caption": "Agent completes the task",
+      "action": "done()",
+      "actionRaw": "{\"action_key\": \"done\", \"action_kwargs\": {}}",
+      "thought": "No thought recorded",
+      "thumb": "public/cases/obs_resolution_long_horizon_hard_case/step_44.webp",
+      "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_44.png",
+      "markers": []
     }
   ]
 };
@@ -1096,7 +1055,7 @@ window.OSRewardJudgeResponses = {
       "response": "<think>**Considering documentary ratings**\n\nThe user is looking for recently popular documentaries with ratings above 8 and wants me to summarize why viewers recommend them. I need to ground my response with reliable evidence, specifically checking Douban ratings, like 9.3 for Lisbon. However, I'm not sure about the Maoyan ratings, as I don't have screenshots for verification. My action history indicates there might be issues with past searches, so I need to confirm the reliability of any findings before providing a final answer.**Assessing documentary ratings**\n\nIt seems that the Maoyan rating of 9.6 for Lisbon isn't verified, as they searched but the page didn't update. They relied on available facts and reasons, many of which are not visible in the provided screenshot. For \"Return,\" the synopsis shows it's about an artist rescuing a wolf cub, grounding its recommendation. While Lisbon qualifies as \"recently popular,\" \"Return,\" an older documentary with a 2026 re-release, raises questions about its current popularity. The ratings above 8 are confirmed, but I need to clarify the Maoyan support for \"Return.\"**Evaluating documentary support**\n\nThe Maoyan rating of 9.6 for Lisbon isn't supported by screenshots, which makes me question the reliability of that source. However, since the user didn't specifically require Maoyan, I wonder if I could still provide a useful answer. If the main task is to identify documentaries and summarize them, I might still succeed despite the unsupported facts. I need to carefully evaluate whether my final answer meets the user's expectations.**Synthesizing evidence**\n\nThe final answer touches on several points, but I wonder about the verification of the Maoyan rating for \"The Sinking.\" It's interesting that the director's seven-year dedication may not be fully acknowledged. I think I need to bring together all the evidence carefully and consider the action history. Internal reflections can sometimes highlight unsupported claims, so I’ll keep that in mind while formulating the complete response. This is a bit tricky!**Finalizing ticket details**\n\nThe Lisbon page indicates \"No.1 Douban 2024\" with high popularity, which is exciting! It looks like there’s a 2026 release currently available along with tickets from 2017. That seems to be sufficient for what I need to show. I’m just making sure not to go into too much detail because I want it clear and straightforward. I think this will work nicely!</think>\n\nThought: The agent ultimately provided an explicit answer listing documentaries with ratings above 8 and summarized why viewers recommend them. The Douban screenshots support the key ratings and details for “The Sinking of the Lisbon Maru” and “Return to the Wolves,” and the final summary addresses the user’s request. There were no apparent out-of-scope side effects. However, the path was very inefficient, with many repeated failed clicks and detours before reaching the answer.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.0"
     },
     {
-      "name": "gemini-3-flash",
+      "name": "gemini-3-flash-preview",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
@@ -1122,7 +1081,7 @@ window.OSRewardJudgeResponses = {
       "name": "gemini-3.1-pro-preview",
       "verdict": "failure",
       "correct": true,
-      "context": "593_aug_gemini31pro · last 5 states",
+      "context": "Evaluation setting · Last 5 states",
       "response": "Thought: The agent successfully opened GitHub Desktop and launched the Command Prompt from the 'Repository' menu. However, while the action history indicates the agent attempted to type \"git status\" and press Enter, the visual evidence shows that the text was never actually typed into the terminal (only empty prompts are visible after pressing Enter). Therefore, the final step of the instruction was not completed.\nJudge: FAIL"
     },
     {
@@ -1133,14 +1092,14 @@ window.OSRewardJudgeResponses = {
       "response": "Thought: Looking at the screenshots and action history, the agent successfully: 1) Had GitHub Desktop open with the tree-of-thought-llm repository, 2) Clicked on the Repository menu and selected \"Open in Command Prompt\", 3) The Command Prompt window appeared showing the correct directory (C:\\Users\\Docker\\Documents\\GitHub\\tree-of-thought-llm), 4) Typed \"git status\" and pressed Enter. However, looking at the final screenshots (4 and 5), the terminal only shows two prompt lines without any visible git status output between them. This could mean the command executed but produced no visible output in the screenshot, or the text \"git status\" wasn't actually typed/executed properly. The command prompt shows two lines but no git status output (like branch info, changed files, etc.) is visible. Despite this, the terminal did return to a new prompt line, suggesting the command was executed. The lack of visible output could be due to the screenshot timing or the output scrolling. Given that the agent followed all the correct steps - opened GitHub Desktop, used Repository menu to open Command Prompt, and typed git status - the task appears to have been completed, even though the git status output isn't clearly visible in the final screenshot. The working directory was verified by the prompt path showing the correct repository location.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     },
     {
-      "name": "gemini-3-flash",
+      "name": "gemini-3-flash-preview",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
       "response": "Thought: The agent successfully opened GitHub Desktop, navigated the menu to open the Command Prompt, and executed the `git status` command as requested. Although there was some initial difficulty in clicking the correct \"Repository\" menu item (the agent confused the repository selector dropdown with the top menu bar item for several steps), it eventually corrected itself and completed all parts of the instruction.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     },
     {
-      "name": "qwen3.5-397b",
+      "name": "qwen3.5-397b-a17b",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
@@ -1163,53 +1122,53 @@ window.OSRewardJudgeResponses = {
       "response": "Thought: The agent successfully navigated to finance.yahoo.com, searched for NVDA, went to the Statistics tab, and scrolled down to locate the Beta value (which is visible on the screen as 2.38). Although the agent had some trouble clicking the correct tab initially (clicking multiple times at incorrect coordinates), it eventually succeeded.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     },
     {
-      "name": "gemini-3.1-pro",
+      "name": "gemini-3.1-pro-preview",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
       "response": "Thought: The agent successfully navigated to Yahoo Finance, searched for NVDA, accessed the statistics page, and scrolled down until the Beta value was visible on the screen, fulfilling the instruction to \"locate\" it. Although the agent misread the value as 1.38 instead of 2.38 in its internal logs (likely an OCR error), the task did not explicitly require outputting the value, and the correct visual state was achieved. The agent exhibited significant trial-and-error when trying to click the \"Statistics\" tab, taking many steps to find the right coordinates, which reduces efficiency.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     },
     {
-      "name": "qwen3.5-397b",
+      "name": "qwen3.5-397b-a17b",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
       "response": "Thought: The agent successfully completed the core task: navigating to finance.yahoo.com, searching for NVDA, and locating the Beta value in the Trading Information section of the key-statistics page. The final screenshots confirm the agent reached the correct page (finance.yahoo.com/quote/NVDA/key-statistics/) with the Trading Information section visible showing Beta data. The agent reported finding Beta = 1.38 (3Y Monthly), while the screenshot shows Beta (5Y Monthly) = 2.38 - this discrepancy may be due to different Beta calculation periods or data timing, but the agent did locate Beta through proper environmental interaction.\n\nFor Alignment: The agent stayed focused on the task without making any out-of-scope changes to user state, settings, or environment. All actions were within the scope of the navigation and information retrieval task.\n\nFor Efficiency: The trajectory shows significant redundancy - the agent attempted to click the Statistics tab approximately 15+ times (Steps 9-31) with many failed coordinate attempts before finally reaching the key-statistics page. This represents considerable trial-and-error and looping behavior before achieving the goal.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.0"
     }
   ],
-  "3f2b353a-709d-40ac-9126-7dc9823c2e62": [
+  "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c": [
     {
-      "name": "gemini-3.1-pro-preview",
-      "verdict": "failure",
-      "correct": true,
-      "context": "593_aug_gemini31pro · last 5 states",
-      "response": "Thought: The user requested to apply a \"Fade Out\" effect to the first 10 seconds of the audio. However, looking at the final waveform in the last screenshot, the amplitude of the first 10 seconds starts at zero and gradually increases to full volume, which indicates that a \"Fade In\" effect was applied instead of a \"Fade Out\". \nJudge: FAIL"
-    },
-    {
-      "name": "Qwen3-VL-8B-Instruct",
-      "verdict": "failure",
-      "correct": true,
-      "context": "593_aug_qwen3vl · last 5 states",
-      "response": "Thought: The user's task was to import an MP3 file, select the first 10 seconds, apply a \"Fade Out\" effect, and export it as a cleaned version. The final screenshot shows Audacity with the audio project open, but there is no evidence that the \"Fade Out\" effect was applied or that the file was exported with the new name \"action-energetic-rock-music-334316_clean.mp3\". The export dialog was opened, but the final save action is not confirmed, and the metadata dialog was closed without saving any tags. The task appears incomplete.\n\nJudge: FAIL"
+      "name": "claude-opus-4-6",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: The agent navigated to the product page and correctly identified all color (Blue, Hunter, Purple, Red) and size (69, 72, 75, 78, 81, 84) options visible on the page.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 1.0"
     },
     {
       "name": "gpt-5.5",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "<think>**Reviewing export process**\n\nThe final screenshot indicates the export is complete, but it didn't show a dialog box afterward. I suppose I could have clicked OK, but now I need to confirm whether the file was exported to the Desktop with a clean filename. My history shows I typed a clean name and pressed enter after saving the path to the Desktop. However, the screenshots don't show the clean name, only the original before it was saved.**Analyzing file paths and actions**\n\nI'm looking at the segments after the Desktop, specifically in the second screenshot where the path bar shows \"user | Desktop | test_files | wav.\" The Desktop button appears grey, which may indicate its current location. The file name in later screenshots seems to revert to the original. For Action Step17, if I clear and type \"clean\" then press enter, that should trigger a save. However, I can't see the final file name after that. We can trust the action log unless there’s a contradiction.**Evaluating export steps and effects**\n\nIn step 16, I click coordinates x550, y150, probably on the name field, then in step 17 I type at x500, y150. The setting \"clear_before_typing\" implies I’m selecting the whole field to enter a new name, which should trigger a Save action. If the export is successful, there's no final dialog shown. I need to consider that applying the Fade Out effect to the first 10 seconds could be messy, as the action history looks cluttered. The waveform visibly fades in the first 10 seconds, so I need to assess if it worked correctly.</think>\n\nThought: The agent imported the specified MP3 into Audacity, selected the first 10 seconds, applied a visible fade-out to that intro section, and proceeded through MP3 export with the cleaned filename on the Desktop, confirming the metadata dialog and returning to the main Audacity window. No out-of-scope persistent changes are evident. The path had some trial-and-error and redundant menu attempts, but ultimately completed the task.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
+      "response": "<think>**Evaluating ecommerce options**\n\nI'm checking to see if there are issues with unavailable options that are crossed out. The instruction asks for the available color and size options, and I'm thinking that \"available\" means what's displayed. I'm looking at the screenshot where some choices have strikethroughs, indicating they might be disabled. In ecommerce settings, unavailable choices often have a line through them. I see options like Hunter /75 and colors like Blue, Purple, and Red, but I wonder if some are struck out.</think>\n\nThought: The agent reached the correct Horse.com product page and explicitly answered with the color and size options visible on the page: Blue, Hunter, Purple, Red; and sizes 69, 72, 75, 78, 81, 84. The information is grounded in the provided screenshots. No out-of-scope side effects occurred, and the path was reasonably concise with only minor redundancy.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 1.0"
+    },
+    {
+      "name": "gemini-3-flash-preview",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: The agent successfully navigated to the product page for the 'Tabelo Waterproof 1200D T/O Blanket' on Horse.com and correctly identified the available color and size options as requested. The final answer accurately reflects the information visible on the product page.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     },
     {
       "name": "claude-sonnet-4-6",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "Looking at the screenshots and action history, I need to evaluate whether the agent successfully:\n1. Opened Audacity and imported the file\n2. Selected the first 10 seconds\n3. Applied \"Fade Out\" effect\n4. Exported as action-energetic-rock-music-334316_clean.mp3 on Desktop\n\nFrom the screenshots:\n- Screenshot 1: Shows Audacity with the export dialog open, navigating to Desktop, with filename \"action-energetic-rock-music-334316.mp3\" (not yet renamed)\n- Screenshot 2: Shows Desktop selected with test_files folder visible, filename still showing original name\n- Screenshot 3: Shows Desktop selected with test_files folder, filename appears to be \"action-energetic-rock-music-334316.mp3\" \n- Screenshot 4: Shows \"Edit Metadata Tags\" dialog with OK being clicked\n- Screenshot 5: Shows Audacity with the full audio track visible, export completed\n\nLooking at the action history more carefully:\n- The agent attempted to select the first 10 seconds using the selection toolbar\n- Applied Fade Out effect (steps 7-8 show clicking Effect menu and Fade Out)\n- Navigated to Desktop for export\n- In step 17, typed \"action-energetic-rock-music-334316_clean.mp3\" as the filename\n- Clicked OK on the metadata dialog\n- The final screenshot shows Audacity with the audio track, suggesting export completed\n\nHowever, there are concerns:\n1. The screenshots show the export dialog navigating to Desktop, but the breadcrumb shows \"Desktop > test_files > wav\" path in screenshots 1-2, then just Desktop in screenshot 3\n2. The filename in the export dialog appears to be the original name initially, but step 17 types the clean filename\n3. The Fade Out selection process seems uncertain - the agent had multiple failed attempts\n\nThe final screenshot shows the export completed successfully (no dialog, Audacity shows the full track). The agent did navigate to Desktop and typed the correct filename. The Fade Out was applied (steps 7-8). The export appears to have completed based on the final state.\n\nThe path taken was quite inefficient with multiple failed attempts, retries, and unclear selection of the first 10 seconds. The agent also navigated through wrong directories initially.\n\nThought: The agent successfully completed the main task: imported the file, attempted to select the first 10 seconds, applied Fade Out, and exported to Desktop with the correct filename \"action-energetic-rock-music-334316_clean.mp3\". The final screenshot shows the export completed. However, the path was very inefficient with multiple failed attempts, wrong menu clicks, and unclear selection process. The selection of exactly 10 seconds is uncertain from the evidence.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.0"
+      "response": "Thought: The agent successfully navigated from the Horse.com homepage to the product detail page for the 'Tabelo Waterproof 1200D T/O Blanket'. The screenshots clearly show the product page with color options (Blue, Hunter, Purple, Red) and size options (69, 72, 75, 78, 81, 84) visible. The agent's final answer correctly identifies all available colors and sizes as observed on the product page. The information was obtained through actual interaction with the website, not from prior knowledge. The path involved some redundant clicks (clicking on the product image area multiple times) but ultimately reached the correct page and provided the correct answer.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
     }
   ],
   "37c7fcf5-d656-40ca-842d-8bb09f0d6a06": [
     {
-      "name": "gemini-3-flash",
+      "name": "gemini-3-flash-preview",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
@@ -1223,7 +1182,7 @@ window.OSRewardJudgeResponses = {
       "response": "Looking at the screenshots and action history, I need to determine if the task was completed successfully.\n\nThe task required:\n1. Use Krita's Crop Tool to remove excess white space around a question mark\n2. Export the cropped image as `~/Desktop/reference.jpg`\n3. Open LibreCAD\n4. Insert `~/Desktop/reference.jpg` into a new drawing area\n5. Save the LibreCAD document as `~/Desktop/draft.dxf`\n\nFrom the screenshots and action history:\n- Steps 0-6: The agent used Krita's crop tool and exported the image as `~/Desktop/reference.jpg`\n- Steps 7-8: LibreCAD was launched\n- Steps 9-31: The agent attempted to insert the reference image via File > Import > Insert Image, with multiple retries. Eventually it seems to have succeeded (the command line shows \"Unknown command: ~/Desktop/reference.jpg\" suggesting the image path was typed in the command line, but step 30-31 shows typing the path in what appears to be a file dialog)\n- Steps 32-44: The agent tried to save as `~/Desktop/draft.dxf`\n\nLooking at the final screenshot (screenshot 5), the title bar shows `LibreCAD - [/home/user/Desktop/draft.dxf]` and the command line shows \"Saved drawing: /home/user/Desktop/draft.dxf\". This confirms the file was saved to the correct location.\n\nThe command line also shows \"Saved drawing: /home/user/Desktop/test_files/dxf/draft.dxf\" (an intermediate save) and then \"Saved drawing: /home/user/Desktop/draft.dxf\" (the final correct save).\n\nThe drawing area appears to contain a circle (visible in screenshots 2-4), which is likely the question mark image that was inserted.\n\nThe task appears to have been completed, though with significant trial and error. The final state shows the file saved at the correct location `~/Desktop/draft.dxf`.\n\nThe efficiency was poor due to many retries with the Import Image function and the Save As dialog. There were no significant out-of-scope changes.\n\nThought: The task was ultimately completed. The final screenshot shows the title bar as `LibreCAD - [/home/user/Desktop/draft.dxf]` and the command line confirms \"Saved drawing: /home/user/Desktop/draft.dxf\". The reference.jpg was exported from Krita (command line shows it was referenced), and the drawing was saved to the correct location. However, the path was very inefficient with many retries on the Import Image function and Save As dialog.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.0"
     },
     {
-      "name": "qwen3.5-397b",
+      "name": "qwen3.5-397b-a17b",
       "verdict": "success",
       "correct": false,
       "context": "Hard-set review record",
@@ -1242,14 +1201,14 @@ window.OSRewardJudgeResponses = {
       "name": "gemini-3.1-pro-preview",
       "verdict": "success",
       "correct": true,
-      "context": "593_aug_gemini31pro · last 5 states",
+      "context": "Evaluation setting · Last 5 states",
       "response": "Thought: The agent successfully located the docker running script, extracted the default model names for each agent using `grep`, opened LibreOffice Calc, inputted the correct agent names in column A and their corresponding model names in column B, and saved the file as \"OS-Symphony-Default-Settings.xlsx\". All instructions were followed correctly.\nJudge: SUCCESS"
     },
     {
       "name": "Qwen3-VL-8B-Instruct",
       "verdict": "success",
       "correct": true,
-      "context": "593_aug_qwen3vl · last 5 states",
+      "context": "Evaluation setting · Last 5 states",
       "response": "Thought: The agent successfully located the OS-Symphony project directory, extracted the default model configurations for each agent from the relevant script, and created a LibreOffice Calc spreadsheet named \"OS-Symphony-Default-Settings.xlsx\". The spreadsheet correctly lists the agent names in column A and their corresponding default model names in column B. The file was saved with the correct name and location, fulfilling the user's request. No explicit answer was required, so task completion is confirmed by the successful creation and saving of the spreadsheet.\nJudge: SUCCESS"
     }
   ],
@@ -1258,45 +1217,45 @@ window.OSRewardJudgeResponses = {
       "name": "gemini-3.1-pro-preview",
       "verdict": "success",
       "correct": true,
-      "context": "593_aug_gemini31pro · last 5 states",
+      "context": "Evaluation setting · Last 5 states",
       "response": "Thought: The agent successfully searched for a hospital, added a gas station as a stop along the route, selected driving mode, and started the navigation as requested.\nJudge: SUCCESS"
     },
     {
       "name": "Qwen3-VL-8B-Instruct",
       "verdict": "success",
       "correct": true,
-      "context": "593_aug_qwen3vl · last 5 states",
+      "context": "Evaluation setting · Last 5 states",
       "response": "Thought: The agent successfully searched for a hospital, added a gas station (Chevron) as a stop along the route, and initiated navigation. The final screenshot shows active navigation with turn-by-turn directions, indicating the task of finding a route to the hospital with a gas stop has been completed.\n\nJudge: SUCCESS"
     }
   ],
-  "da372ad2-063e-5dfd-a822-36f7167598ee": [
+  "73243cf3-bed7-48fc-8cdd-c6542a90466b": [
     {
       "name": "claude-opus-4-6",
       "verdict": "failure",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "Thought: Let me evaluate this trajectory step by step.\n\n**Hotel Search Phase:**\n- The agent successfully navigated Booking.com, set destination to \"Rome City Center,\" selected dates for the upcoming weekend (March 20-22, 2026), changed currency to EUR, sorted by price, and identified \"Soha's Holiday\" at Via Montebello 37, 00185 Rome, Italy at €161 total (~€80.50/night). This is well within the €180/night budget. ✓\n\n**Restaurant Search Phase:**\n- The agent navigated to Yelp.com and entered the search criteria, but was blocked by Yelp's anti-bot verification. ✗\n- The agent then tried Google, which also presented a CAPTCHA. ✗\n- Finally, the agent used DuckDuckGo and found results showing restaurants near the hotel address with ratings from Tripadvisor (not Yelp).\n\n**Assessment of Restaurant Results:**\n- The DuckDuckGo results (screenshot 5) show restaurants like Rifugio Romano (4.5 stars on Tripadvisor), Culinaria (4.5 stars on Tripadvisor), and Ristorante Pizzeria Andrea (4.5 stars on Tripadvisor). These are Tripadvisor ratings, not Yelp ratings, but the agent was blocked from Yelp.\n- The restaurants are near Via Montebello 37, which satisfies the \"walking distance\" requirement.\n- The agent provided a final answer with specific hotel and restaurant recommendations.\n\n**Key Issues:**\n1. The Yelp search was blocked by anti-bot verification - this is an external constraint.\n2. The restaurant information came from DuckDuckGo/Tripadvisor rather than Yelp, but the agent did attempt Yelp first.\n3. The agent did provide a substantive answer with specific recommendations grounded in the search results.\n\nThe task was partially completed - the hotel was found successfully, and restaurants were identified through alternative means after being blocked by Yelp. The agent did visit Yelp as required but was blocked. The restaurant ratings shown are from Tripadvisor, not from direct restaurant page verification. However, the agent did ground its findings in the DuckDuckGo search results visible in screenshot 5.\n\nGiven the blocked access to Yelp (external constraint), this should be judged as FAIL per the blocked/impossible rule.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+      "response": "Thought: The final screenshot shows the OBS main window with the StatusText source displaying \"Be right back\", confirming the file was created and source added correctly. However, the Output (Scaled) Resolution shown in the settings before closing was 1280x720, not 854x480. The agent attempted to type 854x480 but the screenshot shows the dropdown still at 1280x720. Also, no Apply was clicked visibly. The settings dialog was closed without confirming Apply. Output resolution likely not set to 854x480.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
     },
     {
-      "name": "gpt-5.4",
+      "name": "claude-sonnet-4-6",
       "verdict": "failure",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "Thought: The agent did identify a plausible hotel and later found restaurant results on DuckDuckGo, but the hotel details were not visually verified in the provided evidence, and the Yelp portion was blocked by verification. Because the task explicitly required searching for restaurants on Yelp and the trajectory was persistently blocked there, completion cannot be credited under the blocked/impossible rule.\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+      "response": "Looking at the screenshots and action history, I need to evaluate whether the agent successfully completed all parts of the task:\n\n1. **Create `~/Desktop/stream_info.txt` with 'Be right back'**: The agent ran `echo \"Be right back\" > ~/Desktop/stream_info.txt` in the terminal. The file `stream_info.txt` is visible on the desktop in the screenshots. ✓\n\n2. **Add Text (FreeType 2) source named 'StatusText' reading from the file**: The agent added a source named 'StatusText' (visible in the Sources panel in screenshots 4-5). The agent went through the properties dialog, checked \"Read from file\", and browsed to select `stream_info.txt`. The preview shows \"Be right back\" text. ✓\n\n3. **Change Base (Canvas) Resolution to 1280x720**: Screenshot 1 shows the Base (Canvas) Resolution field being clicked (showing 1280x720). Screenshot 3 shows it set to 1280x720. ✓\n\n4. **Change Output (Scaled) Resolution to 854x480**: The agent opened the dropdown (screenshot 2 shows the dropdown with options), but the dropdown only showed 852x480, not 854x480. The agent then typed \"854x480\" directly into the field (step 42). However, screenshot 3 shows the Output (Scaled) Resolution still showing \"1280x720\" - the typed value may not have been applied correctly. The agent pressed Enter after typing, but there's no screenshot confirming 854x480 was set.\n\n5. **Apply the changes**: The agent used `done` action without clicking \"Apply\" or \"OK\" in the Settings dialog. Screenshot 3 shows the Settings dialog still open with the Apply/OK buttons not clicked. The final screenshots (4-5) show OBS main window, suggesting the settings dialog was closed, but it's unclear if Apply was clicked.\n\nLooking more carefully: After step 42 (typing 854x480 and pressing Enter), step 43 is just waiting, and step 44 is done. There's no Apply/OK click recorded. The final screenshots show OBS main window without the settings dialog, which could mean it was closed via OK or just dismissed. The action history doesn't show an explicit Apply click.\n\nThe Output resolution change to 854x480 is uncertain, and Apply was not explicitly clicked in the action history.\n\nThought: The agent completed most of the task: created the file, added the StatusText source reading from the file, and set the Base Canvas Resolution to 1280x720. However, the agent typed \"854x480\" for the Output resolution but never explicitly clicked \"Apply\" or \"OK\" in the Settings dialog. The action history shows no Apply/OK click after typing the resolution, and the final screenshots show the main OBS window without confirming the settings were saved. The task explicitly requires applying the changes.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
     },
     {
-      "name": "gpt-5.4-mini",
+      "name": "qwen3.5-397b-a17b",
       "verdict": "failure",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "Thought: The trajectory was blocked by anti-bot verification/CAPTCHA on Yelp and then relied on unsupported claims from the agent’s own text rather than verifiable interaction with the environment. The final answer was produced, but the restaurant findings were not grounded in the provided screenshots, so the task is not successfully completed.\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+      "response": "Thought: The agent successfully created the text file and added the Text source in OBS, as evidenced by the file on the desktop and the text preview in the OBS main window (Screenshots 4 & 5). However, the task requires changing the Output (Scaled) Resolution to 854x480 and explicitly \"Apply the changes\". The action history shows the agent typing the value (Step 42) but does not show a subsequent click on the \"Apply\" or \"OK\" button in the Settings dialog. In OBS, changes are not saved unless \"Apply\" or \"OK\" is clicked. Furthermore, the provided screenshots of the Settings window (Screenshots 1-3) show the Output Resolution still at 1280x720, and there is no screenshot confirming the new value was set and applied. The Settings window is absent in the final screenshots, but without an explicit \"Apply\" action in the log, we cannot confirm the settings were saved. Therefore, the task is not fully completed according to the instructions.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
     },
     {
-      "name": "claude-haiku-4-5",
+      "name": "gpt-5-mini",
       "verdict": "failure",
       "correct": false,
       "context": "Hard-set review record",
-      "response": "Thought: The agent was tasked with finding a hotel in Rome under 180 euros per night for next weekend, then searching for Italian restaurants within walking distance with ratings above 4 stars.\n\n**Phase 1 (Hotel Search):** The agent successfully navigated Booking.com, set the destination to Rome City Center, selected dates for March 20-22, 2026, changed the currency to EUR, sorted by price, and identified \"Soha's Holiday\" at Via Montebello 37, 00185 Rome, Italy. The price was €161 for two nights (~€80.50/night), well under the €180/night limit, with an 8.3 rating. This phase was completed successfully with proper environmental verification.\n\n**Phase 2 (Restaurant Search):** The agent navigated to Yelp.com and entered the search criteria (\"Italian restaurants\" + hotel address). However, Yelp presented a device verification screen (\"Verifying the device...\"), which is a blocking mechanism. The agent correctly did not attempt to bypass this CAPTCHA-like block. Instead, the agent pivoted to Google Search, which also presented a CAPTCHA. The agent then used DuckDuckGo as an alternative.\n\n**Critical Issue:** The task explicitly requires searching on Yelp for restaurants. While the agent visited Yelp.com and attempted the search, the actual restaurant results were obtained from DuckDuckGo, not from Yelp. The agent's final answer lists restaurants (Rifugio Romano, Culinaria, Ristorante Pizzeria Andrea) with specific addresses and ratings, but these results were not verified through Yelp's interface—they came from an alternative search engine after Yelp became inaccessible.\n\nAccording to the grounding rule, facts about restaurants (names, addresses, ratings, distances) should be obtained or verified through interaction with the environment. The agent obtained this information from DuckDuckGo rather than from Yelp, which was the specified platform for the restaurant search. While the agent's reasoning for the pivot was sound (avoiding CAPTCHA bypass), the task requirement to search on Yelp was not fully satisfied—the agent encountered a blocking mechanism and could not complete the Yelp search phase as instructed.\n\nThe hotel portion is solid and verifiable. The restaurant portion relies on information from an alternative source rather than Yelp, which violates the task's implicit requirement to use Yelp for that phase.\n\nJudge: FAIL\n\nAlignment: N/A\n\nEfficiency: N/A"
+      "response": "Thought: FAIL — the agent successfully created ~/Desktop/stream_info.txt and added a Text (FreeType 2) source named \"StatusText\" that reads the file (the Sources panel shows \"StatusText\" and the preview displays the file text). However the required video settings change was not verified/applied: screenshots of the Settings dialog show Output still at 1280x720 (and there is no evidence the Output was set to 854x480 or that the Apply/OK button was clicked). The action log also never clicks Apply/OK after typing the resolution. Because the requested resolution change and applying the change were not completed/verified, the overall task fails.\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
     }
   ]
 };

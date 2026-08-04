@@ -320,7 +320,6 @@
         traceId: "dc2a1004-c6ee-5c2c-acb7-b1f5716c18ae",
         platform: "Web",
         caseType: "False success",
-        tendency: "Majority success",
         instruction: "Help me find some recently popular documentaries with ratings above 8, and " +
           "summarize the main reasons why viewers recommend them.",
         reasonLabel: "Miss reason",
@@ -356,9 +355,8 @@
         traceId: "25cc896a-a4dc-46ad-a5eb-2d36f3bf0de7",
         platform: "Windows",
         caseType: "False success",
-        tendency: "Majority success",
-        instruction: "Open GitHub Desktop. Use the ‘Repository’ menu at the top to select ‘Open in " +
-          "Command Prompt’ (or Terminal). Once the external terminal window appears, type git status " +
+        instruction: "Open GitHub Desktop. Use the 'Repository' menu at the top to select 'Open in " +
+          "Command Prompt' (or Terminal). Once the external terminal window appears, type git status " +
           "to verify the working directory.",
         reasonLabel: "Miss reason",
         reason: "The agent mistakes a new terminal prompt for proof that git status ran, despite the " +
@@ -395,9 +393,8 @@
         traceId: "37b29158-fde9-4e99-a382-1bec564db773",
         platform: "Windows",
         caseType: "Perception failure",
-        tendency: "Majority success",
-        instruction: "Navigate to finance.yahoo.com using the address bar, search for NVDA to find " +
-          "Nvidia Corporation’s stock data, and locate the current Beta value.",
+        instruction: "Navigate to \"finance.yahoo.com\" using the address bar, search for \"NVDA\" to find " +
+          "Nvidia Corporation's stock data, and locate the current \"Beta\" value.",
         reasonLabel: "Miss reason",
         reason: "The agent reports Beta (3Y Monthly) = 1.38 even though the screen shows Beta " +
           "(5Y Monthly) = 2.38.",
@@ -429,54 +426,42 @@
         ]
       },
       {
-        id: "3f2b353a-709d-40ac-9126-7dc9823c2e62",
-        traceId: "3f2b353a-709d-40ac-9126-7dc9823c2e62_20260324@132004",
-        platform: "Ubuntu",
-        caseType: "Fine-grained visual miss",
-        tendency: "Selected judges: success",
-        instruction: "Open Audacity and import the file " +
-          "‘~/Desktop/test_files/mp3/action-energetic-rock-music-334316.mp3’. Select the first 10 " +
-          "seconds and apply a Fade Out effect. Export the cleaned audio as " +
-          "action-energetic-rock-music-334316_clean.mp3 on Desktop.",
+        id: "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c",
+        traceId: "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c",
+        platform: "Web",
+        caseType: "UI-state perception failure",
+        instruction: "What are the available color and size options for the 'Tabelo Waterproof " +
+          "1200D T/O Blanket' on Horse.com?",
         reasonLabel: "Miss reason",
-        reason: "The agent trusts the Fade Out command and completed export without verifying that " +
-          "attenuation occurs in the requested first 10 seconds.",
+        reason: "The agent reads the option labels but ignores their strikethrough styling, " +
+          "turning disabled color and size variants into available choices.",
         gold: "failure",
-        goldWhy: "The final waveform does not provide reliable evidence that the requested interval was faded.",
-        agentAccount: "Returned done after the export flow, without textual verification of the selected interval.",
+        goldWhy: "Only Hunter and size 75 are visibly enabled; every other listed variant is struck through.",
+        agentAccount: "Reported Blue, Hunter, Purple, and Red as available colors and 69, 72, 75, " +
+          "78, 81, and 84 as available sizes.",
+        judgeFieldSummary: "Full judge field: 23/23 SUCCESS",
         steps: [
-          { number: 0, focus: false, caption: "Original waveform loaded",
-            thumb: "public/cases/audacity_fadeout_llm_miss/step_0.webp",
-            shot: "public/cases/audacity_fadeout_llm_miss/full_step_0.png" },
-          { number: 8, caption: "Fade Out targeted for 0 to 10 seconds",
-            thumb: "public/cases/audacity_fadeout_llm_miss/step_8.webp",
-            shot: "public/cases/audacity_fadeout_llm_miss/full_step_8.png" },
-          { number: 9, caption: "Waveform after applying the effect",
-            thumb: "public/cases/audacity_fadeout_llm_miss/step_9.webp",
-            shot: "public/cases/audacity_fadeout_llm_miss/full_step_9.png" },
-          { number: 18, caption: "Export reaches metadata stage",
-            thumb: "public/cases/audacity_fadeout_llm_miss/step_18.webp",
-            shot: "public/cases/audacity_fadeout_llm_miss/full_step_18.png" },
-          { number: 19, caption: "Final waveform requires visual verification",
-            thumb: "public/cases/audacity_fadeout_llm_miss/step_19.webp",
-            shot: "public/cases/audacity_fadeout_llm_miss/full_step_19.png" }
+          { number: 0, focus: false, caption: "Horse.com starting state",
+            thumb: "public/cases/horse_product_ui_state_failure/step_0.webp",
+            shot: "public/cases/horse_product_ui_state_failure/full_step_0.jpg" },
+          { number: 1, caption: "Product options become visible",
+            thumb: "public/cases/horse_product_ui_state_failure/step_1.webp",
+            shot: "public/cases/horse_product_ui_state_failure/full_step_1.jpg" },
+          { number: 4, caption: "Disabled variants reported as available",
+            thumb: "public/cases/horse_product_ui_state_failure/step_4.webp",
+            shot: "public/cases/horse_product_ui_state_failure/full_step_4.jpg" }
         ],
-        judges: [
-          { name: "GPT-5.5", verdict: "success", correct: false,
-            reason: "Accepted the visible fade and completed export as sufficient." },
-          { name: "Claude-Sonnet-4.6", verdict: "success", correct: false,
-            reason: "Credited completion despite uncertainty about the ten-second selection." }
-        ]
+        judges: []
       },
       {
         id: "37c7fcf5-d656-40ca-842d-8bb09f0d6a06",
         traceId: "37c7fcf5-d656-40ca-842d-8bb09f0d6a06_20260405@033709",
         platform: "Ubuntu",
         caseType: "Planning failure",
-        tendency: "Majority success",
-        instruction: "In Krita, crop the excess white space around the drawn question mark and " +
-          "export it as ~/Desktop/reference.jpg. Then insert that image into a new LibreCAD drawing " +
-          "and save the document as ~/Desktop/draft.dxf.",
+        instruction: "In Krita, use the Crop Tool to remove the excess white space around the drawn " +
+          "question mark, then export the cropped image as `~/Desktop/reference.jpg`. Next, open " +
+          "LibreCAD, insert `~/Desktop/reference.jpg` into a new drawing area, and save the LibreCAD " +
+          "document as `~/Desktop/draft.dxf`.",
         reasonLabel: "Miss reason",
         reason: "The agent saves a DXF without verifying insertion; the final drawing shows a blank " +
           "raster instead of the cropped question mark.",
@@ -510,10 +495,12 @@
         traceId: "3c91a543-78eb-47c2-b4c5-b226fa4fe04b_20260324@133025",
         platform: "Ubuntu",
         caseType: "Long-horizon hard case",
-        tendency: "Unanimous success",
-        instruction: "Find the default model configuration of each OS-Symphony agent from its Docker " +
-          "run script, then create and save OS-Symphony-Default-Settings.xlsx in LibreOffice Calc " +
-          "with agent names in column A and model names in column B.",
+        instruction: "I wanna figure out the default model configuration of OS-Symphony, which is a " +
+          "multi-agents framework. Open the '~/Desktop/test_files/python_projects/OS-Symphony' folder " +
+          "and find the running script of docker. Open it, read the script to find the default model " +
+          "name of each agent. Then, open LibreOffice Calc, create a table " +
+          "\"OS-Symphony-Default-Settings.xlsx\". Write the agent's name on column A (e.g. " +
+          "Orchestrator) and model's name (e.g. gpt or gemini) on column B.",
         reasonLabel: "Why it is hard",
         reason: "Across 53 steps, the agent recovers the project path, extracts five model defaults, " +
           "builds the spreadsheet, and repairs save errors.",
@@ -550,7 +537,6 @@
         traceId: "GoogleMapHospitalAndGasRoute_0",
         platform: "Mobile",
         caseType: "Compositional hard case",
-        tendency: "Unanimous success",
         instruction: "I want to go to the nearest hospital and fill my gas tank along the road. " +
           "Provide me a best route for driving my own car.",
         reasonLabel: "Why it is hard",
@@ -582,43 +568,42 @@
         ]
       },
       {
-        id: "da372ad2-063e-5dfd-a822-36f7167598ee",
-        traceId: "e7b83a42-174a-5d65-84dd-fe9863d4f748",
-        platform: "Web",
-        caseType: "Cross-site hard case",
-        tendency: "Mixed",
-        instruction: "Find a hotel in Rome under 180 euros per night for next weekend. Then search " +
-          "for Italian restaurants within walking distance of that hotel with ratings above 4 stars.",
+        id: "73243cf3-bed7-48fc-8cdd-c6542a90466b",
+        traceId: "73243cf3-bed7-48fc-8cdd-c6542a90466b_20260405@194959",
+        platform: "Ubuntu",
+        caseType: "Long-horizon hard success",
+        instruction: "Create a text file at `~/Desktop/stream_info.txt` and write the text 'Be right " +
+          "back' into it. In OBS Studio, add a Text (FreeType 2) source named 'StatusText' that reads " +
+          "its text directly from this newly created file. Then, open the OBS Settings, navigate to " +
+          "the Video tab, and change the Base (Canvas) Resolution to 1280x720 and the Output (Scaled) " +
+          "Resolution to 854x480. Apply the changes. (You do not need to start recording).",
         reasonLabel: "Why it is hard",
-        reason: "The judge must link dates, nightly cost, hotel address, and nearby ratings across a " +
-          "29-step run that recovers from two anti-bot blocks.",
+        reason: "The judge must integrate file creation, a file-backed OBS text source, and a late " +
+          "custom-resolution correction after a long recovery-heavy sequence.",
         gold: "success",
-        goldWhy: "The selected hotel satisfies the budget and the recovered results show two nearby restaurants rated above 4.",
-        agentAccount: "Reported Soha’s Holiday at EUR 161 for two nights and two nearby 4.5-star " +
-          "restaurants after rerouting around blockers.",
+        goldWhy: "The text is visibly read from stream_info.txt, and the final resolution action " +
+          "enters the exact 854x480 value and submits it with Enter.",
+        agentAccount: "Created stream_info.txt, linked it to StatusText, set the 1280x720 canvas, " +
+          "and closed Video settings after entering 854x480.",
+        judgeFieldSummary: "Full judge field: 13/23 FAIL",
         steps: [
-          { number: 0, focus: false, caption: "Initial hotel search",
-            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_0.webp",
-            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_0.png" },
-          { number: 18, caption: "EUR 161 for two nights; rating 8.3",
-            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_18.webp",
-            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_18.png" },
-          { number: 20, caption: "Exact hotel address recovered",
-            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_20.webp",
-            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_20.png" },
-          { number: 26, caption: "Yelp anti-bot block",
-            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_26.webp",
-            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_26.png" },
-          { number: 28, caption: "Two nearby options rated above 4",
-            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_28.webp",
-            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_28.png" }
+          { number: 0, focus: false, caption: "Desktop and OBS starting state",
+            thumb: "public/cases/obs_resolution_long_horizon_hard_case/step_0.webp",
+            shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_0.png" },
+          { number: 35, caption: "File-backed text visibly rendered",
+            thumb: "public/cases/obs_resolution_long_horizon_hard_case/step_35.webp",
+            shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_35.png" },
+          { number: 41, caption: "Preset list lacks the exact output size",
+            thumb: "public/cases/obs_resolution_long_horizon_hard_case/step_41.webp",
+            shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_41.png" },
+          { number: 42, caption: "Exact 854x480 value entered",
+            thumb: "public/cases/obs_resolution_long_horizon_hard_case/step_42.webp",
+            shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_42.png" },
+          { number: 43, caption: "Enter closes and commits the dialog",
+            thumb: "public/cases/obs_resolution_long_horizon_hard_case/step_43.webp",
+            shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_43.png" }
         ],
-        judges: [
-          { name: "Claude-Opus-4.6", verdict: "failure", correct: false,
-            reason: "Rejected the restaurant phase because DuckDuckGo replaced blocked Yelp." },
-          { name: "GPT-5.4", verdict: "failure", correct: false,
-            reason: "Treated Yelp as mandatory and the alternative-source evidence as insufficient." }
-        ]
+        judges: []
       }
     ]
   };

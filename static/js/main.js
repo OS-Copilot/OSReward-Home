@@ -287,7 +287,7 @@
   }
 
   /* ----------------------------------------------------- 6.5 case studies */
-  /* One case at a time, following the paper site's DataViewer grammar:
+  /* One case at a time, following the paper site's Data Viewer grammar:
      instruction, trajectory, human verdict and expandable judge readings.
      Cards load WebP previews; the lightbox uses untouched source frames. */
   function dataViewer() {
@@ -306,6 +306,45 @@
 
     function verdictTag(parent, verdict) {
       return h("span", "viewer-tag viewer-tag-" + verdict, parent, verdict);
+    }
+
+    function shownJudgeSummary(judges) {
+      var shown = Array.isArray(judges) ? judges : [];
+      var total = shown.length;
+      var successes = shown.filter(function (judge) {
+        return judge.verdict === "success";
+      }).length;
+      var failures = shown.filter(function (judge) {
+        return judge.verdict === "failure";
+      }).length;
+
+      if (!total) return "Shown model responses: none";
+      if (successes === total) return "Shown model responses: " + successes + "/" + total + " SUCCESS";
+      if (failures === total) return "Shown model responses: " + failures + "/" + total + " FAIL";
+      return "Shown model responses: " + successes + " SUCCESS / " + failures + " FAIL";
+    }
+
+    var MODEL_DISPLAY_NAMES = {
+      "gpt-5.5": "GPT-5.5",
+      "gpt-5.4": "GPT-5.4",
+      "gpt-5.4-mini": "GPT-5.4-mini",
+      "gpt-5-mini": "GPT-5-mini",
+      "gemini-3-flash": "Gemini-3-Flash",
+      "gemini-3-flash-preview": "Gemini-3-Flash",
+      "gemini-3.5-flash": "Gemini-3.5-Flash",
+      "gemini-3.1-pro-preview": "Gemini-3.1-Pro-Preview",
+      "claude-opus-4-6": "Claude-Opus-4-6",
+      "claude-sonnet-4-6": "Claude-Sonnet-4-6",
+      "claude-haiku-4-5": "Claude-Haiku-4-5",
+      "claude-haiku-4-5-20251001": "Claude-Haiku-4-5",
+      "qwen3.5-397b": "Qwen3.5-397B",
+      "qwen3.5-397b-a17b": "Qwen3.5-397B-A17B",
+      "qwen3-vl-8b-instruct": "Qwen3-VL-8B-Instruct"
+    };
+
+    function displayModelName(name) {
+      var raw = String(name || "Unknown model");
+      return MODEL_DISPLAY_NAMES[raw.toLowerCase()] || raw;
     }
 
     function markerTypes(step) {
@@ -331,18 +370,23 @@
     var caseType = h("span", "viewer-case-type", meta);
 
     var pager = h("div", "viewer-pager", bar);
-    var prev = h("button", "viewer-nav", pager, "‹ Previous case");
-    prev.type = "button";
-    var count = h("span", "viewer-count", pager);
-    var next = h("button", "viewer-nav", pager, "Next case ›");
-    next.type = "button";
+    var randomCase = h("button", "viewer-nav", pager, "Random case ↻");
+    randomCase.type = "button";
+    randomCase.setAttribute("aria-label", "Show another case at random");
+    var caseStatus = h("span", "sr-only", pager);
+    caseStatus.setAttribute("aria-live", "polite");
+    caseStatus.setAttribute("aria-atomic", "true");
 
     var stage = h("div", null, host);
 
     var lightbox = h("div", "viewer-lightbox", document.body);
     lightbox.hidden = true;
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-labelledby", "viewer-lightbox-caption");
     var lightboxBar = h("div", "viewer-lightbox-bar", lightbox);
     var lightboxCaption = h("span", null, lightboxBar);
+    lightboxCaption.id = "viewer-lightbox-caption";
     var lightboxActions = h("div", null, lightboxBar);
     var lightboxOriginal = h("a", "viewer-lightbox-link", lightboxActions, "Open original");
     lightboxOriginal.target = "_blank";
@@ -353,16 +397,25 @@
     lightboxImage.className = "viewer-lightbox-image";
     lightboxImage.alt = "";
     lightbox.appendChild(lightboxImage);
+    var lightboxReturnFocus = null;
 
     function closeLightbox() {
       lightbox.hidden = true;
       lightboxImage.removeAttribute("src");
+      lightboxImage.alt = "";
       document.body.classList.remove("viewer-modal-open");
+      if (lightboxReturnFocus && document.contains(lightboxReturnFocus)) {
+        lightboxReturnFocus.focus();
+      }
+      lightboxReturnFocus = null;
     }
 
-    function openLightbox(step) {
+    function openLightbox(step, opener) {
+      lightboxReturnFocus = opener;
       lightboxCaption.textContent = "Step " + step.number + " · " + step.caption;
       lightboxImage.src = step.shot;
+      lightboxImage.alt = "Full-resolution trajectory screenshot at step " + step.number +
+        ": " + step.caption;
       lightboxOriginal.href = step.shot;
       lightbox.hidden = false;
       document.body.classList.add("viewer-modal-open");
@@ -374,7 +427,22 @@
       if (event.target === lightbox) closeLightbox();
     });
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && !lightbox.hidden) closeLightbox();
+      if (lightbox.hidden) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeLightbox();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      var first = lightboxOriginal;
+      var last = lightboxClose;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     function render() {
@@ -382,9 +450,7 @@
       stage.textContent = "";
       platform.textContent = e.platform;
       caseType.textContent = e.caseType;
-      count.textContent = (idx + 1) + " / " + EX.length;
-      prev.disabled = idx === 0;
-      next.disabled = idx === EX.length - 1;
+      randomCase.disabled = EX.length < 2;
 
       h("span", "viewer-k", stage, "Instruction");
       h("p", "viewer-task", stage, e.instruction);
@@ -433,7 +499,7 @@
         image.loading = n < 3 ? "eager" : "lazy";
         image.decoding = "async";
         shotButton.appendChild(image);
-        shotButton.addEventListener("click", function () { openLightbox(s); });
+        shotButton.addEventListener("click", function () { openLightbox(s, shotButton); });
 
         h("strong", "viewer-step-caption", card, s.caption);
 
@@ -471,7 +537,8 @@
       h("span", "viewer-k", outcome, "Human verdict");
       var verdictRow = h("div", "viewer-outcome-row", outcome);
       verdictTag(verdictRow, e.gold);
-      h("span", "viewer-tendency", verdictRow, "Reference judges · " + e.tendency);
+      h("span", "viewer-tendency", verdictRow,
+        e.judgeFieldSummary || shownJudgeSummary(e.judges));
       h("p", "viewer-gold-why", outcome, e.goldWhy);
 
       var reason = h("div", "viewer-reason-strip", panel);
@@ -479,7 +546,7 @@
       h("p", null, reason, e.reason);
 
       var account = h("section", "viewer-account", panel);
-      h("span", "viewer-k", account, "Agent’s account");
+      h("span", "viewer-k", account, "Agent outcome summary");
       h("p", null, account, e.agentAccount);
 
       var readings = h("section", "viewer-readings", panel);
@@ -491,7 +558,7 @@
         var row = h("details", "viewer-judge" + (j.correct ? "" : " wrong"), jr);
         var judgeHead = h("summary", "viewer-judge-head", row);
         var identity = h("span", "viewer-judge-identity", judgeHead);
-        h("span", "jn", identity, j.name);
+        h("span", "jn", identity, displayModelName(j.name));
         if (j.context) h("small", null, identity, j.context);
         h("span", "jv viewer-tag viewer-tag-" + j.verdict, judgeHead, j.verdict);
         h("span", "jm", judgeHead, j.correct ? "matches human" : "disagrees");
@@ -505,13 +572,19 @@
 
       btn.addEventListener("click", function () {
         panel.hidden = false;
+        panel.tabIndex = -1;
         btn.setAttribute("aria-expanded", "true");
         btn.remove();
+        panel.focus();
       });
     }
 
-    prev.addEventListener("click", function () { if (idx > 0) { idx--; render(); } });
-    next.addEventListener("click", function () { if (idx < EX.length - 1) { idx++; render(); } });
+    randomCase.addEventListener("click", function () {
+      if (EX.length < 2) return;
+      idx = (idx + 1 + Math.floor(Math.random() * (EX.length - 1))) % EX.length;
+      render();
+      caseStatus.textContent = "Loaded another case: " + EX[idx].caseType + " on " + EX[idx].platform + ".";
+    });
     render();
   }
 
