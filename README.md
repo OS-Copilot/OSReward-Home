@@ -19,12 +19,15 @@ static/css/main.css      design system + all page styles
 static/js/
   osreward-data.js       every number from the paper, one place
   osreward-charts.js     dependency-free SVG chart library
+  osreward-demo.js       pipeline walkthrough stepper (#pipeline-demo)
   main.js                page behaviour + chart wiring
 public/
   cover.png              project key art
   favicon*.png .ico      derived from the cover
   social/og-image.png    1200x630 social card
+  demo/                  pipeline-demo screenshots (from the paper-figure deck)
   logos/                 model-family marks used in tables and plots
+  logos/platforms/       platform marks for the pipeline demo
   affil/                 university logos (not currently used on the page)
 figure/resources/        local-only working material (gitignored)
 ```

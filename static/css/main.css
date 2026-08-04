@@ -846,6 +846,252 @@ a.card.feature:not(.pending-card):hover { transform: translateY(-2px); border-co
   display: grid; place-items: center; gap: 3px;
 }
 
+/* Pipeline demo (#pipeline-demo) — paper Figs. 3-4 as one steppable
+   walkthrough. Nodes and narration are static HTML so the block reads
+   top-to-bottom without scripts; osreward-demo.js sets data-live, draws the
+   wire layer and swaps the visible narration entry. Every colour rides a
+   token or a per-node --dn-accent, so a theme flip needs no repaint. */
+
+.demo-stage { position: relative; margin-top: 4px; }
+.demo-wires {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.demo-wires path { fill: none; stroke: var(--chart-axis); stroke-width: 1.3; }
+.demo-wires .arrow { fill: var(--chart-axis); stroke: none; }
+.demo-wires text {
+  font: 500 10.5px var(--font-mono);
+  fill: var(--text-faint);
+  letter-spacing: 0.02em;
+  text-anchor: middle;
+}
+.demo-wires .wire.drop path { stroke: var(--bad); }
+.demo-wires .wire.drop .arrow { fill: var(--bad); }
+
+.demo-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 44px 30px;
+}
+.dnode {
+  --dn-accent: var(--text-faint);
+  position: relative;
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--r);
+  background: var(--surface-1b);
+  padding: 13px 12px 12px;
+  text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.dnode.human { --dn-accent: var(--gold-400); border-color: var(--hairline); }
+.dnode.auto  { --dn-accent: var(--cyan-400); border-color: rgba(111, 207, 224, 0.26); }
+.dnode.data  { --dn-accent: var(--ok);       border-color: rgba(88, 199, 164, 0.34); }
+/* Terminal hues match the three-views icons below, so the demo hands off. */
+.dnode.term.hard  { --dn-accent: #eb8b6e; border-color: rgba(235, 139, 110, 0.4); }
+.dnode.term.multi { --dn-accent: #b18bf2; border-color: rgba(177, 139, 242, 0.4); }
+:root[data-theme="light"] .dnode.auto { border-color: rgba(26, 137, 166, 0.3); }
+:root[data-theme="light"] .dnode.data { border-color: rgba(31, 138, 104, 0.38); }
+:root[data-theme="light"] .dnode.term.hard  { --dn-accent: #b85a40; border-color: rgba(184, 90, 64, 0.42); }
+:root[data-theme="light"] .dnode.term.multi { --dn-accent: #7d5ec4; border-color: rgba(125, 94, 196, 0.42); }
+.dnode h4 {
+  font-family: var(--font-body);
+  font-size: 13.5px; font-weight: 600;
+  margin: 7px 0 4px;
+  color: var(--text-hi);
+  text-wrap: balance;
+}
+.dnode.term h4 { color: var(--dn-accent); }
+.dnode p { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--text-faint); }
+.dnode .dn-marks { display: flex; justify-content: center; gap: 6px; margin: 6px 0 3px; }
+.dnode .dn-marks img {
+  width: 22px; height: 22px;
+  padding: 2px;
+  border-radius: 5px;
+  background: var(--logo-plate);
+  object-fit: contain;
+}
+
+.d-tray {
+  align-self: start; justify-self: start;
+  font-size: 11px; line-height: 1.5;
+  color: var(--text-faint);
+  border: 1px dashed rgba(224, 115, 107, 0.4);
+  border-radius: var(--r-sm);
+  padding: 6px 11px;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
+}
+.d-tray-label {
+  display: block;
+  font: 600 10px var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bad);
+}
+
+/* Armed states (data-live is set by osreward-demo.js). Armed nodes are also
+   jump targets: click one to go to its step. */
+.demo[data-live] .dnode, .demo[data-live] .d-tray { opacity: 0.3; cursor: pointer; }
+.demo[data-live] .dnode.past, .demo[data-live] .d-tray.past { opacity: 0.58; }
+.demo[data-live] .dnode:hover:not(.on) { opacity: 0.85; border-color: var(--dn-accent); }
+.demo[data-live] .d-tray:hover:not(.on) { opacity: 0.85; border-color: var(--bad); }
+.demo[data-live] .dnode.on {
+  opacity: 1;
+  border-color: var(--dn-accent);
+  box-shadow: 0 0 0 1px var(--dn-accent), 0 10px 30px -18px var(--dn-accent);
+}
+.demo[data-live] .d-tray.on { opacity: 1; border-color: var(--bad); }
+.demo[data-live] .demo-wires .wire { opacity: 0.16; transition: opacity 0.3s ease; }
+.demo[data-live] .demo-wires .wire.on { opacity: 0.85; }
+.demo[data-live] .demo-wires .wire.now { opacity: 1; }
+.demo[data-live] .demo-wires .wire.now path { stroke: var(--gold-400); stroke-width: 1.7; }
+.demo[data-live] .demo-wires .wire.now .arrow { fill: var(--gold-400); }
+.demo[data-live] .demo-wires .wire.now text { fill: var(--gold-300); }
+.demo[data-live] .demo-wires .wire.drop.now path { stroke: var(--bad); }
+.demo[data-live] .demo-wires .wire.drop.now .arrow { fill: var(--bad); }
+.demo[data-live] .demo-wires .wire.drop.now text { fill: var(--bad); }
+
+/* Controls (stepper UI exists only once the script arms the block) */
+.demo-controls { display: none; }
+.demo[data-live] .demo-controls {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.dctl {
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  border: 1px solid var(--hairline-cool);
+  background: var(--chart-track);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.dctl svg { width: 14px; height: 14px; }
+.dctl:hover:not(:disabled) { color: var(--gold-300); border-color: var(--hairline-strong); }
+.dctl:disabled { opacity: 0.35; cursor: default; }
+.dctl-play .ic-pause { display: none; }
+.dctl-play[aria-pressed="true"] .ic-play { display: none; }
+.dctl-play[aria-pressed="true"] .ic-pause { display: block; }
+.demo-dots { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0 2px; }
+.demo-dots button {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.18s ease, width 0.18s ease;
+}
+.demo-dots button:hover { background: var(--hairline-strong); }
+.demo-dots button[aria-current="step"] {
+  width: 22px;
+  border-radius: 6px;
+  background: var(--gold-400);
+  border-color: var(--gold-400);
+}
+.demo-count { font: 500 11.5px var(--font-mono); color: var(--text-faint); margin-left: auto; }
+
+/* Narration. Without JS all twelve entries read as a list; armed, one shows. */
+.demo-script { list-style: none; margin: 16px 0 0; padding: 0; }
+.demo[data-live] .demo-script { min-height: 176px; }
+.demo-script > li {
+  border: 1px solid var(--hairline-cool);
+  border-radius: var(--r);
+  background: var(--surface-1);
+  padding: 14px 18px 15px;
+}
+.demo-script > li + li { margin-top: 10px; }
+.demo[data-live] .demo-script > li { display: none; }
+.demo[data-live] .demo-script > li.on { display: block; }
+.demo-script h4 {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--font-body);
+  font-size: 14.5px; font-weight: 600;
+  margin: 0 0 6px;
+}
+.demo-script h4 .step-n { flex: none; }
+.demo-script p { margin: 0; font-size: 13.5px; line-height: 1.62; color: var(--text-dim); }
+.d-art { margin-top: 12px; }
+.d-chips { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.d-chip {
+  font: 500 11.5px var(--font-mono);
+  color: var(--text-dim);
+  border: 1px solid var(--hairline-cool);
+  background: var(--chart-track);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.d-verd {
+  font: 600 11px var(--font-mono);
+  letter-spacing: 0.05em;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.d-verd.ok  { color: var(--ok);  border-color: rgba(88, 199, 164, 0.4);  background: rgba(88, 199, 164, 0.08); }
+.d-verd.bad { color: var(--bad); border-color: rgba(224, 115, 107, 0.4); background: rgba(224, 115, 107, 0.08); }
+.d-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.d-card {
+  font: 500 11.5px/1.5 var(--font-mono);
+  color: var(--text-dim);
+  border: 1px solid var(--hairline-cool);
+  border-left-width: 3px;
+  border-radius: var(--r-sm);
+  background: var(--surface-1b);
+  padding: 8px 10px 8px 12px;
+}
+.d-card.keep { border-left-color: var(--ok); }
+.d-card.drop { border-left-color: var(--bad); }
+.d-chain { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--gold-500); }
+.d-chain img {
+  width: clamp(120px, 17vw, 200px);
+  height: auto;
+  display: block;
+  border-radius: 7px;
+  border: 1px solid var(--hairline-cool);
+}
+.d-chain svg { width: 18px; height: 10px; flex: none; }
+.d-shots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.d-shots figure { margin: 0; text-align: center; }
+.d-shots img {
+  max-width: 100%; max-height: 175px;
+  width: auto; height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 7px;
+  border: 1px solid var(--hairline-cool);
+}
+.d-shots figcaption {
+  font: 500 10.5px var(--font-mono);
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+  margin-top: 5px;
+}
+
+@media (max-width: 940px) {
+  .demo-wires { display: none; }
+  /* Stack in DOM order (which is pipeline order); grid-area pins are inline,
+     hence the !important. A chevron keeps the flow readable. */
+  .demo-grid { grid-template-columns: 1fr; gap: 26px; }
+  .demo-grid > * { grid-area: auto !important; }
+  .demo-grid > *:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: -18px;
+    width: 8px; height: 8px;
+    border-right: 1.4px solid var(--gold-500);
+    border-bottom: 1.4px solid var(--gold-500);
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .d-tray { justify-self: center; position: relative; }
+  .d-cards { grid-template-columns: 1fr; }
+  .d-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* Vertical corpus pipeline */
 ol.pipeline { list-style: none; margin: 4px 0 0; padding: 0; position: relative; }
 ol.pipeline::before {

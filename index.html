@@ -460,109 +460,218 @@
             four agent families, and three independent annotators per trajectory — roughly 800 human hours.</p>
         </div>
 
-        <!-- Infrastructure pipeline (paper Fig. 3) -->
-        <div class="card chart-card rise">
+        <!-- Pipeline demo: paper Figs. 3-4 as one steppable walkthrough.
+             Nodes, wiring labels and the narration are static HTML so the
+             section reads top-to-bottom without scripts; osreward-demo.js
+             arms the stepper and draws the wire layer. Previous static
+             version: figure/backups/2026-08-03-benchmark-flows/. -->
+        <div class="card chart-card demo rise" id="pipeline-demo">
           <div class="chart-head">
-            <h3>From realistic environments to trajectories</h3>
+            <h3>From realistic environments to the gold benchmark</h3>
           </div>
-          <p class="chart-note">Stock benchmark images are extended into lived-in machines: everyday and
-            professional applications, real files, user profiles, seeded databases, distractor content. Web tasks
-            run on live websites.</p>
-          <div class="flow" style="margin-top:6px">
-            <div class="flow-node">
-              <span class="step-n">1</span>
-              <h4>Realistic environment</h4>
-              <p>Web · Windows · Ubuntu · Mobile<br>everyday + professional apps, files, state</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="flow-node human">
-              <span class="step-n">2</span>
-              <h4>Annotators explore</h4>
-              <p>learn the apps, build profiles,<br>seed files, initialize state</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="flow-node human">
-              <span class="step-n">3</span>
-              <h4>Human-vetted instructions</h4>
-              <p>grounded · answerable · open-ended<br>peer cross-checked (~1500 → ~800)</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="flow-node">
-              <span class="step-n">4</span>
-              <h4>Agent rollout</h4>
-              <p>Claude · Gemini · Kimi · Qwen<br>screenshot → thought → action</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="flow-node out">
-              <span class="step-n">5</span>
-              <h4>Raw trajectories</h4>
-              <p>up to 100 steps<br>to annotation</p>
-            </div>
-          </div>
-        </div>
+          <p class="chart-note">How each trajectory in OSReward is curated.</p>
 
-        <!-- Annotation pipeline (paper Fig. 4) -->
-        <div class="card chart-card rise" style="margin-top:24px">
-          <div class="chart-head">
-            <h3>From raw trajectories to the gold benchmark</h3>
+          <div class="demo-stage">
+            <svg class="demo-wires" aria-hidden="true"></svg>
+            <div class="demo-grid">
+              <div class="dnode auto" id="dn-env" data-step="1" style="grid-area:1/1">
+                <span class="step-n">1</span>
+                <h4>Realistic environments</h4>
+                <span class="dn-marks">
+                  <img src="public/logos/platforms/web.png" alt="Web (Chrome)" width="18" height="18">
+                  <img src="public/logos/platforms/windows.png" alt="Windows" width="18" height="18">
+                  <img src="public/logos/platforms/ubuntu.png" alt="Ubuntu" width="18" height="18">
+                  <img src="public/logos/platforms/mobile.png" alt="Mobile (Android)" width="18" height="18">
+                </span>
+                <p>lived-in machines, realistic<br>apps and live websites</p>
+              </div>
+              <div class="dnode human" id="dn-setup" data-step="2" style="grid-area:1/2">
+                <span class="step-n">2</span>
+                <h4>Annotator setup</h4>
+                <p>learn the apps, move in:<br>profiles, files, seeded state</p>
+              </div>
+              <div class="dnode human" id="dn-instr" data-step="3" style="grid-area:1/3">
+                <span class="step-n">3</span>
+                <h4>Instructions</h4>
+                <p>written &amp; cross-checked</p>
+              </div>
+              <div class="dnode auto" id="dn-agents" data-step="4" style="grid-area:1/4">
+                <span class="step-n">4</span>
+                <h4>Agent rollout</h4>
+                <span class="dn-marks">
+                  <img src="public/logos/Claude.png" alt="Claude" width="18" height="18">
+                  <img src="public/logos/Gemini.png" alt="Gemini" width="18" height="18">
+                  <img src="public/logos/Kimi.png" alt="Kimi" width="18" height="18">
+                  <img src="public/logos/Qwen.png" alt="Qwen" width="18" height="18">
+                </span>
+                <p>with diverse backbones</p>
+              </div>
+              <div class="dnode data" id="dn-raw" data-step="5" style="grid-area:1/5">
+                <span class="step-n">5</span>
+                <h4>Raw trajectories</h4>
+                <p>screenshot &middot; thought &middot; action<br>up to 100 steps</p>
+              </div>
+
+              <div class="dnode auto" id="dn-filter" data-step="6" style="grid-area:2/1">
+                <span class="step-n">6</span>
+                <h4>Pre-filter</h4>
+                <p>environment casualties<br>dropped automatically</p>
+              </div>
+              <div class="d-tray" id="d-tray" data-step="6" style="grid-area:3/1">
+                <span class="d-tray-label">discarded</span>
+                incomplete &middot; crashed &middot; blocked
+              </div>
+              <div class="dnode human" id="dn-annot" data-step="7" style="grid-area:2/2">
+                <span class="step-n">7</span>
+                <h4>Three annotators</h4>
+                <p>independent verdicts,<br>a written reason each</p>
+              </div>
+              <div class="dnode human" id="dn-meta" data-step="9" style="grid-area:3/3">
+                <span class="step-n">9</span>
+                <h4>Meta-review</h4>
+                <p>two senior reviewers<br>deliberate the splits</p>
+              </div>
+              <div class="dnode data" id="dn-gold" data-step="10" style="grid-area:2/4">
+                <span class="step-n">10</span>
+                <h4>OSReward</h4>
+              </div>
+              <div class="dnode term hard" id="dn-hard" data-step="11" style="grid-area:2/5">
+                <span class="step-n">11</span>
+                <h4>OSReward-Hard</h4>
+                <p>the cases that split humans<br>30 / 70 success / fail</p>
+              </div>
+              <div class="dnode term multi" id="dn-multi" data-step="12" style="grid-area:3/5">
+                <span class="step-n">12</span>
+                <h4>OSReward-Multi</h4>
+                <p>step-level alignment<br>and efficiency</p>
+              </div>
+
+            </div>
           </div>
-          <p class="chart-note">Three annotators label every surviving trajectory independently. Unanimous verdicts
-            are final; splits escalate to a two-reviewer meta-review — deliberation, not a majority vote — so no
-            gold verdict rests on a single reader. One deliberately strict rule: an answer the agent did not obtain
-            or verify through the environment is a FAIL even when it happens to be correct.</p>
-          <div class="flow" style="margin-top:6px">
-            <div class="flow-node">
-              <span class="step-n">1</span>
-              <h4>Automatic pre-filter</h4>
-              <p>drop persistently blocked<br>or failed runs</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+
+          <div class="demo-controls">
+            <button class="dctl" id="demoPrev" type="button" aria-label="Previous step">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M10 3 5 8l5 5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-            </div>
-            <div class="flow-node human">
-              <span class="step-n">2</span>
-              <h4>Three annotators, independently</h4>
-              <p>SUCCESS → alignment + efficiency<br>FAIL → error types</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+            </button>
+            <button class="dctl dctl-play" id="demoPlay" type="button" aria-pressed="false" aria-label="Play the walkthrough">
+              <svg class="ic-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M4.5 2.8v10.4c0 .5.55.8.97.53l8-5.2a.63.63 0 0 0 0-1.06l-8-5.2a.63.63 0 0 0-.97.53Z" />
               </svg>
-            </div>
-            <div class="flow-node human">
-              <span class="step-n">3</span>
-              <h4>Meta-review on splits</h4>
-              <p>two senior reviewers deliberate;<br>residual-quality runs discarded</p>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">
-              <svg aria-hidden="true" width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+              <svg class="ic-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M4 2.5h2.6v11H4v-11Zm5.4 0H12v11H9.4v-11Z" />
               </svg>
-            </div>
-            <div class="flow-node out">
-              <span class="step-n">4</span>
-              <h4>Gold benchmark</h4>
-              <p>read as three views:<br>OSReward · Hard · Multi</p>
-            </div>
+            </button>
+            <button class="dctl" id="demoNext" type="button" aria-label="Next step">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="m6 3 5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <ol class="demo-dots" id="demoDots"></ol>
+            <span class="demo-count" id="demoCount" aria-hidden="true">1 / 12</span>
           </div>
+
+          <ol class="demo-script" id="demoScript">
+            <li data-node="dn-env">
+              <h4><span class="step-n">1</span> A lived-in machine</h4>
+              <p>Stock benchmark images are extended into lived-in machines &mdash; real files, user
+                profiles, seeded databases, distractor content &mdash; and web tasks run on live sites.</p>
+              <div class="d-art d-chips">
+                <span class="d-chip">real files</span>
+                <span class="d-chip">user profiles</span>
+                <span class="d-chip">seeded databases</span>
+                <span class="d-chip">distractors</span>
+                <span class="d-chip">live websites</span>
+              </div>
+            </li>
+            <li data-node="dn-setup">
+              <h4><span class="step-n">2</span> Annotators move in</h4>
+              <p>Annotators learn the apps, build profiles, and seed files and state &mdash; every task
+                starts on a machine with a history.</p>
+            </li>
+            <li data-node="dn-instr">
+              <h4><span class="step-n">3</span> Instructions, cross-checked</h4>
+              <p>Written against what the environment can verify &mdash; grounded, answerable,
+                open-ended. Peer review cuts ~1,500 drafts to ~800 tasks.</p>
+              <div class="d-art d-cards">
+                <span class="d-card keep">fibonacci.py &rarr; LaTeX formula, render in TeXstudio &rarr; Impress</span>
+                <span class="d-card keep">PyCharm run config: main.py, env DEBUG_MODE=False</span>
+                <span class="d-card drop">&ldquo;Make the video look better&rdquo; &mdash; no verifiable end state</span>
+              </div>
+            </li>
+            <li data-node="dn-agents">
+              <h4><span class="step-n">4</span> Agents roll out</h4>
+              <p>Each task runs on one to three executing agents across the Claude, Gemini, Kimi and
+                Qwen families, so no single agent&rsquo;s style dominates the data.</p>
+            </li>
+            <li data-node="dn-raw">
+              <h4><span class="step-n">5</span> Raw trajectories</h4>
+              <p>Each run is the trace a judge will read &mdash; screenshot, thought, action &mdash; up
+                to 100 steps long.</p>
+              <div class="d-art d-chain">
+                <img src="public/demo/traj-1.webp" alt="Trajectory frame 1: GitLab project list" loading="lazy" decoding="async">
+                <svg viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img src="public/demo/traj-2.webp" alt="Trajectory frame 2: create-project page" loading="lazy" decoding="async">
+                <svg viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img src="public/demo/traj-3.webp" alt="Trajectory frame 3: blank-project form" loading="lazy" decoding="async">
+              </div>
+            </li>
+            <li data-node="dn-filter d-tray">
+              <h4><span class="step-n">6</span> The pre-filter</h4>
+              <p>Runs wrecked by the environment &mdash; anti-bot blocks, network failures, frozen
+                executions &mdash; are dropped before any human time is spent.</p>
+            </li>
+            <li data-node="dn-annot">
+              <h4><span class="step-n">7</span> Three annotators, independently</h4>
+              <p>Three independent verdicts per trajectory, each with a written reason. One strict rule:
+                an answer the agent did not obtain or verify through the environment is a FAIL &mdash;
+                even when it happens to be correct.</p>
+              <div class="d-art d-chips">
+                <span class="d-verd ok">SUCCESS</span>
+                <span class="d-verd ok">SUCCESS</span>
+                <span class="d-verd bad">FAIL</span>
+                <span class="d-chip">+ reason, every time</span>
+              </div>
+            </li>
+            <li data-node="dn-annot">
+              <h4><span class="step-n">8</span> Unanimous, or escalated</h4>
+              <p>Unanimous verdicts are final. Splits escalate &mdash; no gold verdict rests on a
+                single reader.</p>
+            </li>
+            <li data-node="dn-meta">
+              <h4><span class="step-n">9</span> Meta-review</h4>
+              <p>Two senior reviewers deliberate &mdash; not a vote. Extra steps that still reach the
+                goal pass; a wrong action fails; residual-quality runs are discarded.</p>
+              <div class="d-art d-cards">
+                <span class="d-card keep">extra steps, still correct</span>
+                <span class="d-card keep">goal basically reached</span>
+                <span class="d-card drop">an action is wrong</span>
+              </div>
+            </li>
+            <li data-node="dn-gold">
+              <h4><span class="step-n">10</span> The gold set</h4>
+              <p>OSReward: 1,019 gold trajectories across four platforms, balanced 43 / 57
+                success / fail. SUCCESS carries alignment and efficiency grades; FAIL carries an
+                error type &mdash; action, perception, planning &amp; reasoning, memory.</p>
+              <div class="d-art d-shots">
+                <figure><img src="public/demo/plat-web.webp" alt="Web trajectory screenshot" loading="lazy" decoding="async"><figcaption>Web</figcaption></figure>
+                <figure><img src="public/demo/plat-windows.webp" alt="Windows trajectory screenshot" loading="lazy" decoding="async"><figcaption>Windows</figcaption></figure>
+                <figure><img src="public/demo/plat-ubuntu.webp" alt="Ubuntu trajectory screenshot" loading="lazy" decoding="async"><figcaption>Ubuntu</figcaption></figure>
+                <figure class="tall"><img src="public/demo/plat-mobile.webp" alt="Mobile trajectory screenshot" loading="lazy" decoding="async"><figcaption>Mobile</figcaption></figure>
+              </div>
+            </li>
+            <li data-node="dn-hard">
+              <h4><span class="step-n">11</span> OSReward-Hard</h4>
+              <p>The cases that split the annotators, re-verified in a further review &mdash; real
+                difficulty, not annotation noise &mdash; at a 30 / 70 success / fail split.</p>
+            </li>
+            <li data-node="dn-multi">
+              <h4><span class="step-n">12</span> OSReward-Multi</h4>
+              <p>All-success runs graded step by step for alignment and efficiency. Together: three
+                views of one gold set.</p>
+            </li>
+          </ol>
         </div>
 
         <!-- Three views -->
@@ -1113,6 +1222,7 @@
 
   <script src="static/js/osreward-data.js"></script>
   <script src="static/js/osreward-charts.js"></script>
+  <script src="static/js/osreward-demo.js"></script>
   <script src="static/js/main.js"></script>
 </body>
 

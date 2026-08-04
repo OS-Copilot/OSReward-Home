@@ -225,6 +225,13 @@ filtered, which undersells a pipeline that visibly drops most of its input.
 Options: leave it, or give the corpus node the label alone with no figure, since
 the name already carries "100K". Flagged 2026-07-30, not decided.
 
+### D8 — Pipeline demo shows four rollout agent families, not the slide's five **NOTE**
+The paper-figure deck (slide 19) draws five model logos including OpenAI, but
+`3_method.tex:243` says rollouts span "the Claude, Gemini, Kimi, and Qwen
+families" — four. The demo (`#pipeline-demo`, added 2026-08-03) follows the
+tex. If GPT rollouts are real and the paper text is stale, fix `main.tex`
+first, then add the logo to the rollout node and the narration.
+
 ### D5 — OS-Shepherd-35B-A3B has no OOD confusion counts **NOTE**
 In the paper's Fig. 11 pipeline this row is a hardcoded dict (accuracy and fail
 recall only, no `n`, no success recall). The page therefore never shows an `n`
