@@ -310,101 +310,332 @@
     { name: "OS-Shepherd-35B-A3B", role: "ours",  full: [85.6, 85.0, 86.2, 85.6], hard: [62.7, 68.6, 60.1, 64.3] }
   ];
 
-  /* ------------------------------------------------------------------
-     DataViewer examples — PLACEHOLDER CONTENT, NOT BENCHMARK DATA.
-
-     These three records exist so the viewer can be built and styled
-     before the real export is ready. Nothing here was taken from the
-     benchmark: the instructions, steps and judge verdicts are invented,
-     including the verdicts attributed to named models. `placeholder`
-     drives a visible banner on the page — replace this array with real
-     records and set it to false in the same commit, so the viewer can
-     never be advertised while showing invented data.
-     ------------------------------------------------------------------ */
+  /* Eight paper case studies. Each thumbnail is paired with the untouched
+     source screenshot so the viewer can open the state at full resolution. */
   var VIEWER = {
-    placeholder: true,
+    placeholder: false,
     examples: [
       {
-        id: "web-0142",
+        id: "290315ee-b986-5afc-b9b9-7f0774cee4c2",
+        traceId: "dc2a1004-c6ee-5c2c-acb7-b1f5716c18ae",
         platform: "Web",
-        instruction: "Find the cheapest direct flight from Newark to Lisbon in the first week of " +
-          "September, then add it to the cart.",
+        caseType: "False success",
+        tendency: "Majority success",
+        instruction: "Help me find some recently popular documentaries with ratings above 8, and " +
+          "summarize the main reasons why viewers recommend them.",
+        reasonLabel: "Miss reason",
+        reason: "On 2026-03-15, the agent presents a visibly 2017 documentary as “recently popular” " +
+          "without evidence of renewed popularity.",
         gold: "failure",
-        goldWhy: "A direct flight is found and priced, but the run stops on the fare page — the " +
-          "itinerary is never added to the cart, so the instruction is not fulfilled.",
+        goldWhy: "The visible 2017 release date contradicts the requested recency criterion.",
+        agentAccount: "Listed a 2024 title and the visibly 2017 Return to the Wolves as “recently " +
+          "popular,” with ratings and recommendation reasons.",
         steps: [
-          { action: "click(\"Departure airport\")",
-            thought: "Set the origin first; the date pickers stay disabled until both airports are chosen." },
-          { action: "type(\"Newark EWR\") → click(\"Newark Liberty Intl (EWR)\")",
-            thought: "Take the airport from the autocomplete rather than the free-text city match." },
-          { action: "click(\"Nonstop only\")",
-            thought: "The instruction says direct, so filter before comparing fares." },
-          { action: "click(\"Sort: price, lowest first\")",
-            thought: "Cheapest direct is now the first row." },
-          { action: "click(\"Select · $412\")",
-            thought: "This is the cheapest nonstop in the requested week." },
-          { action: "stop()",
-            thought: "The fare is selected, so the task looks complete." }
+          { number: 11, focus: false, caption: "Older titles rejected",
+            thumb: "public/cases/documentary_recency_failure/step_11.webp",
+            shot: "public/cases/documentary_recency_failure/full_step_11.png" },
+          { number: 22, caption: "A valid recent result",
+            thumb: "public/cases/documentary_recency_failure/step_22.webp",
+            shot: "public/cases/documentary_recency_failure/full_step_22.png" },
+          { number: 26, caption: "Old title selected",
+            thumb: "public/cases/documentary_recency_failure/step_26.webp",
+            shot: "public/cases/documentary_recency_failure/full_step_26.png" },
+          { number: 27, caption: "2017 title treated as recent",
+            thumb: "public/cases/documentary_recency_failure/step_27.webp",
+            shot: "public/cases/documentary_recency_failure/full_step_27.png" }
         ],
         judges: [
-          { name: "GPT-5.5", verdict: "success", correct: false },
-          { name: "Claude-Opus-4-8", verdict: "failure", correct: true },
-          { name: "Qwen3-VL-30B", verdict: "success", correct: false },
-          { name: "OS-Shepherd-9B", verdict: "failure", correct: true }
+          { name: "GPT-5.5", verdict: "success", correct: false,
+            reason: "Accepted the ratings and summaries without checking recency." },
+          { name: "Gemini-3.5-Flash", verdict: "success", correct: false,
+            reason: "Treated both titles as recent despite the visible 2017 date." }
         ]
       },
       {
-        id: "ubuntu-0067",
+        id: "example_task_060",
+        traceId: "25cc896a-a4dc-46ad-a5eb-2d36f3bf0de7",
+        platform: "Windows",
+        caseType: "False success",
+        tendency: "Majority success",
+        instruction: "Open GitHub Desktop. Use the ‘Repository’ menu at the top to select ‘Open in " +
+          "Command Prompt’ (or Terminal). Once the external terminal window appears, type git status " +
+          "to verify the working directory.",
+        reasonLabel: "Miss reason",
+        reason: "The agent mistakes a new terminal prompt for proof that git status ran, despite the " +
+          "absence of both the command and any Git output.",
+        gold: "failure",
+        goldWhy: "Neither the required command nor its expected output ever appears on screen.",
+        agentAccount: "Declared that git status had executed because the terminal returned to a prompt.",
+        steps: [
+          { number: 0, focus: false, caption: "GitHub Desktop is open",
+            thumb: "public/cases/git_status_false_success/step_0.webp",
+            shot: "public/cases/git_status_false_success/full_step_0.png" },
+          { number: 7, caption: "Command Prompt option found",
+            thumb: "public/cases/git_status_false_success/step_7.webp",
+            shot: "public/cases/git_status_false_success/full_step_7.png" },
+          { number: 8, caption: "Terminal opened in repository",
+            thumb: "public/cases/git_status_false_success/step_8.webp",
+            shot: "public/cases/git_status_false_success/full_step_8.png" },
+          { number: 10, caption: "Typed command is not visible",
+            thumb: "public/cases/git_status_false_success/step_10.webp",
+            shot: "public/cases/git_status_false_success/full_step_10.png" },
+          { number: 11, caption: "Enter yields no Git output",
+            thumb: "public/cases/git_status_false_success/step_11.webp",
+            shot: "public/cases/git_status_false_success/full_step_11.png" }
+        ],
+        judges: [
+          { name: "Gemini-3-Flash", verdict: "success", correct: false,
+            reason: "Trusted the action history and correct repository prompt." },
+          { name: "Claude-Sonnet-4.6", verdict: "success", correct: false,
+            reason: "Treated two prompts as proof despite no command or Git output." }
+        ]
+      },
+      {
+        id: "task_321",
+        traceId: "37b29158-fde9-4e99-a382-1bec564db773",
+        platform: "Windows",
+        caseType: "Perception failure",
+        tendency: "Majority success",
+        instruction: "Navigate to finance.yahoo.com using the address bar, search for NVDA to find " +
+          "Nvidia Corporation’s stock data, and locate the current Beta value.",
+        reasonLabel: "Miss reason",
+        reason: "The agent reports Beta (3Y Monthly) = 1.38 even though the screen shows Beta " +
+          "(5Y Monthly) = 2.38.",
+        gold: "failure",
+        goldWhy: "The reported time window and value both disagree with the visible Statistics table.",
+        agentAccount: "Reported “Beta (3Y Monthly) = 1.38” and declared the task complete.",
+        steps: [
+          { number: 0, focus: false, caption: "Browser starting state",
+            thumb: "public/cases/nvda_beta_perception_failure/step_0.webp",
+            shot: "public/cases/nvda_beta_perception_failure/full_step_0.png" },
+          { number: 7, caption: "NVDA result identified",
+            thumb: "public/cases/nvda_beta_perception_failure/step_7.webp",
+            shot: "public/cases/nvda_beta_perception_failure/full_step_7.png" },
+          { number: 32, caption: "Statistics page reached",
+            thumb: "public/cases/nvda_beta_perception_failure/step_32.webp",
+            shot: "public/cases/nvda_beta_perception_failure/full_step_32.png" },
+          { number: 35, caption: "Valuation tables inspected",
+            thumb: "public/cases/nvda_beta_perception_failure/step_35.webp",
+            shot: "public/cases/nvda_beta_perception_failure/full_step_35.png" },
+          { number: 36, caption: "Beta value visually misread",
+            thumb: "public/cases/nvda_beta_perception_failure/step_36.webp",
+            shot: "public/cases/nvda_beta_perception_failure/full_step_36.png" }
+        ],
+        judges: [
+          { name: "Gemini-3.5-Flash", verdict: "success", correct: false,
+            reason: "Credited the Statistics page while noting that it shows 2.38." },
+          { name: "Qwen3.5-397B", verdict: "success", correct: false,
+            reason: "Explained the mismatch as a timing or calculation-window difference." }
+        ]
+      },
+      {
+        id: "3f2b353a-709d-40ac-9126-7dc9823c2e62",
+        traceId: "3f2b353a-709d-40ac-9126-7dc9823c2e62_20260324@132004",
         platform: "Ubuntu",
-        instruction: "In the open spreadsheet, sort the rows by the Revenue column in descending " +
-          "order and save the file in place.",
-        gold: "success",
-        goldWhy: "The range is selected, sorted descending on the right column, and saved to the " +
-          "original path without a dialog left open.",
+        caseType: "Fine-grained visual miss",
+        tendency: "Selected judges: success",
+        instruction: "Open Audacity and import the file " +
+          "‘~/Desktop/test_files/mp3/action-energetic-rock-music-334316.mp3’. Select the first 10 " +
+          "seconds and apply a Fade Out effect. Export the cleaned audio as " +
+          "action-energetic-rock-music-334316_clean.mp3 on Desktop.",
+        reasonLabel: "Miss reason",
+        reason: "The agent trusts the Fade Out command and completed export without verifying that " +
+          "attenuation occurs in the requested first 10 seconds.",
+        gold: "failure",
+        goldWhy: "The final waveform does not provide reliable evidence that the requested interval was faded.",
+        agentAccount: "Returned done after the export flow, without textual verification of the selected interval.",
         steps: [
-          { action: "click(cell A1) → key(\"ctrl+shift+End\")",
-            thought: "Select the used range so the sort covers every row." },
-          { action: "menu(\"Data\" → \"Sort…\")",
-            thought: "The toolbar sort would key on the active column only." },
-          { action: "select(\"Sort Key 1: Revenue\") → click(\"Descending\")",
-            thought: "Revenue descending is what was asked for." },
-          { action: "click(\"OK\")", thought: "Apply and close the dialog." },
-          { action: "key(\"ctrl+s\") → click(\"Use ODF Format\")",
-            thought: "Save in place; keep the existing format so the path does not change." }
+          { number: 0, focus: false, caption: "Original waveform loaded",
+            thumb: "public/cases/audacity_fadeout_llm_miss/step_0.webp",
+            shot: "public/cases/audacity_fadeout_llm_miss/full_step_0.png" },
+          { number: 8, caption: "Fade Out targeted for 0 to 10 seconds",
+            thumb: "public/cases/audacity_fadeout_llm_miss/step_8.webp",
+            shot: "public/cases/audacity_fadeout_llm_miss/full_step_8.png" },
+          { number: 9, caption: "Waveform after applying the effect",
+            thumb: "public/cases/audacity_fadeout_llm_miss/step_9.webp",
+            shot: "public/cases/audacity_fadeout_llm_miss/full_step_9.png" },
+          { number: 18, caption: "Export reaches metadata stage",
+            thumb: "public/cases/audacity_fadeout_llm_miss/step_18.webp",
+            shot: "public/cases/audacity_fadeout_llm_miss/full_step_18.png" },
+          { number: 19, caption: "Final waveform requires visual verification",
+            thumb: "public/cases/audacity_fadeout_llm_miss/step_19.webp",
+            shot: "public/cases/audacity_fadeout_llm_miss/full_step_19.png" }
         ],
         judges: [
-          { name: "GPT-5.5", verdict: "success", correct: true },
-          { name: "Claude-Opus-4-8", verdict: "success", correct: true },
-          { name: "Qwen3-VL-30B", verdict: "success", correct: true },
-          { name: "OS-Shepherd-9B", verdict: "success", correct: true }
+          { name: "GPT-5.5", verdict: "success", correct: false,
+            reason: "Accepted the visible fade and completed export as sufficient." },
+          { name: "Claude-Sonnet-4.6", verdict: "success", correct: false,
+            reason: "Credited completion despite uncertainty about the ten-second selection." }
         ]
       },
       {
-        id: "mobile-0231",
-        platform: "Mobile",
-        instruction: "Turn on battery saver and set the screen timeout to 30 seconds.",
+        id: "37c7fcf5-d656-40ca-842d-8bb09f0d6a06",
+        traceId: "37c7fcf5-d656-40ca-842d-8bb09f0d6a06_20260405@033709",
+        platform: "Ubuntu",
+        caseType: "Planning failure",
+        tendency: "Majority success",
+        instruction: "In Krita, crop the excess white space around the drawn question mark and " +
+          "export it as ~/Desktop/reference.jpg. Then insert that image into a new LibreCAD drawing " +
+          "and save the document as ~/Desktop/draft.dxf.",
+        reasonLabel: "Miss reason",
+        reason: "The agent saves a DXF without verifying insertion; the final drawing shows a blank " +
+          "raster instead of the cropped question mark.",
         gold: "failure",
-        goldWhy: "Battery saver is enabled, but the timeout is left at 1 minute: the agent opens the " +
-          "right menu and selects the wrong entry. Only the second half of the instruction fails.",
+        goldWhy: "The saved drawing does not visibly contain the required question-mark image.",
+        agentAccount: "Declared that reference.jpg had been inserted into LibreCAD and that draft.dxf " +
+          "was saved correctly.",
         steps: [
-          { action: "swipe(down, from: status_bar)", thought: "Quick settings is the shortest route." },
-          { action: "click(\"Battery Saver\")", thought: "First half of the instruction done." },
-          { action: "click(\"Settings\") → click(\"Display\")",
-            thought: "Screen timeout lives under Display." },
-          { action: "click(\"Screen timeout\")", thought: "Open the interval list." },
-          { action: "click(\"1 minute\")",
-            thought: "Picking the shortest available interval." },
-          { action: "click(\"Back\")", thought: "Both settings look applied." }
+          { number: 6, focus: false, caption: "Krita crop and export succeed",
+            thumb: "public/cases/librecad_empty_drawing_planning_failure/step_6.webp",
+            shot: "public/cases/librecad_empty_drawing_planning_failure/full_step_6.png" },
+          { number: 30, caption: "Open Image finally reached",
+            thumb: "public/cases/librecad_empty_drawing_planning_failure/step_30.webp",
+            shot: "public/cases/librecad_empty_drawing_planning_failure/full_step_30.png" },
+          { number: 32, caption: "Placed image renders blank",
+            thumb: "public/cases/librecad_empty_drawing_planning_failure/step_32.webp",
+            shot: "public/cases/librecad_empty_drawing_planning_failure/full_step_32.png" },
+          { number: 44, caption: "Save succeeds; content remains wrong",
+            thumb: "public/cases/librecad_empty_drawing_planning_failure/step_44.webp",
+            shot: "public/cases/librecad_empty_drawing_planning_failure/full_step_44.png" }
         ],
         judges: [
-          { name: "GPT-5.5", verdict: "success", correct: false },
-          { name: "Claude-Opus-4-8", verdict: "success", correct: false },
-          { name: "Qwen3-VL-30B", verdict: "success", correct: false },
-          { name: "OS-Shepherd-9B", verdict: "failure", correct: true }
+          { name: "Gemini-3-Flash", verdict: "success", correct: false,
+            reason: "Trusted the save path and assumed insertion despite the blank raster and prior error." },
+          { name: "Claude-Sonnet-4.6", verdict: "success", correct: false,
+            reason: "Treated saving as completion without checking that the question mark was visible." }
+        ]
+      },
+      {
+        id: "3c91a543-78eb-47c2-b4c5-b226fa4fe04b",
+        traceId: "3c91a543-78eb-47c2-b4c5-b226fa4fe04b_20260324@133025",
+        platform: "Ubuntu",
+        caseType: "Long-horizon hard case",
+        tendency: "Unanimous success",
+        instruction: "Find the default model configuration of each OS-Symphony agent from its Docker " +
+          "run script, then create and save OS-Symphony-Default-Settings.xlsx in LibreOffice Calc " +
+          "with agent names in column A and model names in column B.",
+        reasonLabel: "Why it is hard",
+        reason: "Across 53 steps, the agent recovers the project path, extracts five model defaults, " +
+          "builds the spreadsheet, and repairs save errors.",
+        gold: "success",
+        goldWhy: "The final workbook visibly contains the requested agent–model pairs and is saved under the requested name.",
+        agentAccount: "Concluded that it had located the Docker script, extracted the default models, " +
+          "and generated the requested spreadsheet.",
+        steps: [
+          { number: 0, focus: false, caption: "Terminal opened for project search",
+            thumb: "public/cases/os_symphony_hard_case/step_0.webp",
+            shot: "public/cases/os_symphony_hard_case/full_step_0.png" },
+          { number: 8, caption: "OS-Symphony file tree enumerated",
+            thumb: "public/cases/os_symphony_hard_case/step_8.webp",
+            shot: "public/cases/os_symphony_hard_case/full_step_8.png" },
+          { number: 33, caption: "Five agent-model pairs entered",
+            thumb: "public/cases/os_symphony_hard_case/step_33.webp",
+            shot: "public/cases/os_symphony_hard_case/full_step_33.png" },
+          { number: 49, caption: "Workbook named in Save As",
+            thumb: "public/cases/os_symphony_hard_case/step_49.webp",
+            shot: "public/cases/os_symphony_hard_case/full_step_49.png" },
+          { number: 52, caption: "Saved workbook verified",
+            thumb: "public/cases/os_symphony_hard_case/step_52.webp",
+            shot: "public/cases/os_symphony_hard_case/full_step_52.png" }
+        ],
+        judges: [
+          { name: "Gemini-3.1-Pro", verdict: "success", correct: true,
+            reason: "Cited script extraction, the populated Calc table, and saved workbook." },
+          { name: "Qwen3-VL-8B", verdict: "success", correct: true,
+            reason: "Confirmed the visible agent–model pairs and final file." }
+        ]
+      },
+      {
+        id: "GoogleMapHospitalAndGasRoute_taskinfo",
+        traceId: "GoogleMapHospitalAndGasRoute_0",
+        platform: "Mobile",
+        caseType: "Compositional hard case",
+        tendency: "Unanimous success",
+        instruction: "I want to go to the nearest hospital and fill my gas tank along the road. " +
+          "Provide me a best route for driving my own car.",
+        reasonLabel: "Why it is hard",
+        reason: "The judge must distinguish a closer closed clinic from the nearest open ER while " +
+          "also verifying that the final route includes fuel.",
+        gold: "success",
+        goldWhy: "The route selects an open emergency room, includes Chevron, and uses driving mode.",
+        agentAccount: "Reported a route to the selected open hospital with Chevron added en route, " +
+          "then started navigation.",
+        steps: [
+          { number: 0, focus: false, caption: "Mobile starting state",
+            thumb: "public/cases/google_maps_open_hospital_hard_case/step_0.webp",
+            shot: "public/cases/google_maps_open_hospital_hard_case/full_step_0.png" },
+          { number: 7, caption: "Nearest open hospital selected",
+            thumb: "public/cases/google_maps_open_hospital_hard_case/step_7.webp",
+            shot: "public/cases/google_maps_open_hospital_hard_case/full_step_7.png" },
+          { number: 11, caption: "Open gas stop selected",
+            thumb: "public/cases/google_maps_open_hospital_hard_case/step_11.webp",
+            shot: "public/cases/google_maps_open_hospital_hard_case/full_step_11.png" },
+          { number: 12, caption: "Complete driving route composed",
+            thumb: "public/cases/google_maps_open_hospital_hard_case/step_12.webp",
+            shot: "public/cases/google_maps_open_hospital_hard_case/full_step_12.png" }
+        ],
+        judges: [
+          { name: "Gemini-3.1-Pro", verdict: "success", correct: true,
+            reason: "Credited the open hospital, gas stop, driving mode, and navigation." },
+          { name: "Qwen3-VL-8B", verdict: "success", correct: true,
+            reason: "Used the active route to confirm that both stops were included." }
+        ]
+      },
+      {
+        id: "da372ad2-063e-5dfd-a822-36f7167598ee",
+        traceId: "e7b83a42-174a-5d65-84dd-fe9863d4f748",
+        platform: "Web",
+        caseType: "Cross-site hard case",
+        tendency: "Mixed",
+        instruction: "Find a hotel in Rome under 180 euros per night for next weekend. Then search " +
+          "for Italian restaurants within walking distance of that hotel with ratings above 4 stars.",
+        reasonLabel: "Why it is hard",
+        reason: "The judge must link dates, nightly cost, hotel address, and nearby ratings across a " +
+          "29-step run that recovers from two anti-bot blocks.",
+        gold: "success",
+        goldWhy: "The selected hotel satisfies the budget and the recovered results show two nearby restaurants rated above 4.",
+        agentAccount: "Reported Soha’s Holiday at EUR 161 for two nights and two nearby 4.5-star " +
+          "restaurants after rerouting around blockers.",
+        steps: [
+          { number: 0, focus: false, caption: "Initial hotel search",
+            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_0.webp",
+            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_0.png" },
+          { number: 18, caption: "EUR 161 for two nights; rating 8.3",
+            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_18.webp",
+            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_18.png" },
+          { number: 20, caption: "Exact hotel address recovered",
+            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_20.webp",
+            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_20.png" },
+          { number: 26, caption: "Yelp anti-bot block",
+            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_26.webp",
+            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_26.png" },
+          { number: 28, caption: "Two nearby options rated above 4",
+            thumb: "public/cases/rome_hotel_restaurant_web_hard_case/step_28.webp",
+            shot: "public/cases/rome_hotel_restaurant_web_hard_case/full_step_28.png" }
+        ],
+        judges: [
+          { name: "Claude-Opus-4.6", verdict: "failure", correct: false,
+            reason: "Rejected the restaurant phase because DuckDuckGo replaced blocked Yelp." },
+          { name: "GPT-5.4", verdict: "failure", correct: false,
+            reason: "Treated Yelp as mandatory and the alternative-source evidence as insufficient." }
         ]
       }
     ]
   };
+
+  /* The build script keeps the editorial case metadata above readable while
+     attaching authentic actions, thoughts and high-resolution source frames
+     exported from the original trajectories. */
+  if (global.OSRewardCaseSteps) {
+    VIEWER.examples.forEach(function (example) {
+      if (global.OSRewardCaseSteps[example.id]) {
+        example.steps = global.OSRewardCaseSteps[example.id];
+      }
+      if (global.OSRewardJudgeResponses && global.OSRewardJudgeResponses[example.id]) {
+        example.judges = global.OSRewardJudgeResponses[example.id];
+      }
+    });
+  }
 
   global.OSRewardData = {
     families: FAMILIES,

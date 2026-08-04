@@ -256,18 +256,11 @@ instruction, wrapped across lines as before. The entry lives inline in
 `index.html` (`<pre id="bibtex">`, ~line 1052) — there is no separate `.bib`
 file, the "osreward.bib" in the code-box bar is decoration.
 
-### E3 — DataViewer ships invented examples **BLOCKED — replace before advertising**
-The `#viewer` section is live with three **placeholder** records in
-`OSRewardData.viewer`. The instructions, steps and judge verdicts are all
-invented, including verdicts attributed to real named models (GPT-5.5,
-Claude-Opus-4-8, Qwen3-VL-30B). A prominent amber banner says so, and the banner
-is driven by `viewer.placeholder`, so replacing the array and setting that flag
-to `false` in the same commit removes it.
-
-Qiushi asked for a placeholder example and approved the push knowing this. Until
-real records land, do not link the section from anywhere external. Step objects
-accept an optional `shot` image path; supply it and the dashed placeholder frame
-becomes a real screenshot with no code change.
+### E3 — DataViewer real cases **DONE**
+The `#viewer` section now contains eight paper case studies with original
+instructions, selected trajectory states, human labels, agent accounts and
+representative judge readings. WebP thumbnails keep state switching fast, while
+the lightbox opens the untouched source screenshots.
 
 ### E4 — The held-out disclosure was deleted with the leaderboard note **CLOSED 2026-08-03**
 Qiushi's call: leave it as is, no held-out line to be added. Closed, not to be
