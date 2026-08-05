@@ -468,6 +468,26 @@ window.OSRewardCaseSteps = {
       ]
     },
     {
+      "number": 2,
+      "caption": "Product page remains in view",
+      "action": "click(box2d=[630,310,660,480], x=758, y=697)",
+      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [630, 310, 660, 480], \"x\": 758, \"y\": 697}}",
+      "thought": "The search for the 'Tabelo Waterproof 1200D T/O Blanket' has been initiated. Based on the previous actions, the search query was entered into the search bar and the search button was clicked. The browser should now be transitioning to the search results page or directly to the product detail page if the search was specific enough.\n\nOur progress is currently at the stage of locating the specific product from the search results. Once the results page is visible, I will need to identify the correct item. Horse blankets often have several variations (e.g., Turnout, Stable, different weights), so it is crucial to select the \"1200D T/O Blanket\" specifically. After clicking on the correct product, the next phase will involve identifying the selection interface for colors and sizes.\n\nThe plan moving forward is:\n1.  **Identify the Product**: Scan the search results for the 'Tabelo Waterproof 1200D T/O Blanket'.\n2.  **Access Product Details**: Click on the product title or image to open the specific product page.\n3.  **Extract Options**: Locate the dropdown menus or swatches for 'Color' and 'Size'. I will systematically record every available option listed in these fields.\n4.  **Verify Availability**: Ensure that the options recorded are currently selectable and not marked as \"Out of Stock\" if that distinction is made on the page.\n\nSince the previous action was clicking the search button, I am now waiting for the page to load the results. Once the results appear, I will look for the most relevant link. If the page has already loaded, I will click on the product that matches the description exactly.",
+      "thumb": "public/cases/horse_product_ui_state_failure/step_2.webp",
+      "shot": "public/cases/horse_product_ui_state_failure/full_step_2.jpg",
+      "markers": []
+    },
+    {
+      "number": 3,
+      "caption": "Option states remain unchanged",
+      "action": "click(box2d=[665,401,693,597], x=958, y=733)",
+      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [665, 401, 693, 597], \"x\": 958, \"y\": 733}}",
+      "thought": "The search for the 'Tabelo Waterproof 1200D T/O Blanket' has been initiated, and we are now on the search results page. The primary goal is to identify the specific product from the results and navigate to its detail page to extract the available color and size options. \n\nThe search results typically display several variations of blankets, including different weights and styles. It is essential to select the exact \"1200D T/O Blanket\" to ensure the data collected is accurate for the requested item. Once the product page is accessed, the interface usually presents selection tools such as dropdown menus or color swatches. I will need to interact with these elements to see the full range of available sizes and colors, as some might be hidden until a primary selection (like color) is made.\n\nOur progress so far includes:\n1.  Navigating to the Horse.com homepage.\n2.  Entering the specific product name into the search bar.\n3.  Executing the search to generate results.\n\nThe current plan is:\n1.  **Select the correct product**: Identify the \"Tabelo Waterproof 1200D T/O Blanket\" from the search results and click on it.\n2.  **Locate selection menus**: Find the \"Color\" and \"Size\" selection areas on the product page.\n3.  **Record all options**: Systematically list every color and size available for selection. I will also check if certain sizes are only available in specific colors.\n4.  **Finalize the task**: Once all options are recorded, I will provide the final answer.\n\nLooking at the current viewport, I will click on the product title or image that matches our search criteria to proceed to the product details.",
+      "thumb": "public/cases/horse_product_ui_state_failure/step_3.webp",
+      "shot": "public/cases/horse_product_ui_state_failure/full_step_3.jpg",
+      "markers": []
+    },
+    {
       "number": 4,
       "caption": "Disabled variants reported as available",
       "action": "stop(answer=\"The available color options for the 'Tabelo Waterproof 1200D T/O Blanket' are Blue, Hunter, Purple, and Red. The available size options are 69, 72, 75, 78, 81, and 84.\")",
@@ -1255,6 +1275,48 @@ window.OSRewardCaseSteps = {
       ]
     }
   ]
+};
+window.OSRewardCaseStateMeta = {
+  "290315ee-b986-5afc-b9b9-7f0774cee4c2": {
+    "totalStates": 28,
+    "showsAllStates": false
+  },
+  "example_task_060": {
+    "totalStates": 13,
+    "showsAllStates": true
+  },
+  "task_321": {
+    "totalStates": 40,
+    "showsAllStates": false
+  },
+  "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c": {
+    "totalStates": 5,
+    "showsAllStates": true
+  },
+  "37c7fcf5-d656-40ca-842d-8bb09f0d6a06": {
+    "totalStates": 45,
+    "showsAllStates": false
+  },
+  "3c91a543-78eb-47c2-b4c5-b226fa4fe04b": {
+    "totalStates": 53,
+    "showsAllStates": false
+  },
+  "GoogleMapHospitalAndGasRoute_taskinfo": {
+    "totalStates": 16,
+    "showsAllStates": false
+  },
+  "73243cf3-bed7-48fc-8cdd-c6542a90466b": {
+    "totalStates": 45,
+    "showsAllStates": false
+  },
+  "41a372e2-b5cd-474b-8031-81bdfef2a3f4": {
+    "totalStates": 7,
+    "showsAllStates": true
+  },
+  "041259e7-7396-4ffc-a7af-00cb3d00b209": {
+    "totalStates": 25,
+    "showsAllStates": false
+  }
 };
 window.OSRewardJudgeResponses = {
   "290315ee-b986-5afc-b9b9-7f0774cee4c2": [
