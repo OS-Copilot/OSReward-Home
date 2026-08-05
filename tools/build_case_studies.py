@@ -155,10 +155,58 @@ CASES = [
             43: "Settings accepted after Enter",
         },
     },
+    {
+        "id": "41a372e2-b5cd-474b-8031-81bdfef2a3f4",
+        "slug": "krita_horizontal_mirror_hard_case",
+        "source": Path("/root/RMAnnot/data/raw_traces_phase2/inconsistency_phase2/trajectories/41a372e2-b5cd-474b-8031-81bdfef2a3f4_20260405@034215.json"),
+        "steps": list(range(7)),
+        "captions": {
+            0: "Original asymmetric orientation",
+            1: "Horizontal mirror command exposed",
+            2: "Mirrored orientation is visibly different",
+            3: "Export command selected",
+            4: "Desktop PNG path entered",
+            5: "PNG export options reached",
+            6: "Mirrored canvas remains after export",
+        },
+        "focus": [1, 2, 5],
+        "evidence": {
+            0: "Before · short stroke on the left",
+            2: "After · short stroke on the right",
+        },
+        "verification": {
+            5: "PNG export accepted",
+            6: "Mirrored state persists",
+        },
+    },
+    {
+        "id": "041259e7-7396-4ffc-a7af-00cb3d00b209",
+        "slug": "calc_zero_sum_false_success",
+        "source": Path("/root/RMAnnot/data/raw_traces_phase2/inconsistency_phase2/trajectories/041259e7-7396-4ffc-a7af-00cb3d00b209_20260403@232242.json"),
+        "steps": [0, 3, 7, 20, 22, 23, 24],
+        "captions": {
+            0: "Non-zero death counts are visible",
+            3: "Source sheet renamed Storm_Data",
+            7: "Summary sheet created",
+            20: "Summary label finally entered",
+            22: "SUM formula entered for column E",
+            23: "Formula evaluates to zero",
+            24: "Agent finishes without checking the result",
+        },
+        "focus": [22, 23, 24],
+        "evidence": {
+            0: "Source contains non-zero values",
+            23: "Computed result: 0",
+        },
+        "verification": {
+            3: "Sheet rename verified",
+            20: "Summary label verified",
+        },
+    },
 ]
 
 
-# Representative real judge records for the eight displayed cases.  The
+# Representative real judge records for the displayed cases.  The
 # indices select distinct models and, where available, both sides of a judge
 # split.  No response text is summarized or rewritten by this build step.
 JUDGE_CASES = {
@@ -211,6 +259,18 @@ JUDGE_CASES = {
         "human": "success",
         "kind": "hard_db",
         "trace_id": "73243cf3-bed7-48fc-8cdd-c6542a90466b_20260405@194959",
+        "path": Path("/root/RMAnnot/data/hard_review.db"),
+    },
+    "41a372e2-b5cd-474b-8031-81bdfef2a3f4": {
+        "human": "success",
+        "kind": "hard_db",
+        "trace_id": "41a372e2-b5cd-474b-8031-81bdfef2a3f4_20260405@034215",
+        "path": Path("/root/RMAnnot/data/hard_review.db"),
+    },
+    "041259e7-7396-4ffc-a7af-00cb3d00b209": {
+        "human": "failure",
+        "kind": "hard_db",
+        "trace_id": "041259e7-7396-4ffc-a7af-00cb3d00b209_20260403@232242",
         "path": Path("/root/RMAnnot/data/hard_review.db"),
     },
 }

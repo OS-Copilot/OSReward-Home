@@ -604,6 +604,87 @@
             shot: "public/cases/obs_resolution_long_horizon_hard_case/full_step_43.png" }
         ],
         judges: []
+      },
+      {
+        id: "41a372e2-b5cd-474b-8031-81bdfef2a3f4",
+        traceId: "41a372e2-b5cd-474b-8031-81bdfef2a3f4_20260405@034215",
+        platform: "Ubuntu",
+        caseType: "Temporal visual-comparison hard case",
+        instruction: "Flip the current image horizontally using Krita's 'Image' menu " +
+          "(Mirror Image Horizontally). Then, export the modified image as a PNG file " +
+          "named `flipped.png` in the `~/Desktop/` directory.",
+        reasonLabel: "Why it is hard",
+        reason: "The judge must align an asymmetric shape across adjacent states; 16 of " +
+          "23 model judges incorrectly describe the visibly mirrored result as unchanged.",
+        gold: "success",
+        goldWhy: "The short and long strokes exchange sides immediately after the mirror " +
+          "command, and the export workflow reaches Krita's PNG options.",
+        agentAccount: "Applied Mirror Image Horizontally, exported the transformed image " +
+          "as flipped.png, and returned to the mirrored canvas.",
+        judgeFieldSummary: "Full judge field: 16/23 FAIL",
+        steps: [
+          { number: 0, focus: false, caption: "Original asymmetric orientation",
+            thumb: "public/cases/krita_horizontal_mirror_hard_case/step_0.webp",
+            shot: "public/cases/krita_horizontal_mirror_hard_case/full_step_0.png" },
+          { number: 1, caption: "Horizontal mirror command exposed",
+            thumb: "public/cases/krita_horizontal_mirror_hard_case/step_1.webp",
+            shot: "public/cases/krita_horizontal_mirror_hard_case/full_step_1.png" },
+          { number: 2, caption: "Mirrored orientation is visibly different",
+            thumb: "public/cases/krita_horizontal_mirror_hard_case/step_2.webp",
+            shot: "public/cases/krita_horizontal_mirror_hard_case/full_step_2.png" },
+          { number: 5, caption: "PNG export options reached",
+            thumb: "public/cases/krita_horizontal_mirror_hard_case/step_5.webp",
+            shot: "public/cases/krita_horizontal_mirror_hard_case/full_step_5.png" },
+          { number: 6, caption: "Mirrored canvas remains after export",
+            thumb: "public/cases/krita_horizontal_mirror_hard_case/step_6.webp",
+            shot: "public/cases/krita_horizontal_mirror_hard_case/full_step_6.png" }
+        ],
+        judges: []
+      },
+      {
+        id: "041259e7-7396-4ffc-a7af-00cb3d00b209",
+        traceId: "041259e7-7396-4ffc-a7af-00cb3d00b209_20260403@232242",
+        platform: "Ubuntu",
+        caseType: "Semantic outcome failure",
+        instruction: "In the open spreadsheet, rename the current sheet from 'Sheet1' to " +
+          "'Storm_Data'. Then, add a new sheet and name it 'Summary'. In the 'Summary' sheet, " +
+          "type 'Total Known Deaths' in cell A1. In cell B1 of the 'Summary' sheet, insert a " +
+          "formula that calculates the sum of all numeric values in the 'deaths' column " +
+          "(Column E) from the 'Storm_Data' sheet. Save your changes to the file.",
+        reasonLabel: "Why judges miss it",
+        reason: "The formula and save action look conclusive, but judging requires reconnecting " +
+          "the final zero to the earlier non-zero source data and recognizing that SUM ignored " +
+          "text-formatted numbers.",
+        gold: "failure",
+        goldWhy: "The visible death values total 3669, yet B1 evaluates to 0 and the agent saves " +
+          "without validating the contradiction.",
+        agentAccount: "Renamed the source sheet, created Summary, entered " +
+          "=SUM(Storm_Data.E:E), saved the workbook, and finished with B1 showing 0.",
+        judgeFieldSummary: "Full judge field: 19/23 SUCCESS",
+        steps: [
+          { number: 0, focus: false, caption: "Non-zero death counts are visible",
+            thumb: "public/cases/calc_zero_sum_false_success/step_0.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_0.png" },
+          { number: 3, caption: "Source sheet renamed Storm_Data",
+            thumb: "public/cases/calc_zero_sum_false_success/step_3.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_3.png" },
+          { number: 7, caption: "Summary sheet created",
+            thumb: "public/cases/calc_zero_sum_false_success/step_7.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_7.png" },
+          { number: 20, caption: "Summary label finally entered",
+            thumb: "public/cases/calc_zero_sum_false_success/step_20.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_20.png" },
+          { number: 22, caption: "SUM formula entered for column E",
+            thumb: "public/cases/calc_zero_sum_false_success/step_22.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_22.png" },
+          { number: 23, caption: "Formula evaluates to zero",
+            thumb: "public/cases/calc_zero_sum_false_success/step_23.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_23.png" },
+          { number: 24, caption: "Agent finishes without checking the result",
+            thumb: "public/cases/calc_zero_sum_false_success/step_24.webp",
+            shot: "public/cases/calc_zero_sum_false_success/full_step_24.png" }
+        ],
+        judges: []
       }
     ]
   };

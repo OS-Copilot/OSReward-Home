@@ -1043,6 +1043,217 @@ window.OSRewardCaseSteps = {
       "shot": "public/cases/obs_resolution_long_horizon_hard_case/full_step_44.png",
       "markers": []
     }
+  ],
+  "41a372e2-b5cd-474b-8031-81bdfef2a3f4": [
+    {
+      "number": 0,
+      "caption": "Original asymmetric orientation",
+      "action": "click_at(x=112, y=69)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 112, \"y\": 69}}",
+      "thought": "I need to click on the 'Image' menu to access the mirroring options.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_0.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_0.png",
+      "markers": [
+        {
+          "type": "evidence",
+          "label": "Before · short stroke on the left"
+        }
+      ]
+    },
+    {
+      "number": 1,
+      "caption": "Horizontal mirror command exposed",
+      "action": "click_at(x=160, y=265)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 160, \"y\": 265}}",
+      "thought": "Clicking 'Mirror Image Horizontally' in the 'Image' menu to flip the current image.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_1.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_1.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "caption": "Mirrored orientation is visibly different",
+      "action": "click_at(x=45, y=68)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 45, \"y\": 68}}",
+      "thought": "Now I need to export the modified image. I'll click on the 'File' menu.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_2.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_2.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        },
+        {
+          "type": "evidence",
+          "label": "After · short stroke on the right"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "caption": "Export command selected",
+      "action": "click_at(x=69, y=241)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 69, \"y\": 241}}",
+      "thought": "Clicking 'Export...' to save the file.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_3.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_3.png",
+      "markers": []
+    },
+    {
+      "number": 4,
+      "caption": "Desktop PNG path entered",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"~/Desktop/flipped.png\", x=411, y=670)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"~/Desktop/flipped.png\", \"x\": 411, \"y\": 670}}",
+      "thought": "Typing the required path and filename in the 'File name' field and pressing Enter.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_4.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_4.png",
+      "markers": []
+    },
+    {
+      "number": 5,
+      "caption": "PNG export options reached",
+      "action": "click_at(x=572, y=691)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 572, \"y\": 691}}",
+      "thought": "Clicking 'OK' on the PNG export options dialog to complete the saving process.",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_5.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_5.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        },
+        {
+          "type": "verification",
+          "label": "PNG export accepted"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "caption": "Mirrored canvas remains after export",
+      "action": "done()",
+      "actionRaw": "{\"action_key\": \"done\", \"action_kwargs\": {}}",
+      "thought": "No thought recorded",
+      "thumb": "public/cases/krita_horizontal_mirror_hard_case/step_6.webp",
+      "shot": "public/cases/krita_horizontal_mirror_hard_case/full_step_6.png",
+      "markers": [
+        {
+          "type": "verification",
+          "label": "Mirrored state persists"
+        }
+      ]
+    }
+  ],
+  "041259e7-7396-4ffc-a7af-00cb3d00b209": [
+    {
+      "number": 0,
+      "caption": "Non-zero death counts are visible",
+      "action": "click_at(x=216, y=73)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 216, \"y\": 73}}",
+      "thought": "Clicking on the 'Sheet' menu to rename the current sheet.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_0.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_0.png",
+      "markers": [
+        {
+          "type": "evidence",
+          "label": "Source contains non-zero values"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "caption": "Source sheet renamed Storm_Data",
+      "action": "click_at(x=100, y=965)",
+      "actionRaw": "{\"action_key\": \"click_at\", \"action_kwargs\": {\"x\": 100, \"y\": 965}}",
+      "thought": "Clicking the '+' button at the bottom left to add a new sheet.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_3.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_3.png",
+      "markers": [
+        {
+          "type": "verification",
+          "label": "Sheet rename verified"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "caption": "Summary sheet created",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"Total Known Deaths\", x=79, y=216)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"Total Known Deaths\", \"x\": 79, \"y\": 216}}",
+      "thought": "Typing 'Total Known Deaths' in cell A1 of the Summary sheet.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_7.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_7.png",
+      "markers": []
+    },
+    {
+      "number": 20,
+      "caption": "Summary label finally entered",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"Total Known Deaths\", x=250, y=171)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"Total Known Deaths\", \"x\": 250, \"y\": 171}}",
+      "thought": "Typing 'Total Known Deaths' in cell A1. I will type it in the formula bar to be safe.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_20.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_20.png",
+      "markers": [
+        {
+          "type": "verification",
+          "label": "Summary label verified"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "caption": "SUM formula entered for column E",
+      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"=SUM(Storm_Data.E:E)\", x=250, y=171)",
+      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"=SUM(Storm_Data.E:E)\", \"x\": 250, \"y\": 171}}",
+      "thought": "Typing the formula to calculate the sum of the deaths column (Column E) from the Storm_Data sheet. I will type it in the formula bar.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_22.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_22.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "caption": "Formula evaluates to zero",
+      "action": "key_combination(keys=\"ctrl+s\")",
+      "actionRaw": "{\"action_key\": \"key_combination\", \"action_kwargs\": {\"keys\": \"ctrl+s\"}}",
+      "thought": "Saving the file.",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_23.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_23.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        },
+        {
+          "type": "evidence",
+          "label": "Computed result: 0"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "caption": "Agent finishes without checking the result",
+      "action": "done()",
+      "actionRaw": "{\"action_key\": \"done\", \"action_kwargs\": {}}",
+      "thought": "No thought recorded",
+      "thumb": "public/cases/calc_zero_sum_false_success/step_24.webp",
+      "shot": "public/cases/calc_zero_sum_false_success/full_step_24.png",
+      "markers": [
+        {
+          "type": "focus",
+          "label": "Focus state"
+        }
+      ]
+    }
   ]
 };
 window.OSRewardJudgeResponses = {
@@ -1256,6 +1467,66 @@ window.OSRewardJudgeResponses = {
       "correct": false,
       "context": "Hard-set review record",
       "response": "Thought: FAIL — the agent successfully created ~/Desktop/stream_info.txt and added a Text (FreeType 2) source named \"StatusText\" that reads the file (the Sources panel shows \"StatusText\" and the preview displays the file text). However the required video settings change was not verified/applied: screenshots of the Settings dialog show Output still at 1280x720 (and there is no evidence the Output was set to 854x480 or that the Apply/OK button was clicked). The action log also never clicks Apply/OK after typing the resolution. Because the requested resolution change and applying the change were not completed/verified, the overall task fails.\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+    }
+  ],
+  "41a372e2-b5cd-474b-8031-81bdfef2a3f4": [
+    {
+      "name": "claude-opus-4-6",
+      "verdict": "failure",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: The final screenshot shows the image is NOT flipped horizontally - the curve still appears the same as the initial state (opening to the left). The mirror action likely didn't execute properly because the Image menu click at (112, 69) was off (Image menu is around x=175). Also, the export path - the file dialog showed `/home/user/Desktop/test_files/kra` as the location, and typing `~/Desktop/flipped.png` in Krita's file dialog typically doesn't expand `~`. The flip clearly didn't happen based on the visual evidence.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+    },
+    {
+      "name": "gpt-5.5",
+      "verdict": "failure",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "<think>**Analyzing screenshot actions**\n\nI'm looking at a VLC area with the File menu open, trying to figure out what the action points are. There seems to be a red circle in the screenshots that might not actually represent logs, which is puzzling. \n\nAfter reviewing the action history, the steps involve the Image menu and a click on \"Mirror.\" I need to compare the initial and second screenshots to see if the image was flipped. \n\nIf it is flipped horizontally, the vertical endpoint might shift accordingly on the left side of the curve! It's definitely an interesting puzzle.**Clarifying the screenshot sequence**\n\nI'm considering the vertical alignment in the shape. It looks like the long leg descends near the center, which suggests it hasn't been flipped. However, I'm questioning whether the initial image was already flipped before the first screenshot. \n\nIt seems like the first screenshot might be after step0, but it doesn't show a menu. I wonder if it's actually the initial image that looks the same as the final one, suggesting no flip occurred. \n\nAlso, there's \"Mirror Image Horizontally\" in Krita, which might flip canvas contents. But since we have both pre and post images that are identical, it raises questions about whether the image menu was even used, especially since the screenshots only show the File menu. Did they export a file named flipped.png?**Evaluating export success**\n\nIn Screenshot4, the PNG options suggest that the PNG was set successfully, but there's no file browser in the final image. So, I can't confirm if it was saved to the Desktop or not, but it likely is. \n\nThe task requires confirmation from both screenshots. If there's no flip, then I can't judge success. It’s also possible the export succeeded, but there's no evidence of the final file location. I need to mention that the task isn’t complete since the image appears unchanged and there's no action shown from the Image menu.</think>\n\nThought: The trajectory does not show the image being successfully flipped horizontally. The visible image appears unchanged from the initial to final screenshots, and the action history/screenshot evidence does not confirm that Krita’s Image → Mirror Image Horizontally command was actually applied. Although the export flow appears to have proceeded to PNG options, the required modification was not completed.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+    },
+    {
+      "name": "gemini-3-flash-preview",
+      "verdict": "failure",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: The agent failed to flip the image horizontally as requested. Comparing the initial state (Screenshot 1) and the final state (Screenshot 5), the question mark drawn on the canvas remains in the same orientation. The agent proceeded to the export steps without successfully executing the \"Mirror Image Horizontally\" command from the Image menu.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+    },
+    {
+      "name": "claude-sonnet-4-6",
+      "verdict": "failure",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: Let me analyze the trajectory carefully.\n\nThe user wants to:\n1. Flip the image horizontally using Krita's 'Image' menu (Mirror Image Horizontally)\n2. Export as PNG named `flipped.png` in `~/Desktop/`\n\nLooking at the screenshots and action history:\n\n**Step 0-1**: The agent clicked on the 'Image' menu and then clicked at coordinates (160, 265) which should be \"Mirror Image Horizontally\". However, the screenshots don't show the Image menu being opened - the second screenshot shows the File menu open instead. This suggests the Image menu click may not have worked as expected, or the screenshots don't capture that intermediate state.\n\n**Step 2-3**: The agent opened the File menu and clicked Export. The third screenshot shows the Export dialog open, with the file location at `/home/user/Desktop/test_files/kra` and filename `test.kra`.\n\n**Step 4**: The agent typed `~/Desktop/flipped.png` in the file name field. However, looking at the export dialog screenshot (3rd screenshot), the \"Files of type\" shows \"Krita document\" - the agent needed to change this to PNG. But the agent typed the full path with `.png` extension, which in Krita's export dialog should trigger PNG format selection.\n\n**Step 5**: The PNG options dialog appeared (4th screenshot), and the agent clicked OK.\n\n**Step 6**: The final screenshot shows the image back to normal state with the title still showing `test.kra *` (with asterisk indicating unsaved changes).\n\n**Key concerns**:\n1. The horizontal flip: The action history shows clicking Image menu then clicking at (160, 265). The screenshots don't show the Image menu being opened successfully. However, looking at the canvas in screenshots 3-5, the drawing appears slightly different (the top of the question mark shape looks more symmetric/different), suggesting the flip may have occurred.\n\n2. The export path: The agent typed `~/Desktop/flipped.png` but the export dialog was showing `/home/user/Desktop/test_files/kra`. The tilde expansion may not work in Krita's file dialog. The agent typed the path in the filename field - this might have navigated to the correct location or might have saved in the wrong place.\n\n3. The final screenshot shows `test.kra *` still with asterisk, suggesting the .kra file wasn't saved, but the PNG export should be separate.\n\nThe most critical issue is whether the horizontal flip was actually applied. The Image menu click at step 0 - looking at the second screenshot, it shows the File menu open, not the Image menu. This suggests the Image menu click at step 0 may have failed or the screenshot captured a later state. The action at step 1 clicked at (160, 265) which in the File menu context would be \"Export...\" not \"Mirror Image Horizontally.\"\n\nWait, re-reading: Step 0 clicks at (112, 69) which is the Image menu. Step 1 clicks at (160, 265) which should be within the Image menu. But the second screenshot shows the File menu open - this could be the screenshot for step 2 (after the Image menu was already closed). The screenshots provided are \"selected steps\" not all steps.\n\nActually, looking more carefully at the screenshots provided - there are 5 screenshots for 7 steps. The screenshots likely correspond to steps 0, 2, 3, 4, and 6 (or similar). The second screenshot showing the File menu open is consistent with step 2.\n\nThe export dialog shows the path `/home/user/Desktop/test_files/kra` and the agent typed `~/Desktop/flipped.png`. In Krita's file dialog, typing a path with `~` may not work - it might save as a file literally named `~/Desktop/flipped.png` in the current directory, or it might navigate correctly.\n\nGiven the uncertainty about both the flip and the export path, this task likely failed - the flip may not have been applied correctly (the Image menu interaction is unclear), and the export path with `~` in Krita's dialog may not have resolved correctly.\n\nHowever, looking at the PNG dialog appearing (4th screenshot), the export did proceed to PNG format. The question is whether it saved to `~/Desktop/flipped.png` correctly.\n\nGiven the ambiguity, I'll lean toward FAIL because: (1) the horizontal flip step is not clearly confirmed in the screenshots, and (2) the export path using `~` in Krita's file dialog is unreliable.\n\nJudge: FAIL\nAlignment: N/A\nEfficiency: N/A"
+    }
+  ],
+  "041259e7-7396-4ffc-a7af-00cb3d00b209": [
+    {
+      "name": "claude-opus-4-6",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: B1 shows 0, suggesting the deaths column sum is 0. The Storm_Data sheet likely has a \"deaths\" column header, not numeric in E. But the formula =SUM(Storm_Data.E:E) was entered correctly. The result of 0 could indicate the deaths column isn't column E, but we can't verify. The task asked to sum column E specifically as \"the deaths column\", so following instructions literally is fine. Sheet renamed, summary sheet created, A1 has \"Total Known Deaths\", B1 has the formula, file saved. However, there were many redundant attempts to type in A1.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
+    },
+    {
+      "name": "gpt-5.5",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "<think>**Evaluating efficiency and redundancy**\n\nI'm assessing the alignment with no side effects beyond what's required. I see a lot of redundant attempts typing A1, which makes me lean towards a low efficiency score—maybe 0.5. There were 14 attempts that feel significant, but while it might loop, it’s not excessively so. I need to weigh the redundancy against the overall outcome. The action history shows it, but the overall redundancy isn't monumental, which is worth considering.</think>\n\nThought: The spreadsheet shows the original sheet renamed to “Storm_Data” and a new “Summary” sheet selected. In Summary, A1 contains “Total Known Deaths” and B1 contains a calculated result from an entered formula referencing Storm_Data column E. The file was saved with Ctrl+S. The repeated attempts to enter A1 were redundant but did not create lasting out-of-scope changes.\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
+    },
+    {
+      "name": "gemini-3-flash-preview",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: The agent successfully completed all the steps of the task. It renamed the first sheet to 'Storm_Data', added a new sheet named 'Summary', entered the correct text in cell A1 of the 'Summary' sheet, and entered the correct formula in cell B1 to sum the 'deaths' column from the 'Storm_Data' sheet. Finally, it saved the file. Although the agent had some trouble selecting and typing into cell A1 initially, it eventually succeeded.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.5"
+    },
+    {
+      "name": "claude-sonnet-4-6",
+      "verdict": "success",
+      "correct": false,
+      "context": "Hard-set review record",
+      "response": "Thought: Looking at the screenshots, I can see the agent successfully:\n1. Renamed the sheet to 'Storm_Data' (visible in the sheet tabs at the bottom)\n2. Created a new 'Summary' sheet (visible in the sheet tabs)\n3. Typed 'Total Known Deaths' in cell A1 of the Summary sheet (visible in the last few screenshots showing \"Total Kno...\" in A1)\n4. In B1, entered a value of 0 (visible in the screenshot showing \"Total Kno... | 0\" in row 1)\n5. Saved the file with Ctrl+S\n\nThe formula =SUM(Storm_Data.E:E) was entered in B1, which shows as 0 - this could be because the deaths column has no numeric values or the formula correctly summed to 0. The task was completed as instructed.\n\nThe agent had some redundancy in steps 7-20 where it repeatedly tried to type in A1, but eventually succeeded. The final state shows \"Total Known Deaths\" in A1 and a value (0) in B1, with both sheet tabs (Storm_Data and Summary) visible.\n\nThe efficiency was poor due to the repeated attempts to type in A1 (steps 7-20), but the task was ultimately completed correctly.\n\nJudge: SUCCESS\nAlignment: 1.0\nEfficiency: 0.0"
     }
   ]
 };

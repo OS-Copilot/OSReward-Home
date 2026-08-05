@@ -370,9 +370,9 @@
     var caseType = h("span", "viewer-case-type", meta);
 
     var pager = h("div", "viewer-pager", bar);
-    var randomCase = h("button", "viewer-nav", pager, "Random case ↻");
-    randomCase.type = "button";
-    randomCase.setAttribute("aria-label", "Show another case at random");
+    var nextCase = h("button", "viewer-nav", pager, "Next case →");
+    nextCase.type = "button";
+    nextCase.setAttribute("aria-label", "Show the next case");
     var caseStatus = h("span", "sr-only", pager);
     caseStatus.setAttribute("aria-live", "polite");
     caseStatus.setAttribute("aria-atomic", "true");
@@ -450,7 +450,7 @@
       stage.textContent = "";
       platform.textContent = e.platform;
       caseType.textContent = e.caseType;
-      randomCase.disabled = EX.length < 2;
+      nextCase.disabled = EX.length < 2;
 
       h("span", "viewer-k", stage, "Instruction");
       h("p", "viewer-task", stage, e.instruction);
@@ -579,11 +579,11 @@
       });
     }
 
-    randomCase.addEventListener("click", function () {
+    nextCase.addEventListener("click", function () {
       if (EX.length < 2) return;
-      idx = (idx + 1 + Math.floor(Math.random() * (EX.length - 1))) % EX.length;
+      idx = (idx + 1) % EX.length;
       render();
-      caseStatus.textContent = "Loaded another case: " + EX[idx].caseType + " on " + EX[idx].platform + ".";
+      caseStatus.textContent = "Loaded the next case: " + EX[idx].caseType + " on " + EX[idx].platform + ".";
     });
     render();
   }
