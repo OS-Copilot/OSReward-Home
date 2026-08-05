@@ -370,9 +370,9 @@
     var caseType = h("span", "viewer-case-type", meta);
 
     var pager = h("div", "viewer-pager", bar);
-    var nextCase = h("button", "viewer-nav", pager, "Next case →");
+    var nextCase = h("button", "viewer-nav", pager, "Random case ↻");
     nextCase.type = "button";
-    nextCase.setAttribute("aria-label", "Show the next case");
+    nextCase.setAttribute("aria-label", "Show another case at random");
     var caseStatus = h("span", "sr-only", pager);
     caseStatus.setAttribute("aria-live", "polite");
     caseStatus.setAttribute("aria-atomic", "true");
@@ -456,7 +456,10 @@
       h("p", "viewer-task", stage, e.instruction);
 
       var trajectoryHead = h("div", "viewer-trajectory-head", stage);
-      h("span", "viewer-k", trajectoryHead, "Trajectory · " + e.steps.length + " selected states");
+      var stateCountLabel = e.stateMeta && e.stateMeta.showsAllStates
+        ? e.steps.length + " states · complete trajectory"
+        : e.steps.length + " selected states";
+      h("span", "viewer-k", trajectoryHead, "Trajectory · " + stateCountLabel);
       var legend = h("div", "viewer-legend", trajectoryHead);
       [["focus", "Focus"], ["evidence", "Evidence"], ["verification", "Verification"]].forEach(function (item) {
         var key = h("span", "viewer-legend-item viewer-legend-" + item[0], legend);
@@ -583,7 +586,7 @@
       if (EX.length < 2) return;
       idx = (idx + 1) % EX.length;
       render();
-      caseStatus.textContent = "Loaded the next case: " + EX[idx].caseType + " on " + EX[idx].platform + ".";
+      caseStatus.textContent = "Loaded another case: " + EX[idx].caseType + " on " + EX[idx].platform + ".";
     });
     render();
   }

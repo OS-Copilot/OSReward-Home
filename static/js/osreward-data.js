@@ -697,6 +697,9 @@
       if (global.OSRewardCaseSteps[example.id]) {
         example.steps = global.OSRewardCaseSteps[example.id];
       }
+      if (global.OSRewardCaseStateMeta && global.OSRewardCaseStateMeta[example.id]) {
+        example.stateMeta = global.OSRewardCaseStateMeta[example.id];
+      }
       if (global.OSRewardJudgeResponses && global.OSRewardJudgeResponses[example.id]) {
         example.judges = global.OSRewardJudgeResponses[example.id];
       }
