@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trajectory Judge Quality — Two Diagnostic Cases</title>
+  <meta name="description" content="Two authentic computer-use trajectories that expose false-success and hard-case judging behavior.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #00205b;
+      --ink: #17243a;
+      --muted: #627086;
+      --faint: #8994a5;
+      --paper: #f6f3ea;
+      --panel: #fffdf8;
+      --line: #d9d5c9;
+      --line-strong: #c4bda9;
+      --gold: #a67c32;
+      --gold-soft: #f3ead4;
+      --cyan: #477f8d;
+      --cyan-soft: #e3eef0;
+      --green: #2d775f;
+      --green-soft: #e4f1eb;
+      --red: #a44d48;
+      --red-soft: #f5e6e3;
+      --shadow: 0 18px 45px -34px rgba(36, 45, 62, .48);
+      --display: "Newsreader", Georgia, serif;
+      --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(166, 124, 50, .08), transparent 30rem),
+        var(--paper);
+      font-family: var(--body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, summary { font: inherit; }
+    button { color: inherit; }
+
+    .page {
+      width: min(1560px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 54px 0 80px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      font: 600 11px/1 var(--mono);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+    h1 {
+      margin: 15px 0 8px;
+      color: var(--navy);
+      font: 600 clamp(36px, 5vw, 58px)/1.02 var(--display);
+      letter-spacing: -.025em;
+    }
+    .lede { max-width: 820px; margin: 0; color: var(--muted); font-size: 16px; }
+
+    .case-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 22px;
+    }
+    .case-tab {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .68);
+      padding: 9px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: .18s ease;
+    }
+    .case-tab:hover { border-color: var(--gold); }
+    .case-tab[aria-selected="true"] {
+      color: white;
+      border-color: var(--navy);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .case-shell {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 253, 248, .9);
+      box-shadow: var(--shadow);
+    }
+    .case-head { padding: 25px 28px 22px; border-bottom: 1px solid var(--line); }
+    .case-headline { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+    .case-kind {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+      color: var(--navy);
+      font: 600 11px/1 var(--mono);
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .case-kind::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+    .case-title { margin: 0; color: var(--ink); font: 600 27px/1.15 var(--display); }
+    .case-deck { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+    .platform {
+      flex: none;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #775719;
+      background: var(--gold-soft);
+      font: 600 10px/1 var(--mono);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .instruction {
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 18px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .label {
+      color: var(--gold);
+      font: 600 10px/1.4 var(--mono);
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .instruction p { margin: 0; font-size: 15px; line-height: 1.55; }
+
+    .verdict-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.35fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .verdict-card {
+      min-height: 76px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.58);
+      padding: 12px 14px;
+    }
+    .verdict-card b { display: block; margin-top: 5px; color: var(--ink); font-size: 15px; }
+    .verdict-card.is-fail b { color: var(--red); }
+    .verdict-card.is-success b { color: var(--green); }
+    .verdict-card p { margin: 5px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+
+    .trajectory { padding: 24px 0 26px; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 28px 14px;
+    }
+    .section-head h3 { margin: 0; color: var(--navy); font: 600 20px/1.2 var(--display); }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 11px; }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .legend i { width: 8px; height: 8px; border-radius: 2px; background: var(--gold); }
+    .legend .evidence i { background: var(--cyan); }
+    .legend .verification i { background: var(--green); }
+
+    .strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 3px 28px 18px;
+      scroll-snap-type: x proximity;
+      scrollbar-color: var(--line-strong) transparent;
+    }
+    .step {
+      flex: 0 0 322px;
+      scroll-snap-align: start;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+    .step.is-focus { border-color: rgba(166,124,50,.76); box-shadow: inset 0 3px 0 var(--gold); }
+    .step.is-evidence { box-shadow: inset 0 3px 0 var(--cyan); }
+    .step.is-verification { box-shadow: inset 0 3px 0 var(--green); }
+    .step.is-focus.is-evidence,
+    .step.is-focus.is-verification { box-shadow: inset 0 3px 0 var(--gold); }
+    .step-top { min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 11px; }
+    .step-no { color: var(--gold); font: 600 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .badges { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 4px; }
+    .badge { border-radius: 999px; padding: 4px 6px; font: 500 8.5px/1 var(--mono); text-transform: uppercase; }
+    .badge-focus { color: #755514; background: var(--gold-soft); }
+    .badge-evidence { color: #2b6672; background: var(--cyan-soft); }
+    .badge-verification { color: #23634d; background: var(--green-soft); }
+    .shot-button { display: block; width: 100%; padding: 0; border: 0; background: #e9e8e3; cursor: zoom-in; }
+    .shot { display: block; width: 100%; height: 184px; object-fit: contain; }
+    .step-body { padding: 12px; }
+    .step-caption { display: block; min-height: 41px; color: var(--ink); font-size: 13px; line-height: 1.45; }
+    .action {
+      margin-top: 9px;
+      border: 1px solid #d9dde1;
+      border-radius: 8px;
+      background: #f1f3f4;
+      padding: 8px 9px;
+    }
+    .action span { display: block; margin-bottom: 4px; color: var(--faint); font: 600 8px/1 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+    .action code { color: #304258; font: 400 10px/1.45 var(--mono); overflow-wrap: anywhere; }
+    .thought { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+    .thought summary { cursor: pointer; color: var(--muted); font-size: 11px; font-weight: 600; }
+    .thought p { margin: 8px 0 0; color: var(--muted); font-size: 11.5px; line-height: 1.55; }
+    .gap {
+      flex: 0 0 72px;
+      display: grid;
+      place-content: center;
+      align-self: stretch;
+      min-height: 350px;
+      color: var(--faint);
+      text-align: center;
+    }
+    .gap b { font: 600 28px/1 var(--display); }
+    .gap span { margin-top: 5px; font: 500 8px/1.35 var(--mono); text-transform: uppercase; }
+
+    .judging {
+      border-top: 1px solid var(--line);
+      background: rgba(246, 243, 234, .46);
+      padding: 23px 28px 28px;
+    }
+    .judging-head { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-bottom: 13px; }
+    .judging h3 { margin: 0; color: var(--navy); font: 600 20px/1.2 var(--display); }
+    .judging-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .judge-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .judge {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--panel);
+    }
+    .judge[open] { border-color: var(--line-strong); }
+    .judge summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .judge summary::-webkit-details-marker { display: none; }
+    .judge-name { min-width: 0; }
+    .judge-name b { display: block; overflow: hidden; color: var(--ink); font-size: 12.5px; text-overflow: ellipsis; white-space: nowrap; }
+    .judge-name small { display: block; margin-top: 2px; color: var(--faint); font-size: 9.5px; }
+    .judge-verdict { border-radius: 999px; padding: 4px 7px; font: 600 8.5px/1 var(--mono); text-transform: uppercase; }
+    .judge-verdict.success { color: var(--green); background: var(--green-soft); }
+    .judge-verdict.failure { color: var(--red); background: var(--red-soft); }
+    .judge-gap { color: var(--red); font-size: 10px; font-weight: 600; }
+    .judge-response {
+      margin: 0;
+      max-height: 310px;
+      overflow: auto;
+      border-top: 1px solid var(--line);
+      padding: 13px;
+      color: #3f4c60;
+      background: #f8f7f2;
+      font: 400 10.5px/1.58 var(--mono);
+      white-space: pre-wrap;
+    }
+
+    .lightbox[hidden] { display: none; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: rgba(8, 15, 29, .94);
+      padding: 18px;
+    }
+    .lightbox-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: white; padding-bottom: 12px; }
+    .lightbox-bar span { font-size: 13px; }
+    .lightbox-bar button { border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: white; background: transparent; padding: 6px 11px; cursor: pointer; }
+    .lightbox img { min-width: 0; min-height: 0; width: 100%; height: 100%; object-fit: contain; }
+
+    @media (max-width: 800px) {
+      .page { width: min(100% - 24px, 1560px); padding-top: 30px; }
+      .case-head, .judging { padding-left: 17px; padding-right: 17px; }
+      .case-headline, .judging-head { display: block; }
+      .platform { display: inline-flex; margin-top: 12px; }
+      .instruction { grid-template-columns: 1fr; gap: 7px; }
+      .verdict-grid, .judge-list { grid-template-columns: 1fr; }
+      .section-head { display: block; padding-left: 17px; padding-right: 17px; }
+      .legend { margin-top: 8px; }
+      .strip { padding-left: 17px; padding-right: 17px; }
+      .step { flex-basis: min(310px, calc(100vw - 58px)); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">Judge diagnostics</div>
+      <h1>Three trajectories, three judging blind spots</h1>
+      <p class="lede">A focused view of two false-success patterns and one genuinely difficult success case. Every screenshot, action, thought, and judge response below comes from the evaluation record.</p>
+    </header>
+
+    <nav class="case-tabs" aria-label="Choose a trajectory" role="tablist" id="case-tabs"></nav>
+    <section id="case-root" aria-live="polite"></section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
+    <div class="lightbox-bar">
+      <span id="lightbox-title"></span>
+      <button type="button" id="lightbox-close">Close</button>
+    </div>
+    <img id="lightbox-image" alt="">
+  </div>
+
+  <script src="static/js/osreward-case-steps.js"></script>
+  <script src="static/js/osreward-data.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var IDS = [
+        "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c",
+        "41a372e2-b5cd-474b-8031-81bdfef2a3f4",
+        "041259e7-7396-4ffc-a7af-00cb3d00b209"
+      ];
+      var META = {
+        "1a1f2d7b-b2a7-50cb-8f16-3bdae408818c": {
+          tab: "False success",
+          title: "A failure accepted by every model judge",
+          deck: "The agent reads every option label but misses the visual state that makes most options unavailable.",
+          field: "23/23 model judges: SUCCESS",
+          gap: "False positive",
+          diagnosis: "The screenshot directly contradicts the answer: only Hunter and size 75 are enabled."
+        },
+        "41a372e2-b5cd-474b-8031-81bdfef2a3f4": {
+          tab: "Hard case",
+          title: "A visible mirror transformation rejected by most judges",
+          deck: "The task is short, but judging it requires aligning asymmetric features across the before-and-after frames.",
+          field: "16/23 model judges: FAIL",
+          gap: "False negative",
+          diagnosis: "Most judges call the images identical even though the short and long strokes visibly exchange sides."
+        },
+        "041259e7-7396-4ffc-a7af-00cb3d00b209": {
+          tab: "Outcome blind spot",
+          title: "A spreadsheet failure accepted by most judges",
+          deck: "The workflow looks complete, but the final value contradicts the visible source data.",
+          field: "19/23 model judges: SUCCESS",
+          gap: "False positive",
+          diagnosis: "The judges reward the formula and save action without checking whether the computed value is semantically plausible."
+        }
+      };
+      var DISPLAY_NAMES = {
+        "gpt-5.5": "GPT-5.5",
+        "gpt-5.4": "GPT-5.4",
+        "gpt-5-mini": "GPT-5-mini",
+        "gemini-3-flash": "Gemini-3-Flash",
+        "gemini-3.5-flash": "Gemini-3.5-Flash",
+        "claude-opus-4-6": "Claude-Opus-4-6",
+        "claude-sonnet-4-6": "Claude-Sonnet-4-6",
+        "qwen3.5-397b": "Qwen3.5-397B"
+      };
+
+      var all = window.OSRewardData && window.OSRewardData.viewer
+        ? window.OSRewardData.viewer.examples : [];
+      var hardCaseId = "41a372e2-b5cd-474b-8031-81bdfef2a3f4";
+      var calcCaseId = "041259e7-7396-4ffc-a7af-00cb3d00b209";
+      var extraCases = {};
+      extraCases[hardCaseId] = {
+        id: hardCaseId,
+        platform: "Ubuntu · Krita",
+        instruction: "Flip the current image horizontally using Krita's 'Image' menu (Mirror Image Horizontally). Then, export the modified image as a PNG file named `flipped.png` in the `~/Desktop/` directory.",
+        gold: "success",
+        goldWhy: "The asymmetric stroke visibly swaps sides after the mirror command, and the workflow reaches the PNG export options.",
+        steps: (window.OSRewardCaseSteps && window.OSRewardCaseSteps[hardCaseId]) || [],
+        judges: (window.OSRewardJudgeResponses && window.OSRewardJudgeResponses[hardCaseId]) || []
+      };
+      extraCases[calcCaseId] = {
+        id: calcCaseId,
+        platform: "Ubuntu · LibreOffice Calc",
+        instruction: "In the open spreadsheet, rename the current sheet from 'Sheet1' to 'Storm_Data'. Then, add a new sheet and name it 'Summary'. In the 'Summary' sheet, type 'Total Known Deaths' in cell A1. In cell B1 of the 'Summary' sheet, insert a formula that calculates the sum of all numeric values in the 'deaths' column (Column E) from the 'Storm_Data' sheet. Save your changes to the file.",
+        gold: "failure",
+        goldWhy: "The final result is 0 even though column E visibly contains several non-zero values, and the agent saves without validating the contradiction.",
+        steps: (window.OSRewardCaseSteps && window.OSRewardCaseSteps[calcCaseId]) || [],
+        judges: (window.OSRewardJudgeResponses && window.OSRewardJudgeResponses[calcCaseId]) || []
+      };
+      var cases = IDS.map(function (id) {
+        return all.find(function (item) { return item.id === id; }) || extraCases[id];
+      }).filter(Boolean);
+      var active = 0;
+      var tabs = document.getElementById("case-tabs");
+      var root = document.getElementById("case-root");
+      var lightbox = document.getElementById("lightbox");
+      var lightboxTitle = document.getElementById("lightbox-title");
+      var lightboxImage = document.getElementById("lightbox-image");
+      var lightboxClose = document.getElementById("lightbox-close");
+      var returnFocus = null;
+
+      function node(tag, className, text) {
+        var el = document.createElement(tag);
+        if (className) el.className = className;
+        if (text !== undefined) el.textContent = text;
+        return el;
+      }
+
+      function displayName(name) {
+        var raw = String(name || "Unknown model");
+        return DISPLAY_NAMES[raw.toLowerCase()] || raw;
+      }
+
+      function markerTypes(step) {
+        return (step.markers || []).map(function (marker) { return marker.type; });
+      }
+
+      function verdictCard(label, value, className, detail) {
+        var card = node("div", "verdict-card " + (className || ""));
+        card.appendChild(node("span", "label", label));
+        card.appendChild(node("b", null, value));
+        if (detail) card.appendChild(node("p", null, detail));
+        return card;
+      }
+
+      function openLightbox(step, opener) {
+        returnFocus = opener;
+        lightboxTitle.textContent = "Step " + step.number + " · " + step.caption;
+        lightboxImage.src = step.shot;
+        lightboxImage.alt = "Full-resolution trajectory screenshot at step " + step.number;
+        lightbox.hidden = false;
+        lightboxClose.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.hidden = true;
+        lightboxImage.removeAttribute("src");
+        if (returnFocus) returnFocus.focus();
+        returnFocus = null;
+      }
+
+      function renderStep(step) {
+        var types = markerTypes(step);
+        var card = node("article", "step" + types.map(function (type) {
+          return " is-" + type;
+        }).join(""));
+        var top = node("div", "step-top");
+        top.appendChild(node("span", "step-no", "Step " + step.number));
+        var badges = node("span", "badges");
+        (step.markers || []).forEach(function (marker) {
+          badges.appendChild(node("span", "badge badge-" + marker.type, marker.label));
+        });
+        top.appendChild(badges);
+        card.appendChild(top);
+
+        var shotButton = node("button", "shot-button");
+        shotButton.type = "button";
+        shotButton.setAttribute("aria-label", "Open full-resolution screenshot for step " + step.number);
+        var image = node("img", "shot");
+        // Use the original PNG/JPEG directly in this standalone viewer.  The
+        // minimal local preview server serves generated WebP thumbnails as a
+        // generic binary stream on some systems, which leaves an empty frame.
+        image.src = step.shot;
+        image.alt = "Trajectory screenshot at step " + step.number + ": " + step.caption;
+        image.loading = "lazy";
+        shotButton.appendChild(image);
+        shotButton.addEventListener("click", function () { openLightbox(step, shotButton); });
+        card.appendChild(shotButton);
+
+        var body = node("div", "step-body");
+        body.appendChild(node("strong", "step-caption", step.caption));
+        var action = node("div", "action");
+        action.appendChild(node("span", null, "Action"));
+        action.appendChild(node("code", null, step.action || "No action recorded"));
+        body.appendChild(action);
+        var thought = node("details", "thought");
+        thought.appendChild(node("summary", null, "Thought · show authentic reasoning"));
+        thought.appendChild(node("p", null, step.thought || "No thought recorded"));
+        body.appendChild(thought);
+        card.appendChild(body);
+        return card;
+      }
+
+      function renderJudge(judge) {
+        var item = node("details", "judge");
+        var summary = node("summary");
+        var identity = node("span", "judge-name");
+        identity.appendChild(node("b", null, displayName(judge.name)));
+        identity.appendChild(node("small", null, judge.context || "Evaluation record"));
+        summary.appendChild(identity);
+        summary.appendChild(node("span", "judge-verdict " + judge.verdict, judge.verdict));
+        summary.appendChild(node("span", "judge-gap", judge.correct ? "matches human" : "disagrees"));
+        item.appendChild(summary);
+        item.appendChild(node("pre", "judge-response", judge.response || judge.reason || "No response recorded"));
+        return item;
+      }
+
+      function renderCase(index) {
+        active = index;
+        Array.prototype.forEach.call(tabs.children, function (tab, tabIndex) {
+          tab.setAttribute("aria-selected", tabIndex === active ? "true" : "false");
+          tab.tabIndex = tabIndex === active ? 0 : -1;
+        });
+        root.textContent = "";
+        var item = cases[active];
+        var meta = META[item.id];
+        var shell = node("article", "case-shell");
+
+        var head = node("header", "case-head");
+        var headline = node("div", "case-headline");
+        var titleBlock = node("div");
+        titleBlock.appendChild(node("span", "case-kind", meta.tab));
+        titleBlock.appendChild(node("h2", "case-title", meta.title));
+        titleBlock.appendChild(node("p", "case-deck", meta.deck));
+        headline.appendChild(titleBlock);
+        headline.appendChild(node("span", "platform", item.platform));
+        head.appendChild(headline);
+
+        var instruction = node("div", "instruction");
+        instruction.appendChild(node("span", "label", "Instruction"));
+        instruction.appendChild(node("p", null, item.instruction));
+        head.appendChild(instruction);
+
+        var verdicts = node("div", "verdict-grid");
+        verdicts.appendChild(verdictCard("Human label", item.gold.toUpperCase(), "is-" + (item.gold === "failure" ? "fail" : "success"), item.goldWhy));
+        verdicts.appendChild(verdictCard("Full judge field", meta.field, item.gold === "failure" ? "is-success" : "is-fail", meta.gap));
+        verdicts.appendChild(verdictCard("Why this is diagnostic", meta.gap, "", meta.diagnosis));
+        head.appendChild(verdicts);
+        shell.appendChild(head);
+
+        var trajectory = node("section", "trajectory");
+        var sectionHead = node("div", "section-head");
+        sectionHead.appendChild(node("h3", null, "Trajectory · " + item.steps.length + " selected states"));
+        var legend = node("div", "legend");
+        [["", "Focus"], ["evidence", "Evidence"], ["verification", "Verification"]].forEach(function (entry) {
+          var key = node("span", entry[0]); key.appendChild(node("i")); key.appendChild(document.createTextNode(entry[1])); legend.appendChild(key);
+        });
+        sectionHead.appendChild(legend);
+        trajectory.appendChild(sectionHead);
+        var strip = node("div", "strip");
+        var previous = null;
+        item.steps.forEach(function (step) {
+          if (previous !== null && step.number > previous + 1) {
+            var count = step.number - previous - 1;
+            var gap = node("div", "gap");
+            gap.appendChild(node("b", null, "…"));
+            gap.appendChild(node("span", null, count + " state" + (count === 1 ? "" : "s") + " omitted"));
+            strip.appendChild(gap);
+          }
+          strip.appendChild(renderStep(step));
+          previous = step.number;
+        });
+        trajectory.appendChild(strip);
+        shell.appendChild(trajectory);
+
+        var judging = node("section", "judging");
+        var judgingHead = node("div", "judging-head");
+        judgingHead.appendChild(node("h3", null, "Representative model-judge responses"));
+        judgingHead.appendChild(node("p", null, "Expand a model to read its unedited evaluation response."));
+        judging.appendChild(judgingHead);
+        var judgeList = node("div", "judge-list");
+        item.judges.forEach(function (judge) { judgeList.appendChild(renderJudge(judge)); });
+        judging.appendChild(judgeList);
+        shell.appendChild(judging);
+        root.appendChild(shell);
+      }
+
+      if (cases.length !== IDS.length) {
+        root.textContent = "The selected trajectory data could not be loaded.";
+        return;
+      }
+
+      cases.forEach(function (item, index) {
+        var tab = node("button", "case-tab", (index + 1) + " · " + META[item.id].tab);
+        tab.type = "button";
+        tab.role = "tab";
+        tab.addEventListener("click", function () { renderCase(index); });
+        tabs.appendChild(tab);
+      });
+      tabs.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        var next = event.key === "ArrowRight" ? (active + 1) % cases.length : (active + cases.length - 1) % cases.length;
+        renderCase(next);
+        tabs.children[next].focus();
+      });
+      lightboxClose.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (event) { if (event.target === lightbox) closeLightbox(); });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !lightbox.hidden) closeLightbox();
+      });
+      renderCase(0);
+    })();
+  </script>
+</body>
+</html>
