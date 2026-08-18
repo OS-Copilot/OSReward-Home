@@ -97,14 +97,14 @@ brand mark (B2). An earlier version of this note claimed otherwise; corrected
 
 ## C. Links
 
-### C1 — Release links: five live, none parked **TODO 2026-08-03**
+### C1 — Release links: all live **RESOLVED 2026-08-18**
 Live (hero button + Resources card each for the artifacts, plus the nav icon
 for code):
 
 | `data-link` | Target |
 | --- | --- |
 | `paper` | `https://arxiv.org/abs/2607.28609` — verified 200 |
-| `code` | `https://github.com/OS-Copilot/OSReward` — **returns 404, see below** |
+| `code` | `https://github.com/OS-Copilot/OSReward` — verified 200 on 2026-08-18 |
 | `benchmark` | `https://huggingface.co/datasets/OS-Copilot/OSReward` — verified 200 |
 | `corpus` | `https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K` — verified 200 |
 | `models` | `https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd` — verified 200 |
@@ -117,14 +117,9 @@ buttons and `data-link="arxiv"` no longer exists. The `.btn.pending` /
 `.pending-card` CSS rules are now unused; kept in case the code links need
 re-parking.
 
-> **`github.com/OS-Copilot/OSReward` 404s.** Checked repeatedly, including with a
-> browser user agent (last re-checked 2026-08-03). The repository is either
-> still private or not created yet, so three places on the live page currently
-> point at a 404: the hero Code button, the Resources Code card, and the nav
-> GitHub icon. Qiushi supplied the URL while setting the artifacts up, so this
-> should resolve itself on publish — but until it does the site advertises a
-> dead link. Make the repo public, or say the word and I will re-park those
-> three.
+> `github.com/OS-Copilot/OSReward` 404'd from 2026-07-30 until at least 08-03;
+> it returns 200 as of 2026-08-18. All six release URLs (arXiv, HF paper page,
+> benchmark, corpus, model collection, code) are live, and the News box says so.
 
 ### C2 — Nav GitHub button **RESOLVED 2026-07-30**
 Points at `https://github.com/OS-Copilot/OSReward` (subject to the 404 note in
@@ -241,12 +236,13 @@ or a precision figure for it. Do not add one without re-running the eval.
 
 ## E. Content decisions to confirm
 
-### E1 — News list **TODO**
-One entry, dated `2026-07`: "The OSReward project page is live." As of C0 that
-is now accurate, so it can stand as the first item. Add the real dated items
-above it as they happen, newest first. Two details to settle while there: the
-entry uses `YYYY-MM` while the inline TODO comment above it asks for
-`YYYY-MM-DD`, and the section has no `id`, so nothing can link to it.
+### E1 — News list **RESOLVED 2026-08-18**
+Two entries, newest first, month granularity: `2026-08` — everything released
+(benchmark, corpus, checkpoints, code, each linked); `2026-07` — paper out on
+arXiv and Hugging Face, project page live. The `YYYY-MM` vs `YYYY-MM-DD`
+mismatch was settled in favour of `YYYY-MM` (comment updated). The stale
+Resources subtitle "Each link goes live as its artifact lands" went with it.
+The section still has no `id`; add one if anything ever needs to link to it.
 
 ### E2 — BibTeX **RESOLVED 2026-08-03**
 Final entry supplied by Qiushi on the arXiv release: compact `field={…}`
