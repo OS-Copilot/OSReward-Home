@@ -343,8 +343,9 @@
               <a href="#benchmark"><b>A standardized benchmark for the CUA reward signal.</b></a>
               1,019 human-gold trajectories collected on cross-platform infrastructure we build and
               operate end to end, each labeled by three annotators with meta-review on disagreements.
-              Read three ways: the full set, the <em>OSReward-Hard</em> challenge set, and
-              <em>OSReward-Multi</em> for alignment and efficiency grading.
+              The benchmark has three sets: <em>OSReward</em> for the full evaluation,
+              <em>OSReward-Hard</em> for challenging cases, and <em>OSReward-Multi</em> for alignment and
+              efficiency grading.
             </li>
             <li>
               <a href="#findings"><b>The broadest evaluation of VLM judges for CUA to date.</b></a>
@@ -419,27 +420,25 @@
         <div class="section-head">
           <span class="eyebrow">The problem</span>
           <h2 class="section-title">The whole field <span class="gilt">leans lenient</span></h2>
-          <p class="section-sub">Place every judge at its recall on truly-failed runs against its recall on
-            truly-successful ones. Almost every point sits above the diagonal: judges accept far more failures
-            than they reject successes.</p>
+          <p class="section-sub">Judges consistently accept far more failures than they reject successes. Across
+            the board, models fail to flag incomplete tasks, showing a clear leniency bias rather than a strict
+            evaluation standard.</p>
         </div>
 
         <div class="card chart-card rise">
           <div class="chart-head">
             <h3>Strict–lenient plane</h3>
           </div>
-          <p class="chart-note">Above the dashed diagonal is lenient (a failed run scored SUCCESS); below is strict.
-            Switch to OSReward-Hard and the cloud drifts left — leniency does not just persist on hard cases,
-            it widens. Hover any point; click a family to mute it.</p>
+          <p class="chart-note">Models above the diagonal lean lenient, accepting more failures than they reject.
+            On OSReward-Hard, this leniency bias visibly worsens as the distribution shifts left.</p>
           <div id="chart-bias"></div>
         </div>
 
         <div class="grid grid-3 rise" style="margin-top:26px">
           <div class="card feature">
             <h3 style="color:var(--gold-200)">Not measurable before</h3>
-            <p>Human-written verifiers cover a handful of curated tasks and cannot inspect a static corpus at all.
-              Human annotation cannot keep pace. A model judge is the only practical route — and its own
-              reliability had gone untested.</p>
+            <p>Human verifiers are unscalable for static corpora. While model judges are the only practical
+              alternative, their reliability has remained largely untested.</p>
           </div>
           <div class="card feature">
             <h3 style="color:var(--gold-200)">Harder than judging text</h3>
@@ -704,9 +703,9 @@
               </svg>
             </div>
             <h3>OSReward-Hard</h3>
-            <p>A challenge subset drawn mostly from the trajectories the annotators themselves split on, each
-              re-verified under meta-review — so the difficulty is real, not annotation error. Deceptive runs that
-              read like completed tasks, at a 30 / 70 success / fail split.</p>
+            <p>A challenge subset drawn mostly from trajectories that split human annotators, rigorously re-verified
+              under meta-review to capture genuine edge cases. Comprises deceptive runs that read like completed
+              tasks, at a 30/70 success/fail split.</p>
           </div>
           <div class="card feature">
             <div class="ico" style="color:#b18bf2">
@@ -716,9 +715,9 @@
               </svg>
             </div>
             <h3>OSReward-Multi</h3>
-            <p>The successful trajectories carry human <em>alignment</em> (did the actions match the task intent)
-              and <em>efficiency</em> (how free the run was of wasted steps) sub-labels — a finer quality grading
-              existing CUA-judge benchmarks do not measure.</p>
+            <p>The successful trajectories carry sub-labels for human <em>alignment</em> (did the actions match the
+              task intent) and <em>efficiency</em> (how free the run was of wasted steps), enabling fine-grained
+              quality grading beyond binary verdicts.</p>
           </div>
         </div>
 
@@ -757,9 +756,9 @@
         <div class="grid grid-2 rise">
           <div class="takeaway">
             <span class="k">01</span>
-            <p>State-of-the-art VLMs judge CUA success at just under <strong>90%</strong> binary accuracy, with no
-              clear single winner — the top three sit within 0.2 pp. The open/closed gap is mostly a small-model
-              long tail, not a frontier advantage.</p>
+            <p>State-of-the-art VLMs judge CUA success at just under <strong>90%</strong> binary accuracy with no
+              clear single winner—the top three sit within 0.2 pp, and frontier open-weight models have effectively
+              closed the gap with commercial counterparts.</p>
           </div>
           <div class="takeaway">
             <span class="k">02</span>
@@ -770,14 +769,14 @@
           </div>
           <div class="takeaway">
             <span class="k">03</span>
-            <p>The verdict lives in the <strong>text history</strong>, not the screen. Dropping the per-step thought
-              and action text costs 7.2 pp on average and flips 22.7% of verdicts; the visual choices that look
-              essential barely move accuracy at all.</p>
+            <p>Verdict accuracy relies primarily on <strong>text history</strong> rather than visual state. Dropping
+              the per-step thought and action text costs 7.2 pp on average and flips 22.7% of verdicts, whereas
+              omitting visual inputs has minimal impact on accuracy.</p>
           </div>
           <div class="takeaway">
             <span class="k">04</span>
-            <p>Reliability can be bought, but not afforded. The judges that hold ~70% on OSReward-Hard cost
-              <strong>$45–100</strong> to judge the full set once, which does not scale to training-time reward.</p>
+            <p>High reliability is prohibitively expensive. Judges capable of ~70% on OSReward-Hard cost
+              <strong>$45–100</strong> to evaluate the full set once, failing to scale for training-time reward.</p>
           </div>
         </div>
 
@@ -797,9 +796,9 @@
           <div class="chart-head">
             <h3>What judges get wrong</h3>
           </div>
-          <p class="chart-note">Every incorrect verdict, labeled into over-accepts and over-rejects with three
-            modes each. One mode dominates every family: over-accepting a task the agent never completed. That is
-            the mechanism behind the leniency bias — the verdict leans on the agent's own closing claim.</p>
+          <p class="chart-note">Every incorrect verdict is labeled into over-accepts and over-rejects (three modes
+            each). One mode dominates every family: over-accepting incomplete tasks. This field-wide leniency bias
+            occurs because judges over-rely on the agent's own closing claims.</p>
           <div id="chart-failure"></div>
         </div>
 
@@ -809,10 +808,8 @@
             <h3>Where the hard set bites</h3>
           </div>
           <p class="chart-note">Mean per-judge binary accuracy on OSReward-Hard. Windows is the hardest platform to
-            judge and mobile the easiest; failures that hinge on reading the screen — perception, then action — are
-            markedly harder to catch than planning-and-reasoning failures, which are the dominant type in the data
-            and legible in the thought and action text. Failure types are multi-label, so their counts exceed the
-            number of failed trajectories.</p>
+            judge and mobile the easiest. Failures dependent on visual state (perception and action) are
+            significantly harder to catch than text-legible planning and reasoning errors.</p>
           <div id="chart-hard"></div>
         </div>
 
@@ -821,11 +818,10 @@
           <div class="chart-head">
             <h3>What actually drives a verdict</h3>
           </div>
-          <p class="chart-note">Change in binary accuracy against the main setting, one input component perturbed
-            at a time. Removing step-level text dominates; the visual settings barely register. Aggregate accuracy
-            is stable, but each visually harmless setting still flips 5–7% of individual verdicts — which matters
-            when a label is consumed on its own, as in reward labeling. The <code>avg</code> column is the
-            mean over the eleven judges shown.</p>
+          <p class="chart-note">Change in binary accuracy when perturbing one input component at a time. Removing
+            step-level text dominates, whereas visual ablations barely register on aggregate accuracy. However,
+            these seemingly harmless visual changes still flip 5–7% of individual verdicts, directly impacting
+            instance-level reward labeling.</p>
           <div id="chart-ablation"></div>
         </div>
       </div>
@@ -852,11 +848,11 @@
         <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
           <div class="card chart-card">
             <div class="chart-head"><h3>Finer-grained grading</h3></div>
-            <p class="chart-note">On OSReward-Multi every judge additionally rates alignment and efficiency.
-              Quality grading is far weaker than outcome judging: the best judge falls from ~90% on the binary
-              verdict to the low sixties. The AUC–macro-recall gap is the diagnostic — judges rank the levels
-              better than they score them, so the discrimination is there but the thresholds are miscalibrated,
-              worst on alignment.</p>
+            <p class="chart-note">On OSReward-Multi, every judge additionally rates alignment and efficiency.
+              Quality grading is markedly weaker than binary outcome judging: the top model falls from ~90%
+              accuracy to the low sixties. The gap between AUC and macro-recall reveals that while judges can rank
+              quality levels effectively, their scoring thresholds remain poorly calibrated, particularly for
+              alignment.</p>
             <div class="table-shell">
               <div class="table-scroll">
                 <table class="data" id="table-multi">
@@ -921,11 +917,10 @@
         <div class="grid grid-2 rise" style="align-items:start">
           <div class="card chart-card">
             <div class="chart-head"><h3>OS-Shepherd-100K</h3></div>
-            <p class="chart-note">A judge instance is one judge's verdict on one trajectory. Every kept trajectory
-              is scored by an ensemble of strong judges under varied screenshot settings, and enters the corpus
-              only when they independently agree — voting cannot sharpen a verdict, but corpus building, unlike
-              evaluation, is free to discard trajectories. About 85% of judged trajectories survive the agreement
-              filter and carry their reasoning into the training corpus.</p>
+            <p class="chart-note">Trajectories are scored by an ensemble of strong judges under varied screenshot
+              settings, entering the final dataset only upon independent agreement. This strict consensus filter
+              retains approximately 85% of the initial pool, ensuring only robust reasoning traces are carried into
+              the training corpus.</p>
             <div id="chart-corpus"></div>
           </div>
           <div class="card chart-card">
@@ -953,8 +948,8 @@
             </div>
             <div class="takeaway" style="margin-top:16px">
               <span class="k">Why</span>
-              <p>Every sample carries the judge's <em>reasoning</em>, not just a binary verdict — the natural
-                target, given that the verdict lives mainly in text.</p>
+              <p>Since verdict accuracy relies heavily on text history, every sample provides the judge's
+                <em>full reasoning trace</em> to serve as a dense, direct optimization signal.</p>
             </div>
           </div>
         </div>
@@ -964,12 +959,9 @@
           <div class="chart-head">
             <h3>How the corpus is built</h3>
           </div>
-          <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with
-            open-source trajectories; the pool is then ensemble-judged, and only the verdicts the judges
-            agree on are kept. The first four
-            columns count trajectories on one scale. After that the unit changes — a judge instance is
-            one judge's verdict on one trajectory, and the corpus is counted in training samples — so the
-            right-hand columns are drawn on their own scale.</p>
+          <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with open-source
+            trajectories. The combined pool is then ensemble-judged, retaining only the verdicts with unanimous
+            agreement.</p>
           <div id="chart-corpus-flow"></div>
         </div>
 
@@ -981,9 +973,9 @@
               <h3>OS-Shepherd-9B</h3>
             </div>
             <p style="font-size:15px;color:var(--text-dim);margin:0">Moves from the bottom third of the field into
-              the mid-tier commercial band on the full set — and holds the balanced diagonal on OSReward-Hard,
-              catching 57.6% of hard false successes where the cheap and lenient field misses nearly all of them.
-              At $1.36 to judge the full set, about a third cheaper than its nearest commercial tier-mate.</p>
+              the mid-tier commercial band on the full set. On OSReward-Hard, it maintains a balanced strict-lenient
+              profile, catching 57.6% of deceptive false successes. At $1.36 to evaluate the full set, it operates
+              at roughly two-thirds the cost of its nearest commercial equivalent.</p>
             <dl>
               <dt>OSReward accuracy</dt><dd>86.1<span class="up">+9.4</span></dd>
               <dt>OSReward-Hard accuracy</dt><dd>60.2<span class="up">+20.8</span></dd>
@@ -996,10 +988,10 @@
               <img src="public/logos/OS-Shepherd.png" alt="">
               <h3>OS-Shepherd-35B-A3B</h3>
             </div>
-            <p style="font-size:15px;color:var(--text-dim);margin:0">The identical recipe at four times the
-              parameters lands beside the 9B: a small further gain on OSReward-Hard, level full-set accuracy, the
-              same balanced diagonal. Scale buys 2.4 pp of hard-set balanced accuracy; what transfers is the
-              recipe. On the quality axes it grades noticeably better than the 9B.</p>
+            <p style="font-size:15px;color:var(--text-dim);margin:0">Applying the identical pipeline at 4×
+              parameters yields similar outcomes: a 2.4 pp gain on OSReward-Hard balanced accuracy, comparable
+              full-set performance, and the same strict-lenient balance. While binary judging scales marginally,
+              the 35B model grades noticeably better on fine-grained quality axes.</p>
             <dl>
               <dt>OSReward accuracy</dt><dd>85.6<span class="up">+3.4</span></dd>
               <dt>OSReward-Hard accuracy</dt><dd>62.7<span class="up">+11.6</span></dd>
@@ -1012,9 +1004,9 @@
         <!-- Training deltas -->
         <div class="card chart-card rise" style="margin-top:24px">
           <div class="chart-head"><h3>Against the untuned base</h3></div>
-          <p class="chart-note">Both base models are near-total accepters: the 9B base catches 14.1% of hard
-            failures. Training relocates the operating point rather than trading one error for another — far more
-            failure recall, a little less success recognition, at higher balanced accuracy.</p>
+          <p class="chart-note">Both base models are near-total accepters, with the 9B base catching only 14.1% of
+            hard failures. Training successfully shifts the operating point: it significantly boosts failure recall
+            with only a minor reduction in success recognition, yielding a higher overall balanced accuracy.</p>
           <div class="table-shell">
             <div class="table-scroll">
               <table class="data" id="table-training">
@@ -1042,16 +1034,17 @@
             <div class="chart-head"><h3>Held-out benchmarks</h3></div>
             <p class="chart-note">Agreement with each benchmark's own human-written verifier, on matched subsets.
               Agreement is platform-driven, not judge-driven: every judge does best on mobile and falls well short
-              on desktop. The OS-Shepherd models are the best open judges on OSWorld and AndroidWorld, and sit in the frontier cluster on WebArena — beating every general open model
-              tested, up to one ~44× the 9B's size.</p>
+              on desktop. The OS-Shepherd models rank as the top open judges on OSWorld and AndroidWorld, and sit
+              within the frontier cluster on WebArena, outperforming general open models up to 44× the 9B's size.</p>
             <div id="chart-general"></div>
           </div>
           <div class="card chart-card">
             <div class="chart-head"><h3>Leniency resistance transfers</h3></div>
-            <p class="chart-note">Recall on truly-failed runs. General Qwen judges stay lenient at every size from
-              30B to 397B; OS-Shepherd-9B catches far more real failures on all three. The resistance is learned,
-              and from training rather than size. None of these benchmarks' tasks or trajectories enter training —
-              OSWorld contributes neither, making it the cleanest out-of-distribution evidence.</p>
+            <p class="chart-note">Recall on truly-failed runs. General Qwen models remain lenient across all scales
+              (30B to 397B), whereas OS-Shepherd-9B consistently catches far more real failures. This leniency
+              resistance is acquired purely through our training pipeline. Furthermore, none of these benchmarks'
+              tasks or trajectories were seen during training, ensuring a strictly out-of-distribution evaluation
+              (particularly evident on OSWorld).</p>
             <div id="chart-leniency"></div>
           </div>
         </div>
@@ -1228,7 +1221,7 @@
 
   <script src="static/js/osreward-case-steps.js?v=20260805-short-trajectories"></script>
   <script src="static/js/osreward-data.js?v=20260805-short-trajectories"></script>
-  <script src="static/js/osreward-charts.js"></script>
+  <script src="static/js/osreward-charts.js?v=20260830-sankey-fix"></script>
   <script src="static/js/osreward-demo.js"></script>
   <script src="static/js/main.js?v=20260805-short-trajectories"></script>
 </body>

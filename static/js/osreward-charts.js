@@ -1160,15 +1160,15 @@
         scroller.style.cssText = "overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch";
       }
 
-      var h = 560;
+      var h = 584;
       /* The first and last column captions are centred on their node, so each
          side must reserve half a caption's width. "OS-Shepherd-100K" is the
          widest; at 10px the labels used to spill past the card edge. */
-      var m = { t: 58, r: 60, b: 24, l: 60 };
+      var m = { t: 58, r: 60, b: 48, l: 60 };
       var iw = w - m.l - m.r, ih = h - m.t - m.b;
 
       var svg = el("svg", { viewBox: "0 0 " + w + " " + h, width: w, height: h,
-        role: "img", "aria-label": "How OS-Shepherd-100K is built" }, scroller);
+        role: "img", "aria-label": "How OS-Shepherd-100K is built. Left columns denote trajectory counts; right columns denote training sample counts." }, scroller);
       svg.style.cssText = "display:block;width:" + w + "px;height:" + h + "px;max-width:none";
       var g = el("g", { transform: "translate(" + m.l + "," + m.t + ")" }, svg);
 
@@ -1204,6 +1204,9 @@
         function off() { if (base !== null) elm.setAttribute("fill-opacity", base); tip.hide(); }
         elm.addEventListener("mouseenter", on); elm.addEventListener("mouseleave", off);
         elm.addEventListener("focus", on); elm.addEventListener("blur", off);
+        /* Keep keyboard focus for accessibility, but do not let a mouse click
+           draw the browser's rectangular SVG focus outline around a ribbon. */
+        elm.addEventListener("mousedown", function (event) { event.preventDefault(); });
       }
 
       function caption(i, show, label, colour) {
@@ -1263,7 +1266,7 @@
           .textContent = d.label + "  " + d.show;
         acc += hgt;
       });
-      el("text", { x: srcX + 12, y: srcTop - 10,
+      el("text", { x: srcX - 8, y: srcTop + 12, "text-anchor": "end",
         style: "fill:var(--text-faint);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase" }, g)
         .textContent = "open-source corpora merged in";
 
@@ -1323,6 +1326,10 @@
           fill: "transparent" }, g);
         hoverable(hit, n[3], [[n[6], n[7] || n[5].toLocaleString()]], null, x + nodeW / 2, n[1] / 2);
       });
+
+      el("text", { x: 0, y: ih + 36,
+        style: "fill:var(--text-faint);font-size:10.5px;font-style:italic" }, g)
+        .textContent = "Note: Left columns denote trajectory counts; right columns denote training sample counts.";
 
       var lg = html("div", "legend-row", host);
       [[C_KEEP, "kept"], [C_DROP, "filtered out"], [C_JUDGE, "judge instances"],
