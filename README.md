@@ -20,7 +20,20 @@ static/js/
   osreward-data.js       every number from the paper, one place
   osreward-charts.js     dependency-free SVG chart library
   osreward-demo.js       pipeline walkthrough stepper (#pipeline-demo)
+  osreward-case-steps.js case-study steps, thoughts, judge responses (generated)
+  osreward-corpus.js     all 1,019 trajectories as compact rows (generated)
+  osreward-player.js     "Be the judge" case player (#viewer-body)
+  osreward-atlas.js      corpus atlas canvas (#atlas-body)
+  osreward-polish.js     findings headliners, OS-Copilot series orbit,
+                         reading progress
   main.js                page behaviour + chart wiring
+static/css/
+  osreward-player.css    case player + atlas styles (same token set)
+  osreward-polish.css    styles for osreward-polish.js
+tools/
+  build_case_studies.py  case-study frames + step data (needs the raw traces)
+  build_corpus_atlas.py  osreward-corpus.js from ../data/full
+  build_hard_cases.py    extra hard cases: public/cases/hard_*/ + osreward-hard-cases.js
 public/
   cover.png              project key art
   favicon*.png .ico      derived from the cover
@@ -78,6 +91,51 @@ stay at true size instead of being scaled with the SVG.
 
 All colours come from the CSS custom properties in `main.css` and the family
 palette in `osreward-data.js`, so restyling is one file each.
+
+## Icons and the overview figure
+
+`index.html` carries one inline SVG sprite (`<svg class="ico-sprite">`) of
+duotone line icons: `i-bench`, `i-judge`, `i-corpus`, `i-model`, `i-traj`,
+`i-verdict`, `i-eval`, `i-curate`, `i-rl`, `i-unmeasured`, `i-interleaved`,
+`i-scratch`, `i-full`, `i-hard`, `i-multi`, `i-code`. Use one with
+`<span class="ico-tile"><svg class="duo"><use href="#i-judge"/></svg></span>`
+(`.lg` / `.xl` for larger tiles). Inside the symbols, stroke parts carry
+`ico-sk` and accents `ico-a` (gold), `ico-b` (cyan wash), `ico-bs` (cyan),
+`ico-as` (gold stroke): plain class names, because selectors with ancestors do
+not reach `<use>` clones. Colours come from `--ico-*` in `osreward-polish.css`.
+
+The Overview opens with the judge-loop figure (`.loop`: trajectory → VLM
+judge → verdict → evaluation / curation / RL) and the four contributions as a
+connected flow (`.contrib-flow`), both plain HTML + CSS.
+
+## Be the judge — the case player
+
+`osreward-player.js` turns each case in `OSRewardData.viewer.examples` into a
+replay. The reader first sees a **blind replay** (instruction, screenshots,
+actions, reasoning; no captions, case type or highlighted states), votes
+SUCCESS / FAILURE (buttons or the `S` / `F` keys), and only then gets the human
+verdict, the judges' votes and raw responses, and the annotated timeline.
+Votes are kept per browser in `localStorage` and only drive the score line.
+
+Actions are parsed from the raw tool calls of every agent family on the page
+(`box2d` on the 0–1000 grid as `[ymin, xmin, ymax, xmax]`, Gemini `click_at` /
+`type_text_at` and Qwen `mobile_use` on the 0–999 grid, `computer.mouse.move_abs`
+fractions) and drawn over the screenshot. Deep links:
+`#case=<id>&state=<n>`; the link button in the player copies one.
+`window.OSRewardPlayer.open(id, state)` opens a case from other scripts.
+
+Beyond the ten paper case studies, `tools/build_hard_cases.py` adds hard
+picks from `../data/full` (false successes whose final screen looks right, and
+noisy hard successes). Their captions and highlighted states were written for
+the page, which the player states; they have no exported judge responses yet.
+Edit the `CASES` list in that script and rerun it to add or change one.
+
+The agent name shown for each case comes from `osreward-corpus.js` by
+`traceId`. Rebuild that file after the export changes:
+
+```bash
+python3 tools/build_corpus_atlas.py --src ../data/full
+```
 
 ## Numbers
 

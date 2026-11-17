@@ -40,6 +40,8 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="static/css/main.css">
+  <link rel="stylesheet" href="static/css/osreward-player.css?v=20261116-hard">
+  <link rel="stylesheet" href="static/css/osreward-polish.css?v=20261116-icons">
   <!-- Reveal-on-scroll hides content until JS un-hides it, so only opt in when
        JS is running; and the theme must be set before first paint. Both happen
        here, before the body renders. -->
@@ -58,6 +60,103 @@
 </head>
 
 <body>
+  <!-- Icon set: duotone line icons (stroke = currentColor, accents via .ia / .ib). -->
+  <svg class="ico-sprite" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-bench" viewBox="0 0 24 24">
+        <rect class="ico-b" x="6.5" y="3.5" width="14" height="10" rx="2" />
+        <rect class="ico-sk" x="6.5" y="3.5" width="14" height="10" rx="2" />
+        <rect class="ico-bgf ico-sk" x="3.5" y="7.5" width="14" height="10" rx="2" />
+        <path class="ico-sk" d="M6.5 11h6M6.5 13.8h4" />
+        <circle class="ico-a" cx="17.5" cy="17.5" r="4.2" />
+        <path class="ico-ink" d="M15.7 17.6l1.2 1.2 2.2-2.4" />
+      </symbol>
+      <symbol id="i-judge" viewBox="0 0 24 24">
+        <circle class="ico-b" cx="10.5" cy="10.5" r="6.5" />
+        <circle class="ico-sk" cx="10.5" cy="10.5" r="6.5" />
+        <path class="ico-sk" d="M15.3 15.3 20.5 20.5" stroke-width="2.2" />
+        <path class="ico-as" d="M8 12.8v-2M10.5 12.8V8.2M13 12.8v-3.2" />
+      </symbol>
+      <symbol id="i-corpus" viewBox="0 0 24 24">
+        <ellipse class="ico-b" cx="11" cy="6" rx="7" ry="2.6" />
+        <ellipse class="ico-sk" cx="11" cy="6" rx="7" ry="2.6" />
+        <path class="ico-sk" d="M4 6v5.5c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6M4 11.5V17c0 1.4 3.1 2.6 7 2.6 1 0 2-.1 2.8-.2" />
+        <path class="ico-a" d="M18.5 13.2l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z" />
+      </symbol>
+      <symbol id="i-model" viewBox="0 0 24 24">
+        <path class="ico-b" d="M12 2.8l7.8 4.5v9L12 20.8l-7.8-4.5v-9z" />
+        <path class="ico-sk" d="M12 2.8l7.8 4.5v9L12 20.8l-7.8-4.5v-9z" />
+        <path class="ico-sk" d="M12 8.8V5.6M14.6 13.3l2.8 1.6M9.4 13.3l-2.8 1.6" />
+        <circle class="ico-a" cx="12" cy="11.8" r="3" />
+      </symbol>
+      <symbol id="i-traj" viewBox="0 0 24 24">
+        <rect class="ico-b" x="3" y="5" width="18" height="14" rx="2" />
+        <rect class="ico-sk" x="3" y="5" width="18" height="14" rx="2" />
+        <path class="ico-sk" d="M3 8.5h18M3 15.5h18M9 8.5v7M15 8.5v7" />
+        <path class="ico-a" d="M11 10.5v3l2.5-1.5z" />
+      </symbol>
+      <symbol id="i-verdict" viewBox="0 0 24 24">
+        <path class="ico-a" d="M9.2 3.5h5.6l-1 6.7h-3.6z" />
+        <path class="ico-sk" d="M9.2 3.5h5.6l-1 6.7h-3.6zM5 13.2h14v3.4H5z" />
+        <path class="ico-as" d="M6.5 20h11" stroke-width="2" />
+      </symbol>
+      <symbol id="i-eval" viewBox="0 0 24 24">
+        <path class="ico-b" d="M4 17a8 8 0 0 1 16 0z" />
+        <path class="ico-sk" d="M4 17a8 8 0 0 1 16 0M3 20h18" />
+        <path class="ico-as" d="M12 17l4-5.2" stroke-width="2" />
+        <circle class="ico-a" cx="12" cy="17" r="1.6" />
+      </symbol>
+      <symbol id="i-curate" viewBox="0 0 24 24">
+        <path class="ico-b" d="M3.5 5h17l-6.5 7.5V19l-4-2v-4.5z" />
+        <path class="ico-sk" d="M3.5 5h17l-6.5 7.5V19l-4-2v-4.5z" />
+        <circle class="ico-a" cx="18.5" cy="17" r="2.4" />
+      </symbol>
+      <symbol id="i-rl" viewBox="0 0 24 24">
+        <path class="ico-sk" d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M17.6 3.4v3.4h-3.4" />
+        <path class="ico-a" d="M12 8.4l1.05 2.2 2.4.32-1.75 1.66.44 2.38L12 13.8l-2.14 1.16.44-2.38-1.75-1.66 2.4-.32z" />
+      </symbol>
+      <symbol id="i-unmeasured" viewBox="0 0 24 24">
+        <rect class="ico-b" x="2.5" y="13.5" width="19" height="6.5" rx="1.5" />
+        <rect class="ico-sk" x="2.5" y="13.5" width="19" height="6.5" rx="1.5" />
+        <path class="ico-sk" d="M6 13.5v2.6M9.5 13.5v1.6M13 13.5v2.6M16.5 13.5v1.6" />
+        <path class="ico-as" d="M9.6 5.2a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" stroke-width="1.8" />
+        <circle class="ico-a" cx="12" cy="11.4" r="1" />
+      </symbol>
+      <symbol id="i-interleaved" viewBox="0 0 24 24">
+        <rect class="ico-b" x="2.5" y="4" width="11" height="8.5" rx="1.5" />
+        <rect class="ico-sk" x="2.5" y="4" width="11" height="8.5" rx="1.5" />
+        <path class="ico-sk" d="M6 15.5h4M8 12.5v3" />
+        <path class="ico-as" d="M16.5 5.5h5M16.5 9h3.5M16.5 12.5h5M3 19.5h18.5" />
+      </symbol>
+      <symbol id="i-scratch" viewBox="0 0 24 24">
+        <rect class="ico-a" x="3.5" y="13.5" width="7" height="7" rx="1.2" />
+        <rect class="ico-sk" x="3.5" y="13.5" width="7" height="7" rx="1.2" />
+        <rect class="ico-b" x="13.5" y="13.5" width="7" height="7" rx="1.2" />
+        <rect class="ico-sk" x="13.5" y="13.5" width="7" height="7" rx="1.2" />
+        <rect class="ico-sk" x="8.5" y="3.5" width="7" height="7" rx="1.2" />
+      </symbol>
+      <symbol id="i-full" viewBox="0 0 24 24">
+        <circle class="ico-b" cx="12" cy="12" r="8.5" />
+        <circle class="ico-sk" cx="12" cy="12" r="8.5" />
+        <path class="ico-sk" d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5z" />
+      </symbol>
+      <symbol id="i-hard" viewBox="0 0 24 24">
+        <path class="ico-b" d="M2.5 19.5 9 9l3.4 5.2 2.2-3.2 6.9 8.5z" />
+        <path class="ico-sk" d="M2.5 19.5 9 9l3.4 5.2 2.2-3.2 6.9 8.5zM9 9V3.5" />
+        <path class="ico-a" d="M9 3.5h5.2l-1.4 1.6 1.4 1.6H9z" />
+      </symbol>
+      <symbol id="i-multi" viewBox="0 0 24 24">
+        <path class="ico-sk" d="M4 6.5h16M4 12h16M4 17.5h16" />
+        <circle class="ico-a" cx="9" cy="6.5" r="2.3" />
+        <circle class="ico-bs" cx="15.5" cy="12" r="2.3" />
+        <circle class="ico-a" cx="7" cy="17.5" r="2.3" />
+      </symbol>
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path class="ico-sk" d="M8.5 7 3.5 12l5 5M15.5 7l5 5-5 5" />
+        <path class="ico-as" d="M13.5 4.5l-3 15" stroke-width="1.8" />
+      </symbol>
+    </defs>
+  </svg>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="cosmos" aria-hidden="true"></div>
   <canvas id="starfield" aria-hidden="true"></canvas>
@@ -85,6 +184,13 @@
             </svg>
           </button>
           <ul>
+            <li class="nav-more-hub"><a href="https://os-copilot.github.io/OS-Hub/" target="_blank" rel="noopener">
+              <svg class="hub-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                <circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none" />
+                <ellipse cx="12" cy="12" rx="10" ry="4.6" transform="rotate(-18 12 12)" />
+                <circle cx="20.6" cy="9.4" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+              <span>OS-Copilot Series <small>All projects on one map</small></span></a></li>
             <li><a href="https://qiushisun.github.io/OS-Sentinel-Home/" target="_blank" rel="noopener">
               <img src="public/logos/projects/os-sentinel.png" alt="">
               <span>OS-Sentinel <small>Mobile GUI Safety</small></span></a></li>
@@ -113,7 +219,7 @@
         <li><a href="#findings">Findings</a></li>
         <li><a href="#leaderboard">Leaderboard</a></li>
         <li><a href="#shepherd">OS-Shepherd</a></li>
-        <li><a href="#viewer">Data Viewer</a></li>
+        <li><a href="#viewer">Be the judge</a></li>
         <li><a href="#resources">Resources</a></li>
       </ul>
       <div class="nav-tools">
@@ -155,40 +261,22 @@
 
         <ul class="bullets">
           <li>
-            <span class="b-ico" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 21h8M12 18v3" stroke-linecap="round" />
-              </svg>
-            </span>
+            <span class="b-ico" aria-hidden="true"><svg class="duo" aria-hidden="true"><use href="#i-bench" /></svg></span>
             <span><b>A human-gold benchmark</b> of CUA trajectories across web, Windows, Ubuntu and
               mobile, with an OSReward-Hard variant and OSReward-Multi for fine-grained grading</span>
           </li>
           <li>
-            <span class="b-ico" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
-              </svg>
-            </span>
+            <span class="b-ico" aria-hidden="true"><svg class="duo" aria-hidden="true"><use href="#i-judge" /></svg></span>
             <span><b>The most comprehensive judge evaluation to date</b>, characterising models along
               multiple dimensions, with extensive analysis and the insights it yields</span>
           </li>
           <li>
-            <span class="b-ico" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 3 21 7.5 12 12 3 7.5 12 3Z" stroke-linejoin="round" />
-                <path d="M3 12.5 12 17l9-4.5M3 16.5 12 21l9-4.5" stroke-linejoin="round" />
-              </svg>
-            </span>
+            <span class="b-ico" aria-hidden="true"><svg class="duo" aria-hidden="true"><use href="#i-corpus" /></svg></span>
             <span><b>OS-Shepherd-100K</b>: the largest reasoning-annotated corpus of CUA judge samples
               to date, built by a pipeline shaped by those findings</span>
           </li>
           <li>
-            <span class="b-ico" aria-hidden="true">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 3l7.5 4.2v9.6L12 21l-7.5-4.2V7.2L12 3Z" stroke-linejoin="round" />
-                <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
-              </svg>
-            </span>
+            <span class="b-ico" aria-hidden="true"><svg class="duo" aria-hidden="true"><use href="#i-model" /></svg></span>
             <span><b>OS-Shepherd 9B / 35B</b>: open-weight, open-data reward models trained on that
               corpus, level with commercial judges at 30–60× lower cost</span>
           </li>
@@ -331,7 +419,40 @@
             trajectories?</h2>
         </div>
 
-        <div class="card abstract rise">
+        <!-- The judge loop: what a CUA judge does and where its verdict goes -->
+        <figure class="loop rise" aria-labelledby="loop-cap">
+          <div class="loop-stage loop-traj">
+            <span class="loop-k">Trajectory</span>
+            <div class="loop-film" aria-hidden="true">
+              <span class="loop-frame"><img src="public/cases/hard_web_wallpaper_digits/step_4.jpg" alt="" loading="lazy"><i>click</i></span>
+              <span class="loop-frame"><img src="public/cases/hard_web_wallpaper_digits/step_6.jpg" alt="" loading="lazy"><i>click</i></span>
+              <span class="loop-frame"><img src="public/cases/hard_web_wallpaper_digits/step_7.jpg" alt="" loading="lazy"><i>stop</i></span>
+            </div>
+            <p>Screens, actions and the agent's reasoning, step by step, up to 100 steps.</p>
+          </div>
+          <span class="loop-link" aria-hidden="true"></span>
+          <div class="loop-stage loop-judge">
+            <span class="loop-k">VLM judge</span>
+            <span class="ico-tile xl"><svg class="duo" aria-hidden="true"><use href="#i-judge" /></svg></span>
+            <p>Reads the record and decides whether the instruction was fulfilled.</p>
+          </div>
+          <span class="loop-link" aria-hidden="true"></span>
+          <div class="loop-stage loop-verdict">
+            <span class="loop-k">Verdict</span>
+            <span class="loop-stamp" aria-hidden="true"><b class="is-s">SUCCESS</b><b class="is-f">FAIL</b></span>
+            <p>One bit, and every downstream use inherits its errors.</p>
+          </div>
+          <span class="loop-link is-fan" aria-hidden="true"></span>
+          <ul class="loop-uses">
+            <li><span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-eval" /></svg></span><b>Evaluation</b><small>scoring agents</small></li>
+            <li><span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-curate" /></svg></span><b>Data curation</b><small>filtering rollouts</small></li>
+            <li><span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-rl" /></svg></span><b>RL reward</b><small>training signal</small></li>
+          </ul>
+          <figcaption id="loop-cap" class="loop-cap">The field relies on this loop.
+            <span class="gilt">How often is the verdict right?</span></figcaption>
+        </figure>
+
+        <div class="intro-lede rise">
           <p>A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions and
             reasoning. Deciding whether it fulfilled its instruction is the reward signal behind
             evaluation, data curation and reinforcement learning. Human-written verifiers cover only a
@@ -340,78 +461,40 @@
             measuring how reliable those judges are.</p>
           <p><strong>OSReward measures it</strong>, on trajectories built for the purpose rather than
             recycled from benchmarks whose own flaws would be indistinguishable from judge error.</p>
+        </div>
 
-          <ol class="contribs">
-            <li>
-              <a href="#benchmark"><b>A standardized benchmark for the CUA reward signal.</b></a>
-              1,019 human-gold trajectories collected on cross-platform infrastructure we build and
+        <ol class="contrib-flow rise">
+          <li>
+            <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-bench" /></svg></span><span class="cf-n">01</span></div>
+            <a class="cf-title" href="#benchmark">A standardized benchmark for the CUA reward signal</a>
+            <p>1,019 human-gold trajectories collected on cross-platform infrastructure we build and
               operate end to end, each labeled by three annotators with meta-review on disagreements.
               The benchmark has three sets: <em>OSReward</em> for the full evaluation,
               <em>OSReward-Hard</em> for challenging cases, and <em>OSReward-Multi</em> for alignment and
-              efficiency grading.
-            </li>
-            <li>
-              <a href="#findings"><b>The broadest evaluation of VLM judges for CUA to date.</b></a>
-              27 models under one fixed protocol. Every family shares one lenient failure mode, the
+              efficiency grading.</p>
+          </li>
+          <li>
+            <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-judge" /></svg></span><span class="cf-n">02</span></div>
+            <a class="cf-title" href="#findings">The broadest evaluation of VLM judges for CUA to date</a>
+            <p>27 models under one fixed protocol. Every family shares one lenient failure mode, the
               verdict turns out to live in the text history rather than the screen, and the aggregate
               ~90% collapses on hard cases. The judges reliable enough to trust cost too much to run at
-              the scale evaluation and training demand.
-            </li>
-            <li>
-              <a href="#shepherd"><b>OS-Shepherd-100K, the corpus derived from those findings.</b></a>
-              The largest reasoning-annotated judge corpus for CUA to date, selected from 321,631
+              the scale evaluation and training demand.</p>
+          </li>
+          <li>
+            <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-corpus" /></svg></span><span class="cf-n">03</span></div>
+            <a class="cf-title" href="#shepherd">OS-Shepherd-100K, the corpus derived from those findings</a>
+            <p>The largest reasoning-annotated judge corpus for CUA to date, selected from 321,631
               ensemble verdicts over self-collected rollouts and four open trajectory sets. Every
-              sample carries the judge's reasoning, not just a binary verdict.
-            </li>
-            <li>
-              <a href="#shepherd"><b>Open reward models a lab can host.</b></a>
-              <em>OS-Shepherd</em> 9B and 35B, trained on that corpus to target the false-success mode
-              directly, and level with commercial judges at 30–60× lower cost.
-            </li>
-          </ol>
-        </div>
-
-        <div class="grid grid-4 rise" style="margin-top:22px">
-          <a class="card feature" href="#benchmark">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <rect x="3" y="4" width="18" height="14" rx="2" />
-                <path d="M8 20h8M12 18v2M7 9h4M7 12.5h6" stroke-linecap="round" />
-              </svg>
-            </div>
-            <h3>The benchmark</h3>
-            <p>1,019 human-gold trajectories across web, Windows, Ubuntu and mobile, read as three views.</p>
-          </a>
-          <a class="card feature" href="#findings">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M4 19V9M10 19V5M16 19v-6M22 19H2" stroke-linecap="round" />
-              </svg>
-            </div>
-            <h3>What we found</h3>
-            <p>One shared failure mode, a text-driven verdict, and a hard set where the field collapses.</p>
-          </a>
-          <a class="card feature" href="#leaderboard">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 0 1-12 0V4Z" stroke-linecap="round" />
-                <path d="M6 6H3v2a3 3 0 0 0 3 3M18 6h3v2a3 3 0 0 1-3 3" stroke-linecap="round" />
-              </svg>
-            </div>
-            <h3>Leaderboard</h3>
-            <p>27 VLM judges scored under one protocol, on both the full set and the hard set.</p>
-          </a>
-          <a class="card feature" href="#shepherd">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M12 3l7.5 4.2v9.6L12 21l-7.5-4.2V7.2L12 3Z" stroke-linejoin="round" />
-                <path d="M12 12v9M12 12 4.5 7.8M12 12l7.5-4.2" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <h3>OS-Shepherd</h3>
-            <p>An open corpus and open 9B / 35B reward models a lab can run at training scale.</p>
-          </a>
-        </div>
+              sample carries the judge's reasoning, not just a binary verdict.</p>
+          </li>
+          <li>
+            <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-model" /></svg></span><span class="cf-n">04</span></div>
+            <a class="cf-title" href="#shepherd">Open reward models a lab can host</a>
+            <p><em>OS-Shepherd</em> 9B and 35B, trained on that corpus to target the false-success mode
+              directly, and level with commercial judges at 30–60× lower cost.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -439,17 +522,20 @@
 
         <div class="grid grid-3 rise" style="margin-top:26px">
           <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-unmeasured" /></svg></span>
             <h3 style="color:var(--gold-200)">Not measurable before</h3>
             <p>Human verifiers are unscalable for static corpora. While model judges are the only practical
               alternative, their reliability has remained largely untested.</p>
           </div>
           <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-interleaved" /></svg></span>
             <h3 style="color:var(--gold-200)">Harder than judging text</h3>
             <p>A CUA verdict means reading a long, interleaved record of states, actions and reasoning, then
               deciding whether the environment truly reached the goal rather than whether the agent
               merely claims it did.</p>
           </div>
           <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-scratch" /></svg></span>
             <h3 style="color:var(--gold-200)">Built from scratch</h3>
             <p>Reusing existing benchmarks' rollouts would confound judge errors with flaws in the runs. OSReward is
               built on dedicated cross-platform infrastructure so a wrong verdict is attributable to the judge.</p>
@@ -687,36 +773,21 @@
         <!-- Three views -->
         <div class="grid grid-3 rise" style="margin-top:24px">
           <div class="card feature">
-            <div class="ico" style="color:var(--cyan-300)">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-full" /></svg></div>
             <h3>OSReward</h3>
             <p>The full set. Four platforms, four agent families, GUI-only and GUI+CLI action spaces, from
               dozen-step chores to 100-step professional workflows. Balanced 43 / 57 success / fail, so binary
               accuracy is not majority-driven.</p>
           </div>
           <div class="card feature">
-            <div class="ico" style="color:#eb8b6e">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M12 3 3 20h18L12 3Z" stroke-linejoin="round" />
-                <path d="M12 9v5M12 17h.01" stroke-linecap="round" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-hard" /></svg></div>
             <h3>OSReward-Hard</h3>
             <p>A challenge subset drawn mostly from trajectories that split human annotators, rigorously re-verified
               under meta-review to capture genuine edge cases. Comprises deceptive runs that read like completed
               tasks, at a 30/70 success/fail split.</p>
           </div>
           <div class="card feature">
-            <div class="ico" style="color:#b18bf2">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M4 20V10M10 20V4M16 20v-7M22 20h-2M2 20h2" stroke-linecap="round" />
-                <circle cx="10" cy="4" r="1.6" fill="currentColor" stroke="none" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-multi" /></svg></div>
             <h3>OSReward-Multi</h3>
             <p>The successful trajectories carry sub-labels for human <em>alignment</em> (did the actions match the
               task intent) and <em>efficiency</em> (how free the run was of wasted steps), enabling fine-grained
@@ -1069,14 +1140,22 @@
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow">Explore</span>
-          <h2 class="section-title">Data <span class="gilt">Viewer</span></h2>
-          <p class="section-sub">Look at the cases yourself. Step through a trajectory the way a judge
-            sees it — the instruction, the agent's actions and its reasoning — make your own call, then
-            reveal what the annotators decided and how the judges scored it.</p>
+          <h2 class="section-title">Be the <span class="gilt">judge</span></h2>
+          <p class="section-sub">Replay a trajectory exactly as a reward model sees it: the instruction, every
+            screen, the agent's action drawn on top and its reasoning beside it. Make your call, then see what
+            the annotators decided, how the model judges voted, and which states settled it. Ten are the paper's
+            case studies; eleven more are hard picks from the full benchmark, where the last screen or the agent's
+            own report points the wrong way.</p>
         </div>
-        <div class="card chart-card rise" id="viewer-card">
-          <div id="viewer-body"></div>
+        <div class="rise" id="viewer-body"></div>
+
+        <div class="atlas-head rise">
+          <span class="eyebrow">The whole benchmark</span>
+          <h3>All 1,019 trajectories, one cell each</h3>
+          <p>Regroup the benchmark by platform, agent, human label or length. Hover a cell for its instruction
+            and action barcode; the gold-ringed cells are the case studies above.</p>
         </div>
+        <div class="rise" id="atlas-body"></div>
       </div>
     </section>
 
@@ -1094,44 +1173,26 @@
         <div class="grid grid-4 rise">
           <a class="card feature" href="https://huggingface.co/datasets/OS-Copilot/OSReward"
             target="_blank" rel="noopener" data-link="benchmark">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <ellipse cx="12" cy="6" rx="8" ry="3" />
-                <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-bench" /></svg></div>
             <h3>OSReward</h3>
             <p>1,019 gold trajectories with verdicts, plus the Hard and Multi views.</p>
           </a>
           <a class="card feature" href="https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K"
             target="_blank" rel="noopener" data-link="corpus">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" stroke-linejoin="round" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-corpus" /></svg></div>
             <h3>OS-Shepherd-100K</h3>
             <p>Reasoning-annotated judgments, kept from 321,631 judge instances by ensemble
               agreement.</p>
           </a>
           <a class="card feature" href="https://huggingface.co/collections/OS-Copilot/osreward-and-os-shepherd"
             target="_blank" rel="noopener" data-link="models">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3" stroke-linecap="round" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-model" /></svg></div>
             <h3>OS-Shepherd 9B / 35B</h3>
             <p>Open, self-hostable reward models. Weights plus the judging prompt.</p>
           </a>
           <a class="card feature" href="https://github.com/OS-Copilot/OSReward" target="_blank"
             rel="noopener" data-link="code">
-            <div class="ico">
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 3l-4 18" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
+            <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-code" /></svg></div>
             <h3>Code</h3>
             <p>Evaluation harness, the judging protocol, and the training recipe.</p>
           </a>
@@ -1199,8 +1260,9 @@
             <li><a href="#findings">Findings</a></li>
             <li><a href="#leaderboard">Leaderboard</a></li>
             <li><a href="#shepherd">OS-Shepherd</a></li>
-            <li><a href="#viewer">Data Viewer</a></li>
+            <li><a href="#viewer">Be the judge</a></li>
             <li><a href="#cite">Cite</a></li>
+            <li><a href="https://os-copilot.github.io/OS-Hub/" target="_blank" rel="noopener">OS-Copilot Series ↗</a></li>
           </ul>
         </div>
         <div>
@@ -1223,10 +1285,15 @@
   </footer>
 
   <script src="static/js/osreward-case-steps.js?v=20260805-short-trajectories"></script>
-  <script src="static/js/osreward-data.js?v=20260805-short-trajectories"></script>
+  <script src="static/js/osreward-hard-cases.js?v=20261116-hard"></script>
+  <script src="static/js/osreward-data.js?v=20261116-hard"></script>
   <script src="static/js/osreward-charts.js?v=20260830-sankey-fix"></script>
   <script src="static/js/osreward-demo.js"></script>
-  <script src="static/js/main.js?v=20260805-short-trajectories"></script>
+  <script src="static/js/main.js?v=20261116-player"></script>
+  <script src="static/js/osreward-corpus.js?v=20261116-player"></script>
+  <script src="static/js/osreward-player.js?v=20261116-hard"></script>
+  <script src="static/js/osreward-atlas.js?v=20261116-player"></script>
+  <script src="static/js/osreward-polish.js?v=20261116-icons"></script>
 </body>
 
 </html>

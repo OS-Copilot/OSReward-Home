@@ -692,6 +692,12 @@
   /* The build script keeps the editorial case metadata above readable while
      attaching authentic actions, thoughts and high-resolution source frames
      exported from the original trajectories. */
+  /* Extra hard cases picked from the full export for the page
+     (tools/build_hard_cases.py); they carry their own steps. */
+  if (global.OSRewardHardCases && global.OSRewardHardCases.length) {
+    VIEWER.examples = VIEWER.examples.concat(global.OSRewardHardCases);
+  }
+
   if (global.OSRewardCaseSteps) {
     VIEWER.examples.forEach(function (example) {
       if (global.OSRewardCaseSteps[example.id]) {
