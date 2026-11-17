@@ -746,26 +746,6 @@ window.OSRewardHardCases = [
     "markers": []
    },
    {
-    "number": 3,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.018, y=0.888)\ncomputer.mouse.drag(x=0.730, y=0.050)",
-    "actionRaw": "computer.mouse.move_abs(x=0.018, y=0.888)\ncomputer.mouse.drag(x=0.730, y=0.050)",
-    "thought": "**Screen analysis:**\nLooking at the current screen, I can see that Discord has been successfully moved to the top-right area. The top-right corner now shows: Discord (leftmost of the arranged icons), then Cash for Windows, then 7-Zip File Manager (rightmost). The arrangement is progressing alphabetically from right to left as requested. Now I need to continue with the next icon alphabetically, which would be \"HomeBank\" (the yellow house icon visible at the bottom-left of the desktop).\n\n**Multi-step plan:**\n1. ✓ Move 7-Zip File Manager to top-right corner (completed)\n2. ✓ Move Cash for Windows to the left of 7-Zip (completed)\n3. ✓ Move Discord to the left of Cash for Windows (completed)\n4. Move HomeBank to the left of Discord (current step)\n5. Continue with remaining icons alphabetically\n\n**Next step rationale:**\nI need to drag HomeBank (the yellow house icon at the bottom-left area, around x=0.018, y=0.888) to the left of Discord. Based on the pattern, HomeBank should be placed at approximately x=0.730, y=0.050 to be to the left of Discord.\n\n**Decision:** COMMAND\n\nThree icons successfully arranged: 7-Zip File Manager (rightmost), Cash for Windows, and Discord (leftmost of the three). Now moving HomeBank to the left of Discord to continue the alphabetical arrangement from right to left.",
-    "thumb": "public/cases/hard_desktop_icons_order/step_3.jpg",
-    "shot": "public/cases/hard_desktop_icons_order/full_step_3.jpg",
-    "markers": []
-   },
-   {
-    "number": 4,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.018, y=0.888)\ncomputer.mouse.drag(x=0.655, y=0.050)",
-    "actionRaw": "computer.mouse.move_abs(x=0.018, y=0.888)\ncomputer.mouse.drag(x=0.655, y=0.050)",
-    "thought": "**Screen analysis:**\nThe desktop shows that HomeBank has been successfully moved and is now positioned to the left of Discord in the top row. The arrangement so far from right to left is: 7-Zip File Manager (rightmost), GitHub Desktop, Discord, and HomeBank (leftmost of the arranged icons). I need to continue arranging the remaining icons alphabetically. Looking at the remaining icons on the left side of the desktop, I need to identify the next one alphabetically. Based on the icons visible, the next one to arrange would be \"Cash for Windows\" which should go to the left of HomeBank.\n\n**Multi-step plan:**\n1. ✓ Move 7-Zip File Manager to top-right corner (rightmost position)\n2. ✓ Move GitHub Desktop to the left of 7-Zip\n3. ✓ Move Discord to the left of GitHub Desktop\n4. ✓ Move HomeBank to the left of Discord\n5. Move Cash for Windows to the left of HomeBank (next step)\n6. Continue with remaining icons in alphabetical order\n\n**Next step rationale:**\nI need to move \"Cash for Windows\" from its current position on the left side of the desktop to the top row, positioning it to the left of HomeBank. I'll drag it from its current location at approximately (0.018, 0.888) to a position left of HomeBank at approximately (0.655, 0.050).\n\nFour icons successfully arranged: 7-Zip File Manager (rightmost), GitHub Desktop, Discord, and HomeBank. Now moving Cash for Windows to the left of HomeBank to continue the alphabetical arrangement from right to left.",
-    "thumb": "public/cases/hard_desktop_icons_order/step_4.jpg",
-    "shot": "public/cases/hard_desktop_icons_order/full_step_4.jpg",
-    "markers": []
-   },
-   {
     "number": 5,
     "caption": "Icons dragged one at a time",
     "action": "computer.mouse.move_abs(x=0.020, y=0.750)\ncomputer.mouse.drag(x=0.805, y=0.050)",
@@ -888,7 +868,7 @@ window.OSRewardHardCases = [
   ],
   "stateMeta": {
    "totalStates": 16,
-   "showsAllStates": true
+   "showsAllStates": false
   },
   "judges": []
  },
@@ -1305,26 +1285,6 @@ window.OSRewardHardCases = [
     "markers": []
    },
    {
-    "number": 14,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.097, y=0.046)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.097, y=0.046)\ncomputer.mouse.single_click()",
-    "thought": "1. Screen analysis: The 7-Zip File Manager is open showing C:\\Users\\Public\\Desktop\\. The Favorites menu that was open previously has been closed. I can see the menu bar with File, Edit, View, Favorites, Tools, Help. The task requires opening the View menu to enable '2 Panels' view.\n\n2. Multi-step plan:\n   - Step 1: Click on the View menu in the menu bar\n   - Step 2: Select '2 Panels' option from the dropdown\n   - Step 3: Switch back to the original view (1 Panel)\n\n3. Next step rationale: I need to click on the \"View\" menu which is located in the menu bar between \"Edit\" and \"Favorites\". This will open the View menu dropdown where the 2 Panels option should be available.\n\n4. Decision: COMMAND\n\n5. Action code:\n\nTask: Open 7-Zip File Manager, enable 2 Panels view, then switch back\nStatus: IN PROGRESS\nCurrent step: Opening View menu\n7-Zip File Manager is open at C:\\Users\\Public\\Desktop\\\nPrevious action: Closed Favorites menu",
-    "thumb": "public/cases/hard_7zip_two_panels/step_14.jpg",
-    "shot": "public/cases/hard_7zip_two_panels/full_step_14.jpg",
-    "markers": []
-   },
-   {
-    "number": 17,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.082, y=0.046)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.082, y=0.046)\ncomputer.mouse.single_click()",
-    "thought": "Screen analysis: 7-Zip File Manager is open showing the Desktop folder contents. The Favorites menu is currently open (as shown in the second screenshot), which needs to be closed so I can access the View menu to find the '2 Panels' option.\n\nMulti-step plan: \n1. Click on the View menu to access view options\n2. Select '2 Panels' from the dropdown menu\n3. After enabling 2 Panels view, switch back to the original single panel view\n\nNext step rationale: I need to click on the View menu which is located to the left of the currently open Favorites menu. Based on the menu bar layout, View should be around x=0.082, y=0.046.\n\nDecision: COMMAND\n\nAction code:\n\nTask: Open 7-Zip File Manager, enable 2 Panels view, then switch back\nStatus: IN PROGRESS\nCurrent step: Opening View menu to access view options\n7-Zip File Manager is open at C:\\Users\\Public\\Desktop\\\nFavorites menu is open, need to switch to View menu",
-    "thumb": "public/cases/hard_7zip_two_panels/step_17.jpg",
-    "shot": "public/cases/hard_7zip_two_panels/full_step_17.jpg",
-    "markers": []
-   },
-   {
     "number": 20,
     "caption": "",
     "action": "computer.mouse.move_abs(x=0.097, y=0.046)\ncomputer.mouse.single_click()",
@@ -1461,58 +1421,8 @@ window.OSRewardHardCases = [
     "markers": []
    },
    {
-    "number": 9,
-    "caption": "Date picker",
-    "action": "computer.mouse.move_abs(x=0.357, y=0.493)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.357, y=0.493)\ncomputer.mouse.single_click()",
-    "thought": "Screen analysis: The Feishu \"Create event\" dialog is open with the title \"Framework Sync\" already filled in. A calendar date picker is displayed showing March 2026. Today (March 5) is highlighted in blue, and I can see tomorrow (March 6) in the first row of the calendar. The task is to select March 6 as the event date.\n\nMulti-step plan:\n1. Click on \"6\" in the calendar to select tomorrow (March 6, 2026) ✓ current step\n2. Change start time from \"8:30 AM\" to \"10:00 AM\"\n3. Change end time from \"9:00 AM\" to \"11:30 AM\" to make it 1.5 hours\n4. Click Save to create the event\n\nNext step rationale: I need to click on the number \"6\" in the calendar picker to select tomorrow's date. The 6 is located in the first row of dates, to the right of the currently selected 5.\n\nDecision: COMMAND\n\nTask: Schedule calendar event in Feishu\nEvent details:\n- Title: Framework Sync (completed)\n- Date: Tomorrow (March 6, 2026) - selecting now\n- Start time: 10:00 AM - pending\n- End time: 11:30 AM (1.5 hours duration) - pending\nCurrent step: Clicking on March 6 in calendar picker",
-    "thumb": "public/cases/hard_feishu_event/step_9.jpg",
-    "shot": "public/cases/hard_feishu_event/full_step_9.jpg",
-    "markers": []
-   },
-   {
-    "number": 13,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.370, y=0.493)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.370, y=0.493)\ncomputer.mouse.single_click()",
-    "thought": "Screen analysis: The \"Create event\" window is open in Feishu with the title \"Framework Sync\" already filled in. The date picker calendar is currently open showing March 2026. Today is March 5 (highlighted in blue), and I need to select March 6 (tomorrow) which is visible to the right of the 5th. The current time shows 8:30 AM - 9:00 AM, which will need to be changed to 10:00 AM - 11:30 AM after selecting the date.\n\nMulti-step plan:\n1. Click on March 6 in the calendar to select tomorrow's date\n2. Change the start time from 8:30 AM to 10:00 AM\n3. Change the end time from 9:00 AM to 11:30 AM\n4. Save the event\n\nCurrent progress: The date picker calendar is open. Need to select March 6th.\n\nNext step rationale: I need to click on the number 6 in the calendar, which is to the right of the currently highlighted number 5. Based on the calendar layout, the 6th appears in the first week of the month grid, positioned to the right of the 5th.",
-    "thumb": "public/cases/hard_feishu_event/step_13.jpg",
-    "shot": "public/cases/hard_feishu_event/full_step_13.jpg",
-    "markers": []
-   },
-   {
-    "number": 17,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.369, y=0.493)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.369, y=0.493)\ncomputer.mouse.single_click()",
-    "thought": "1. Screen analysis: The \"Create event\" window is open in Feishu with \"Framework Sync\" as the title. A date picker calendar for March 2026 is now visible. Today (March 5) is highlighted in blue, and I need to select tomorrow (March 6). The current time shows \"8:30 AM — 9:00 AM\" which needs to be changed to 10:00 AM — 11:30 AM after setting the date.\n\n2. Multi-step plan:\n   - ✓ Enter title \"Framework Sync\" (completed)\n   - → Select tomorrow (March 6) in the date picker (current step)\n   - Change start time to 10:00 AM\n   - Change end time to 11:30 AM\n   - Save the event\n\n3. Next step rationale: The date picker is now open showing March 2026. I can see March 5 (today) highlighted in blue. I need to click on March 6 (tomorrow) which is positioned to the right of March 5 in the calendar grid.\n\n4. Decision: COMMAND\n\n5. Action code:\n\nTask: Schedule calendar event in Feishu\nEvent details:\n- Title: Framework Sync (completed)\n- Date: March 6 (tomorrow) - currently selecting in date picker\n- Start time: 10:00 AM - pending\n- End time: 11:30 AM (1.5 hours duration) - pending\nCurrent step: Selecting March 6 in the date picker",
-    "thumb": "public/cases/hard_feishu_event/step_17.jpg",
-    "shot": "public/cases/hard_feishu_event/full_step_17.jpg",
-    "markers": []
-   },
-   {
-    "number": 19,
-    "caption": "",
-    "action": "computer.mouse.move_abs(x=0.335, y=0.493)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.335, y=0.493)\ncomputer.mouse.single_click()",
-    "thought": "1.  **Screen analysis:** The \"Create event\" dialog is open in Feishu. The title \"Framework Sync\" has been entered. The date picker calendar is currently displayed showing March 2026. Today is March 5 (circled), March 7 is currently highlighted in blue (selected), and I need to select March 6 (tomorrow) which is between them in the first row of the calendar.\n\n2.  **Multi-step plan:**\n    *   Click on March 6 in the date picker to select tomorrow's date\n    *   Change the start time from 8:30 AM to 10:00 AM\n    *   Change the end time from 9:00 AM to 11:30 AM (1.5 hours duration)\n    *   Click Save to create the event\n\n3.  **Next step rationale:** The date picker is open and showing March 2026. I can see March 6 in the first row between March 5 (today, circled) and March 7 (currently selected, blue). I need to click on the number \"6\" to select March 6 as the event date.\n\n4.  **Decision:** COMMAND\n\n5.  **Action code:**\n\nTask: Schedule calendar event in Feishu\nEvent details:\n- Title: Framework Sync (completed)\n- Date: March 6 (tomorrow) - currently selecting in date picker\n- Start time: 10:00 AM - pending\n- End time: 11:30 AM (1.5 hours duration) - pending\nCurrent step: Clicking on March 6 in the date picker",
-    "thumb": "public/cases/hard_feishu_event/step_19.jpg",
-    "shot": "public/cases/hard_feishu_event/full_step_19.jpg",
-    "markers": []
-   },
-   {
-    "number": 21,
-    "caption": "Time dropdown",
-    "action": "computer.mouse.move_abs(x=0.273, y=0.604)\ncomputer.mouse.single_click()",
-    "actionRaw": "computer.mouse.move_abs(x=0.273, y=0.604)\ncomputer.mouse.single_click()",
-    "thought": "1. **Screen analysis**: Feishu's \"Create event\" window is open with a time dropdown menu displayed. The event title is \"Framework Sync\" and date is March 6, 2026. Currently showing time 8:30 AM - 9:00 AM. A dropdown is open showing time options including 10:00 AM. The previous action successfully opened the start time dropdown.\n\n2. **Multi-step plan**:\n   - Step 1: Select 10:00 AM from the dropdown (current step)\n   - Step 2: Change end time to 11:30 AM\n   - Step 3: Save the event\n\n3. **Next step rationale**: The dropdown menu is open and showing time options. I can see \"10:00 AM\" in the list. I need to click on it to set the start time to 10:00 AM. The coordinates target the \"10:00 AM\" option in the dropdown.\n\n4. **Decision**: COMMAND\n\n5. **Action code**:\n\nTask: Schedule calendar event in Feishu\nEvent details:\n- Title: Framework Sync (completed)\n- Date: March 6, 2026 (tomorrow) (completed)\n- Start time: 10:00 AM - selected from dropdown\n- End time: 11:30 AM - pending\nCurrent step: Will need to update end time after dropdown closes",
-    "thumb": "public/cases/hard_feishu_event/step_21.jpg",
-    "shot": "public/cases/hard_feishu_event/full_step_21.jpg",
-    "markers": []
-   },
-   {
     "number": 23,
-    "caption": "",
+    "caption": "Time dropdown",
     "action": "computer.mouse.move_abs(x=0.273, y=0.549)\ncomputer.mouse.single_click()",
     "actionRaw": "computer.mouse.move_abs(x=0.273, y=0.549)\ncomputer.mouse.single_click()",
     "thought": "Screen analysis: The event creation form is open with the title \"Framework Sync\" already filled. The date is set to Mar 6, 2026 (tomorrow). A dropdown menu for selecting start time is currently visible, showing options from 8:00 AM to 11:30 AM. The currently selected time is 9:30 AM, but I need to change it to 10:00 AM.\n\nMulti-step plan:\n1. Select 10:00 AM from the currently open dropdown for start time\n2. Change the end time from 10:00 AM to 11:30 AM (to make it 1.5 hours)\n3. Click Save to create the event\nCurrently at step 1.\n\nNext step rationale: The dropdown menu is open showing time options. I can see \"10:00 AM\" in the list below the currently highlighted \"9:30 AM\". Clicking on \"10:00 AM\" will set the correct start time.\n\nDecision: COMMAND\n\nAction code:\n\nTask: Schedule calendar event in Feishu\nEvent details:\n- Title: Framework Sync (completed)\n- Date: March 6, 2026 (tomorrow) (completed)\n- Start time: 10:00 AM - currently selecting from dropdown\n- End time: 11:30 AM - pending\nCurrent step: Selected 10:00 AM from dropdown, will need to update end time next",

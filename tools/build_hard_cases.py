@@ -9,7 +9,9 @@ looking for the trajectories that are hardest to judge:
 * hard successes — the human label is SUCCESS but the path is long and noisy
   enough that a strict judge reads the churn as failure.
 
-Every case below was checked against its screenshots. The editorial text
+Every case below was checked against its screenshots. States whose click
+point lands on empty space or between two controls are left out, so every
+point drawn in the player sits on something. The editorial text
 (case type, why it is hard, captions, highlighted states) was written for the
 project page from that inspection; it is not taken from the paper, and the
 player says so.
@@ -122,7 +124,7 @@ CASES = [
         "trace": "7b262c99-36f3-43dd-98e1-8c55e2d9f6d6",
         "platform": "Windows",
         "caseType": "Self-contradicting false success",
-        "steps": "all",
+        "steps": [0, 1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "reasonLabel": "Why it is hard",
         "reason": "The desktop looks tidied: icons have moved into a block at the top right and the Recycle Bin is "
                   "untouched. The failure is the order, and the agent's own closing description (7-Zip, Google "
@@ -185,7 +187,7 @@ CASES = [
         "trace": "9bc6397b-4802-46fe-954d-db1bdcc40669",
         "platform": "Windows",
         "caseType": "Messy-path hard success",
-        "steps": [0, 1, 4, 5, 8, 10, 11, 12, 14, 17, 20, 22, 23, 24, 25, 26],
+        "steps": [0, 1, 4, 5, 8, 10, 11, 12, 20, 22, 23, 24, 25, 26],
         "reasonLabel": "Why it is hard",
         "reason": "2 Panels is switched on and off several times, menus open and close, and the agent announces "
                   "completion at state 11, then keeps clicking. A strict judge can read the churn as failure; "
@@ -202,14 +204,14 @@ CASES = [
         "trace": "d68d6334-8e75-4bb0-bd9d-68d4f395704f",
         "platform": "Windows",
         "caseType": "Long-horizon hard success",
-        "steps": [0, 1, 3, 5, 6, 9, 13, 17, 19, 21, 23, 24, 25, 26, 28, 31],
+        "steps": [0, 1, 3, 5, 6, 23, 24, 25, 26, 28, 31],
         "reasonLabel": "Why it is hard",
         "reason": "Two thirds of the run is the agent fighting the date and time pickers, and at state 24 the draft "
                   "still reads 10:00–10:30. The fix lands only in the last few states; a judge who stops early, or "
                   "who penalises the churn, gets it wrong.",
         "goldWhy": "The saved event Framework Sync sits on tomorrow (Fri, Mar 6) from 10:00 to 11:30 AM: 1.5 hours.",
         "agentAccount": "Said Framework Sync is on Friday, March 6, 10:00–11:30 AM.",
-        "captions": {6: "Title entered, date still today", 9: "Date picker", 21: "Time dropdown",
+        "captions": {6: "Title entered, date still today", 23: "Time dropdown",
                      24: "10:00–10:30: wrong duration", 28: "Saved: Fri 10:00–11:30"},
         "markers": {24: [(E, "Duration not fixed yet")], 28: [(V, "Saved event")]},
     },

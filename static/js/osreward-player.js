@@ -210,6 +210,10 @@
       if (a.kind === "key") a.keys = val || main.args.replace(/['"\s]/g, "");
       var dir = main.args.match(/dir\s*=\s*["'](\w+)/);
       if (dir) a.dir = dir[1];
+      if (a.kind === "drag") {
+        var to = main.args.match(/x\s*=\s*([\d.]+)\s*,\s*y\s*=\s*([\d.]+)/);
+        if (to) a.pt2 = norm(to[1], to[2]);
+      }
       var st = main.args.match(/steps\s*=\s*(\d+)/);
       if (st) a.amount = +st[1];
       if (a.kind === "scroll" && !a.dir) {
@@ -609,21 +613,28 @@
   function drawOverlay(st, animate) {
     clearOverlay();
     var a = st.act;
-    var travel = animate && !REDUCED ? 520 : 0;
+    /* marks are placed at their final position immediately; motion is only
+       opacity, so nothing can be left half-way if a transition stalls */
+    var travel = 0;
     var hasPt = !!a.pt;
     cursor.classList.toggle("is-hidden", !hasPt);
     if (hasPt) {
-      var dist = Math.hypot(a.pt.x - cursorPt.x, a.pt.y - cursorPt.y);
-      if (dist < 0.002) travel = 0;
-      placeCursor(a.pt, animate);
+      placeCursor(a.pt, false);
+      if (animate && !REDUCED) {
+        cursor.classList.remove("is-pop");
+        void cursor.offsetWidth;
+        cursor.classList.add("is-pop");
+      }
     }
 
-    if (a.box) {
-      ovBox.style.left = a.box.x0 * 100 + "%";
-      ovBox.style.top = a.box.y0 * 100 + "%";
-      ovBox.style.width = (a.box.x1 - a.box.x0) * 100 + "%";
-      ovBox.style.height = (a.box.y1 - a.box.y0) * 100 + "%";
-      later(function () { ovBox.className = "px-box is-on"; }, travel);
+    /* one exact target point for every pointer action; the model's
+       bounding boxes are often far larger than the control, so they are
+       not drawn */
+    var k0 = a.kind;
+    if (hasPt && (k0 === "click" || k0 === "dclick" || k0 === "rclick" || k0 === "type" ||
+        k0 === "hover" || k0 === "drag" || k0 === "swipe")) {
+      var tgt = h("span", "px-target" + (k0 === "rclick" ? " is-right" : "") + (k0 === "hover" ? " is-hover" : ""), ovLayer);
+      pos(tgt, a.pt);
     }
 
     var k = a.kind;
@@ -750,11 +761,26 @@
     var e = cur(), st = curStep(), raw = st.raw;
     var isRev = revealed(e);
     var src = raw.thumb || raw.shot;
-    if (img.getAttribute("src") !== src) {
+    var full = raw.shot || src;
+    if (img.dataset.state !== String(raw.number) || img.dataset.caseId !== e.id) {
+      img.dataset.state = String(raw.number);
+      img.dataset.caseId = e.id;
       img.classList.remove("is-in");
       img.onload = function () { img.classList.add("is-in"); };
       img.src = src;
       if (img.complete) img.classList.add("is-in");
+      if (full !== src) {
+        var hi = new Image();
+        var want = raw.number, wantCase = e.id;
+        hi.onload = function () {
+          if (img.dataset.state === String(want) && img.dataset.caseId === wantCase) {
+            img.onload = null;
+            img.src = full;
+            img.classList.add("is-in");
+          }
+        };
+        hi.src = full;
+      }
     }
     img.alt = "Screenshot at state " + raw.number + " of the trajectory" + (isRev && raw.caption ? ": " + raw.caption : "");
     lens.style.backgroundImage = state.lens ? "url(\"" + raw.shot + "\")" : "";

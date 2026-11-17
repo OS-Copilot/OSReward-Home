@@ -22,26 +22,6 @@ window.OSRewardCaseSteps = {
       "markers": []
     },
     {
-      "number": 6,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[210,705,226,735], x=1843, y=314)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [210, 705, 226, 735], \"x\": 1843, \"y\": 314}}",
-      "thought": "The current state shows that we are on the Douban Movie Chart page. My objective is to find recently popular documentaries with a rating of 8.0 or higher. On the right side of the page, there is a \"Category Charts\" (分类排行榜) section that includes a \"Documentary\" (纪录片) link. Clicking this is the most direct way to see a ranked list of documentaries.\n\nIn the previous step, an attempt was made to click this link, but the page has not yet updated to show the documentary-specific rankings; it is still displaying the \"New Movie Chart\" (豆瓣新片榜). I will try clicking the \"纪录片\" link again, ensuring the coordinates are precisely on the text. \n\nOnce the documentary chart is loaded, I will:\n1.  Identify documentaries with a Douban score of 8.0 or above.\n2.  Select the most popular ones and click through to their detail pages.\n3.  Read through the \"Short Reviews\" and \"Introduction\" to summarize why they are highly recommended (e.g., unique subject matter, exceptional cinematography, or emotional resonance).\n4.  After gathering sufficient information from Douban, I will use the `goto` action to navigate to Maoyan (https://maoyan.com) to perform a similar search and comparison.\n5.  Finally, I will synthesize the findings from both platforms into a comprehensive summary.\n\nIf the category link remains unresponsive, I will use the search bar at the top of the page to search for \"高分纪录片\" (high-score documentaries) to find the required information.",
-      "thumb": "public/cases/documentary_recency_failure/step_6.webp",
-      "shot": "public/cases/documentary_recency_failure/full_step_6.png",
-      "markers": []
-    },
-    {
-      "number": 9,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[83,335,96,370], x=902, y=129)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [83, 335, 96, 370], \"x\": 902, \"y\": 129}}",
-      "thought": "To find recently popular documentaries with ratings above 8.0, I have been attempting to navigate to the documentary-specific section on Douban. Despite several attempts to click the \"纪录片\" (Documentary) category link on the Chart page, the browser remains on the general \"New Movie Chart\" (豆瓣新片榜). This indicates that either the clicks are not registering correctly or the page content is not updating as expected.\n\nTo improve the efficiency of the search, I will pivot to using the \"选电影\" (Select Movie) tool. This section of Douban is designed for discovery and provides robust filtering capabilities. By navigating there, I can specifically select the \"Documentary\" genre and sort the results by \"Rating\" or \"Popularity.\" This is a more reliable method to identify documentaries that meet the criteria of having a rating above 8.0.\n\nOnce I access the filtered list, my plan is as follows:\n1.  **Identify High-Rated Documentaries**: Select at least two recently popular documentaries with a Douban rating of 8.0 or higher.\n2.  **Extract Recommendation Reasons**: Visit the detail pages for these documentaries. I will look at the \"Short Reviews\" (短评) and the \"Introduction\" (剧情简介) to summarize why viewers recommend them—looking for mentions of cinematography, historical accuracy, emotional impact, or unique subject matter.\n3.  **Cross-Platform Research**: Use the `goto` action to navigate to Maoyan (https://maoyan.com). I will search for the same titles or use Maoyan's internal filters to find popular documentaries with high audience scores (typically 9.0+ on Maoyan).\n4.  **Final Summary**: Combine the insights from both platforms to provide a comprehensive recommendation list with summarized reasons.\n\nMy next step is to click the \"选电影\" link in the top navigation bar to access the filtering tool.",
-      "thumb": "public/cases/documentary_recency_failure/step_9.webp",
-      "shot": "public/cases/documentary_recency_failure/full_step_9.png",
-      "markers": []
-    },
-    {
       "number": 11,
       "caption": "Older titles rejected",
       "action": "goto(url=\"https://maoyan.com\")",
@@ -49,26 +29,6 @@ window.OSRewardCaseSteps = {
       "thought": "To find recently popular documentaries with ratings above 8 on both Douban and Maoyan, I have explored various navigation paths on Douban. My initial attempts to use the homepage's dynamic tabs and the category charts on the \"Chart\" page were unsuccessful in refreshing the content to show only documentaries. A search for \"高分纪录片\" (high-score documentaries) on Douban yielded highly-rated titles like *Civilisations* (9.1) and *High Score* (8.7), but these are from 2018 and 2020, respectively, and may not qualify as \"recently popular.\"\n\nTo progress, I need to identify documentaries released in 2024 or late 2023 that have maintained high ratings. Since Douban's internal navigation has been somewhat unresponsive, I will pivot to Maoyan to see which documentaries are currently trending or have been recently successful in terms of audience score and popularity. Maoyan often highlights recent theatrical releases and popular streaming content, which will help me identify \"recent\" titles.\n\nOnce I have a list of candidate documentaries from Maoyan, I will:\n1.  Check their Maoyan audience scores (looking for >9.0, which typically corresponds to a high Douban rating).\n2.  Return to Douban to verify if their ratings there exceed 8.0.\n3.  Visit the detail pages on both platforms to extract and summarize the reasons for recommendation, such as production quality, emotional resonance, or unique subject matter.\n4.  Consolidate the findings into a final report.\n\nI am now navigating to Maoyan to continue the research.",
       "thumb": "public/cases/documentary_recency_failure/step_11.webp",
       "shot": "public/cases/documentary_recency_failure/full_step_11.png",
-      "markers": []
-    },
-    {
-      "number": 15,
-      "caption": "Trajectory context",
-      "action": "click(box2d=[0,381,55,424], x=1030, y=40)",
-      "actionRaw": "{\"action_key\": \"click\", \"action_kwargs\": {\"box2d\": [0, 381, 55, 424], \"x\": 1030, \"y\": 40}}",
-      "thought": "In the previous steps, I explored Douban and found some high-rated documentaries, but they were older titles. I then transitioned to Maoyan to find more \"recently popular\" content. However, my last action led me to the detail page for *La La Land*, which is a musical and not a documentary. This occurred because I likely misidentified a poster or the search results were not exclusively documentaries.\n\nTo get back on track, I need to specifically filter for the \"Documentary\" genre on Maoyan. Maoyan's audience scores are generally higher than Douban's; a score above 9.0 on Maoyan typically corresponds to the \"above 8\" requirement on Douban. I will look for recently released documentaries (2023-2024) that meet these criteria.\n\nMy updated plan is as follows:\n1.  **Navigate back to the Movies list**: I will click on the \"电影\" (Movies) tab in the top navigation bar.\n2.  **Apply Documentary Filter**: Once on the movies page, I will look for the genre filter and select \"纪录片\" (Documentary).\n3.  **Identify High-Rated Recent Titles**: I will scan the results for documentaries with an audience score of 9.0 or higher and a recent release date.\n4.  **Extract Recommendation Reasons**: I will visit the detail pages of at least two such documentaries to read user comments and the \"Introduction\" to summarize why they are recommended (e.g., visual impact, emotional storytelling, or educational significance).\n5.  **Cross-Reference with Douban**: I will quickly verify these titles on Douban to ensure their ratings there are also above 8.0.\n6.  **Final Summary**: I will synthesize the findings from both platforms into a final report.\n\nI am now clicking the \"电影\" tab to return to the film directory and apply the correct filters.",
-      "thumb": "public/cases/documentary_recency_failure/step_15.webp",
-      "shot": "public/cases/documentary_recency_failure/full_step_15.png",
-      "markers": []
-    },
-    {
-      "number": 18,
-      "caption": "Trajectory context",
-      "action": "type(box2d=[26,824,56,941], text=\"里斯本丸沉没\\n\", x=2259, y=59)",
-      "actionRaw": "{\"action_key\": \"type\", \"action_kwargs\": {\"box2d\": [26, 824, 56, 941], \"text\": \"\\u91cc\\u65af\\u672c\\u4e38\\u6c89\\u6ca1\\n\", \"x\": 2259, \"y\": 59}}",
-      "thought": "To find recently popular documentaries with ratings above 8.0, I have explored both Douban and Maoyan. On Douban, while I found high-rated classics like *Civilisations* (9.1) and *High Score* (8.7), I am still looking for more recent titles from 2023-2024. On Maoyan, I have identified *Return to the Wolves* (重返·狼群) with a 9.3 rating, though it is a re-release or a continuing popular title. \n\nTo fulfill the \"recently popular\" requirement more accurately, I will search for specific 2024 hits known for high critical and audience acclaim. One such prominent title is *The Sinking of the Lisbon Maru* (里斯本丸沉没), which has received exceptional ratings on both platforms (9.3 on Douban and 9.6 on Maoyan). Another potential candidate is *K'ang-hsi and Louis XIV* (康熙与路易十四).\n\nMy plan is to:\n1.  Search for *The Sinking of the Lisbon Maru* on Maoyan to confirm its rating and extract recommendation reasons from audience reviews.\n2.  Navigate back to Douban to verify its rating there and gather more detailed critical summaries.\n3.  Identify a second recent high-rated documentary (e.g., *K'ang-hsi and Louis XIV*) and repeat the data collection.\n4.  Summarize the common reasons for recommendation, such as historical significance, emotional storytelling, or production quality.\n\nCurrently, I am on the Maoyan films list page. I will use the search bar to find *The Sinking of the Lisbon Maru* to get specific data for this highly recommended recent documentary.",
-      "thumb": "public/cases/documentary_recency_failure/step_18.webp",
-      "shot": "public/cases/documentary_recency_failure/full_step_18.png",
       "markers": []
     },
     {
@@ -338,16 +298,6 @@ window.OSRewardCaseSteps = {
       "markers": []
     },
     {
-      "number": 18,
-      "caption": "Trajectory context",
-      "action": "computer.mouse.move_abs(x=0.054, y=0.490)\ncomputer.mouse.single_click()",
-      "actionRaw": "computer.mouse.move_abs(x=0.054, y=0.490)\ncomputer.mouse.single_click()",
-      "thought": "**Screen Analysis:**\nThe screen shows Yahoo Finance with NVIDIA Corporation (NVDA) stock data. The page is currently displaying the \"Historical Data\" section, which shows a table of daily stock prices (Open, High, Low, Close, Adj Close, Volume). The Beta value is not visible in this historical data table. Beta is typically found in the \"Statistics\" or \"Profile\" section of Yahoo Finance, not in the Historical Data section. I need to navigate to the Statistics section to find the Beta value.\n\n**Multi-step Plan:**\n1. Click on \"Statistics\" in the left sidebar navigation menu\n2. Look for Beta value in the statistics table (may need to scroll)\n3. Report the Beta value once found\n\n**Current Progress:**\n- Successfully navigated to Yahoo Finance and found NVDA stock\n- Currently on Historical Data page\n- Need to switch to Statistics section to find Beta\n\n**Next Step Rationale:**\nI need to click on \"Statistics\" in the left sidebar to access the stock statistics where Beta is typically listed. Looking at the left sidebar, I can see the navigation menu with options like Summary, Chart, Conversations, Statistics, Historical Data, Profile, Financials, Analysis, Options, and Holders. The Statistics option should be clicked to view key metrics including Beta.\n\n**Decision:** COMMAND\n\n**Action Code:**\n\n# Currently on Historical Data page showing price history table\n# Need to click on Statistics in left sidebar to find Beta value\n# Statistics section contains key metrics like Beta, P/E ratio, etc.",
-      "thumb": "public/cases/nvda_beta_perception_failure/step_18.webp",
-      "shot": "public/cases/nvda_beta_perception_failure/full_step_18.png",
-      "markers": []
-    },
-    {
       "number": 24,
       "caption": "Trajectory context",
       "action": "computer.mouse.move_abs(x=0.088, y=0.285)\ncomputer.mouse.single_click()",
@@ -522,16 +472,6 @@ window.OSRewardCaseSteps = {
       "thought": "I will click 'OK' to confirm the JPEG export options.",
       "thumb": "public/cases/librecad_long_horizon_planning_failure/step_6.webp",
       "shot": "public/cases/librecad_long_horizon_planning_failure/full_step_6.png",
-      "markers": []
-    },
-    {
-      "number": 12,
-      "caption": "Trajectory context",
-      "action": "type_text_at(clear_before_typing=true, press_enter=true, text=\"~/Desktop/reference.jpg\", x=250, y=232)",
-      "actionRaw": "{\"action_key\": \"type_text_at\", \"action_kwargs\": {\"clear_before_typing\": true, \"press_enter\": true, \"text\": \"~/Desktop/reference.jpg\", \"x\": 250, \"y\": 232}}",
-      "thought": "I will type the file path `~/Desktop/reference.jpg` and press Enter to insert it.",
-      "thumb": "public/cases/librecad_long_horizon_planning_failure/step_12.webp",
-      "shot": "public/cases/librecad_long_horizon_planning_failure/full_step_12.png",
       "markers": []
     },
     {
