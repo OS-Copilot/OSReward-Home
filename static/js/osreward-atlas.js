@@ -304,7 +304,7 @@
     }
     var cs = h("span", "atlas-li", legend);
     h("i", "is-case", cs);
-    h("span", null, cs, "Case study — opens in the player");
+    h("span", null, cs, "Case study, opens in the player");
   }
 
   /* ----------------------------------------------------------- hit test */

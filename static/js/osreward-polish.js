@@ -59,9 +59,9 @@
 
   /* ----------------------------------------------- 3. findings headliners */
   var FINDINGS = [
-    { pre: "<", to: 90, dec: 0, post: "%", cap: "best binary accuracy", target: "table-leaderboard" },
+    { pre: "<", to: 90, dec: 0, post: "%", cap: "best full-set accuracy (<70% on Hard)", target: "table-leaderboard" },
     { pre: "", to: null, text: "⅔", post: "", cap: "of all errors are false successes", target: "chart-failure" },
-    { pre: "−", to: 7.2, dec: 1, post: " pp", cap: "without the thought and action text", target: "chart-ablation" },
+    { pre: "−", to: 7.3, dec: 1, post: " pp", cap: "without the thought and action text", target: "chart-ablation" },
     { pre: "$", to: 45, dec: 0, post: "–100", cap: "per pass for a ~70% Hard judge", target: "chart-pareto" }
   ];
   function countUp(el, f) {

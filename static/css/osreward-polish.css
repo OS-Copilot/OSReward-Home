@@ -373,3 +373,130 @@ a.card.feature:hover .ico-tile { border-color: var(--gold-400); }
   .loop-stamp .is-s { opacity: 1; transform: translateX(-42%) rotate(-4deg) scale(0.8); }
   .loop-stamp .is-f { opacity: 1; transform: translateX(52%) rotate(3deg) scale(0.8); }
 }
+
+/* ==========================================================================
+   Lead-ins: the argument between components. Full container width so they
+   share edges with the cards; a numbered short title on the left, the
+   reading on the right. .chart-note inside a card only teaches how to read it.
+   ========================================================================== */
+.lead-in {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.6fr);
+  gap: 18px 56px;
+  margin: 64px 0 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--hairline-cool);
+}
+.lead-in::before {
+  content: ""; position: absolute; left: 0; top: -1px;
+  width: 72px; height: 2px;
+  background: linear-gradient(90deg, var(--gold-300), var(--gold-500));
+}
+.section-head + .lead-in { margin-top: 8px; border-top-color: transparent; }
+.section-head + .lead-in::before { display: none; }
+.lead-k { display: flex; flex-direction: column; gap: 10px; }
+.lead-n {
+  font: 600 12px var(--font-mono);
+  letter-spacing: 0.14em;
+  color: var(--gold-400);
+}
+.lead-k h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.1vw, 28px);
+  line-height: 1.22;
+  font-weight: 500;
+  color: var(--text-hi);
+  text-wrap: balance;
+}
+.lead-body { max-width: 860px; }
+.lead-body p { margin: 0 0 12px; font-size: 16px; line-height: 1.74; color: var(--text); }
+.lead-body p:last-child { margin-bottom: 0; }
+.lead-body strong { color: var(--text-hi); font-weight: 600; }
+.lead-body em { color: var(--gold-200); }
+.lead-body code {
+  font: 500 0.88em var(--font-mono);
+  padding: 1px 6px; border-radius: 5px;
+  color: var(--cyan-200); background: var(--chart-track);
+}
+
+/* hand-off at the end of an act: the result restated as the next act's question */
+.handoff {
+  max-width: 900px;
+  margin: 72px auto 0;
+  text-align: center;
+}
+.handoff p {
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 25px);
+  line-height: 1.45;
+  color: var(--text-hi);
+  text-wrap: balance;
+}
+.handoff p::before, .handoff p::after { color: var(--gold-400); font-size: 1.15em; }
+.handoff p::before { content: "“"; margin-right: 2px; }
+.handoff p::after { content: "”"; margin-left: 2px; }
+.handoff-next {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 40px; padding: 0 18px 0 6px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-1b);
+  font-size: 14px; font-weight: 600;
+  color: var(--text-hi);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.handoff-next span {
+  height: 28px; padding: 0 11px; display: inline-grid; place-items: center;
+  border-radius: 999px;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #1a1002; background: var(--gold-300);
+}
+.handoff-next i { font-style: normal; color: var(--gold-300); transition: transform 0.2s; }
+.handoff-next:hover { border-color: var(--gold-400); color: var(--text-hi); }
+.handoff-next:hover i { transform: translateY(3px); }
+
+#abstract .grid-3 { margin-top: 4px; }
+@media (max-width: 900px) {
+  .lead-in { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 48px; }
+}
+@media (max-width: 620px) {
+  .lead-body p { font-size: 15.5px; }
+  .handoff { margin-top: 52px; }
+}
+
+/* heading over the contribution flow */
+.flow-head { margin: 72px auto 34px; max-width: 720px; text-align: center; }
+.flow-head .eyebrow { margin-bottom: 10px; }
+.flow-head h3 { margin: 0 0 8px; font-family: var(--font-display); font-size: clamp(24px, 2.5vw, 30px); font-weight: 500; color: var(--text-hi); }
+.flow-head p { margin: 0; font-size: 15.5px; color: var(--text-dim); }
+
+/* model-family chips in the judge-study protocol lead-in */
+.mfam { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.mfam > div { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.mfam-k {
+  min-width: 118px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.mchip {
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 32px; padding: 0 12px 0 5px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-cool);
+  background: var(--surface-1b);
+  font-size: 13.5px; font-weight: 500; color: var(--text-hi);
+}
+.mchip img {
+  width: 22px; height: 22px; object-fit: contain;
+  border-radius: 50%; padding: 2px;
+  background: var(--logo-plate);
+}
+.handoff.is-plain { margin-top: 56px; }
+
+/* light theme: small gold numerals need the deeper gold to stay legible on paper */
+:root[data-theme="light"] .lead-n,
+:root[data-theme="light"] .cf-n { color: var(--gold-200); }

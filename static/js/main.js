@@ -166,7 +166,7 @@
     }
 
     /* highlight the section in view */
-    var ids = ["abstract", "benchmark", "findings", "leaderboard", "shepherd", "viewer", "resources"];
+    var ids = ["abstract", "benchmark", "viewer", "findings", "shepherd", "resources"];
     var map = {};
     ids.forEach(function (id) {
       var a = document.querySelector('.nav-links a[href="#' + id + '"]');

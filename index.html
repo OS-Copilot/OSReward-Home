@@ -39,9 +39,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="static/css/main.css">
-  <link rel="stylesheet" href="static/css/osreward-player.css?v=20261116-hard">
-  <link rel="stylesheet" href="static/css/osreward-polish.css?v=20261116-icons">
+  <link rel="stylesheet" href="static/css/main.css?v=20261117-contrast">
+  <link rel="stylesheet" href="static/css/osreward-player.css?v=20261117-flowhead">
+  <link rel="stylesheet" href="static/css/osreward-polish.css?v=20261117-contrast">
   <!-- Reveal-on-scroll hides content until JS un-hides it, so only opt in when
        JS is running; and the theme must be set before first paint. Both happen
        here, before the body renders. -->
@@ -216,10 +216,9 @@
         </li>
         <li><a href="#abstract">Overview</a></li>
         <li><a href="#benchmark">Benchmark</a></li>
-        <li><a href="#findings">Findings</a></li>
-        <li><a href="#leaderboard">Leaderboard</a></li>
+        <li><a href="#viewer">Be the Judge</a></li>
+        <li><a href="#findings">Judge Study</a></li>
         <li><a href="#shepherd">OS-Shepherd</a></li>
-        <li><a href="#viewer">Be the judge</a></li>
         <li><a href="#resources">Resources</a></li>
       </ul>
       <div class="nav-tools">
@@ -254,10 +253,9 @@
         <h1><span class="gilt">OSReward</span></h1>
         <p class="tagline">Instituting Standardized Evaluation<br class="br-lg">
           for Cross-Platform Computer-Use Reward Models</p>
-        <p class="lede">A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions
+        <p class="lede">A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions,
           and reasoning. Deciding whether it fulfilled the instruction is the reward signal behind
-          evaluation, data curation and RL. How well the models we now use as judges actually make that
-          call has gone unexamined.</p>
+          evaluation, data curation, and RL. Every modern pipeline now hands that call to a vision-language model, without ever checking how often the judge itself is wrong.</p>
 
         <ul class="bullets">
           <li>
@@ -409,7 +407,7 @@
     </section>
 
     <!-- ================================================================== -->
-    <!-- Overview                                                            -->
+    <!-- Act 1 · Overview                                                    -->
     <!-- ================================================================== -->
     <section class="band-tight" id="abstract">
       <div class="wrap">
@@ -417,6 +415,16 @@
           <span class="eyebrow">Overview</span>
           <h2 class="section-title">How reliable is a <span class="gilt">VLM judge</span> for CUA
             trajectories?</h2>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">1.1</span>
+            <h3>Who grades the agent?</h3>
+          </div>
+          <div class="lead-body">
+            <p>Hand-written verifiers only work inside curated sandboxes, one task at a time, and cannot score a static corpus once the live environment is gone. Human annotation takes hundreds of hours for a thousand runs. By necessity, the field has put vision-language models in the judge's seat. It grades benchmarks, filters synthetic rollouts, and supplies the reward in reinforcement learning.</p>
+          </div>
         </div>
 
         <!-- The judge loop: what a CUA judge does and where its verdict goes -->
@@ -428,19 +436,19 @@
               <span class="loop-frame"><img src="public/cases/hard_web_wallpaper_digits/step_6.jpg" alt="" loading="lazy"><i>click</i></span>
               <span class="loop-frame"><img src="public/cases/hard_web_wallpaper_digits/step_7.jpg" alt="" loading="lazy"><i>stop</i></span>
             </div>
-            <p>Screens, actions and the agent's reasoning, step by step, up to 100 steps.</p>
+            <p>Screens, thoughts, and actions, step by step, up to 100 steps.</p>
           </div>
           <span class="loop-link" aria-hidden="true"></span>
           <div class="loop-stage loop-judge">
             <span class="loop-k">VLM judge</span>
             <span class="ico-tile xl"><svg class="duo" aria-hidden="true"><use href="#i-judge" /></svg></span>
-            <p>Reads the record and decides whether the instruction was fulfilled.</p>
+            <p>Reads the trace and calls whether the instruction was met.</p>
           </div>
           <span class="loop-link" aria-hidden="true"></span>
           <div class="loop-stage loop-verdict">
             <span class="loop-k">Verdict</span>
             <span class="loop-stamp" aria-hidden="true"><b class="is-s">SUCCESS</b><b class="is-f">FAIL</b></span>
-            <p>One bit, and every downstream use inherits its errors.</p>
+            <p>One bit, and every downstream stage inherits its mistakes.</p>
           </div>
           <span class="loop-link is-fan" aria-hidden="true"></span>
           <ul class="loop-uses">
@@ -448,112 +456,100 @@
             <li><span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-curate" /></svg></span><b>Data curation</b><small>filtering rollouts</small></li>
             <li><span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-rl" /></svg></span><b>RL reward</b><small>training signal</small></li>
           </ul>
-          <figcaption id="loop-cap" class="loop-cap">The field relies on this loop.
+          <figcaption id="loop-cap" class="loop-cap">The whole pipeline rests on this call.
             <span class="gilt">How often is the verdict right?</span></figcaption>
         </figure>
 
-        <div class="intro-lede rise">
-          <p>A CUA <em>trajectory</em> is the interleaved record of an agent's screens, actions and
-            reasoning. Deciding whether it fulfilled its instruction is the reward signal behind
-            evaluation, data curation and reinforcement learning. Human-written verifiers cover only a
-            handful of curated tasks and cannot inspect a static corpus at all; human annotation cannot
-            keep pace. The field has therefore settled on vision-language models as judges — without ever
-            measuring how reliable those judges are.</p>
-          <p><strong>OSReward measures it</strong>, on trajectories built for the purpose rather than
-            recycled from benchmarks whose own flaws would be indistinguishable from judge error.</p>
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">1.2</span>
+            <h3>Why the data has to be new</h3>
+          </div>
+          <div class="lead-body">
+            <p>Auditing a CUA judge is harder than testing a text autorater. You cannot simply recycle trajectories from existing agent benchmarks: when a judge disagrees with a brittle rule-based script on a noisy run, there is no way to tell whether the judge failed or the trajectory did. Isolating the judge requires building the data for that exact purpose.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-3 rise">
+          <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-unmeasured" /></svg></span>
+            <h3 style="color:var(--gold-200)">Not measurable before</h3>
+            <p>Human-written verifiers cover a handful of curated tasks and cannot inspect a static corpus at
+              all. Human annotation cannot keep pace. A model judge is the only practical route, and its own reliability had gone untested.</p>
+          </div>
+          <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-interleaved" /></svg></span>
+            <h3 style="color:var(--gold-200)">Harder than judging text</h3>
+            <p>A CUA verdict means reading a long, interleaved record of states, actions, and reasoning, then
+              deciding whether the environment truly reached the goal rather than whether the agent merely
+              claims it did.</p>
+          </div>
+          <div class="card feature">
+            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-scratch" /></svg></span>
+            <h3 style="color:var(--gold-200)">Built from scratch</h3>
+            <p>Reusing existing benchmarks' rollouts would confound judge errors with flaws in the runs.
+              OSReward is built on dedicated cross-platform infrastructure so every wrong verdict is
+              attributable to the judge.</p>
+          </div>
+        </div>
+
+        <div class="flow-head rise">
+          <span class="eyebrow">What OSReward delivers</span>
+          <h3>Measure the judge, then fix it</h3>
+          <p>The evaluation becomes open training data and affordable reward models.</p>
         </div>
 
         <ol class="contrib-flow rise">
           <li>
             <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-bench" /></svg></span><span class="cf-n">01</span></div>
             <a class="cf-title" href="#benchmark">A standardized benchmark for the CUA reward signal</a>
-            <p>1,019 human-gold trajectories collected on cross-platform infrastructure we build and
-              operate end to end, each labeled by three annotators with meta-review on disagreements.
-              The benchmark has three sets: <em>OSReward</em> for the full evaluation,
-              <em>OSReward-Hard</em> for challenging cases, and <em>OSReward-Multi</em> for alignment and
-              efficiency grading.</p>
+            <p>1,019 human-gold trajectories collected end to end across web, Windows, Ubuntu, and mobile,
+              each labeled by three annotators with senior meta-review on splits, and read through
+              <em>OSReward</em>, <em>OSReward-Hard</em>, and <em>OSReward-Multi</em>.</p>
           </li>
           <li>
             <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-judge" /></svg></span><span class="cf-n">02</span></div>
             <a class="cf-title" href="#findings">The broadest evaluation of VLM judges for CUA to date</a>
-            <p>27 models under one fixed protocol. Every family shares one lenient failure mode, the
-              verdict turns out to live in the text history rather than the screen, and the aggregate
-              ~90% collapses on hard cases. The judges reliable enough to trust cost too much to run at
-              the scale evaluation and training demand.</p>
+            <p>27 models tested under one fixed protocol. Every family shares one lenient failure mode, leans
+              on text history over the screen, and drops sharply on hard cases. The few reliable judges cost too much to scale.</p>
           </li>
           <li>
             <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-corpus" /></svg></span><span class="cf-n">03</span></div>
-            <a class="cf-title" href="#shepherd">OS-Shepherd-100K, the corpus derived from those findings</a>
-            <p>The largest reasoning-annotated judge corpus for CUA to date, selected from 321,631
-              ensemble verdicts over self-collected rollouts and four open trajectory sets. Every
-              sample carries the judge's reasoning, not just a binary verdict.</p>
+            <a class="cf-title" href="#shepherd">OS-Shepherd-100K, shaped by those findings</a>
+            <p>100K reasoning-annotated trajectory judgments distilled from 321,631 ensemble verdicts over
+              fresh rollouts and four open corpora, keeping only the runs where strong teachers independently
+              agree.</p>
           </li>
           <li>
             <div class="cf-top"><span class="ico-tile lg"><svg class="duo" aria-hidden="true"><use href="#i-model" /></svg></span><span class="cf-n">04</span></div>
             <a class="cf-title" href="#shepherd">Open reward models a lab can host</a>
-            <p><em>OS-Shepherd</em> 9B and 35B, trained on that corpus to target the false-success mode
-              directly, and level with commercial judges at 30–60× lower cost.</p>
+            <p><em>OS-Shepherd</em> 9B and 35B, trained with SFT and targeted RL against the false-success
+              mode, reaching commercial-judge performance at 30–60× lower inference cost.</p>
           </li>
         </ol>
       </div>
     </section>
 
     <!-- ================================================================== -->
-    <!-- The problem                                                         -->
-    <!-- ================================================================== -->
-    <section class="band" id="problem">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">The problem</span>
-          <h2 class="section-title">The whole field <span class="gilt">leans lenient</span></h2>
-          <p class="section-sub">Judges consistently accept far more failures than they reject successes. Across
-            the board, models fail to flag incomplete tasks, showing a clear leniency bias rather than a strict
-            evaluation standard.</p>
-        </div>
-
-        <div class="card chart-card rise">
-          <div class="chart-head">
-            <h3>Strict–lenient plane</h3>
-          </div>
-          <p class="chart-note">Models above the diagonal lean lenient, accepting more failures than they reject.
-            On OSReward-Hard, this leniency bias visibly worsens as the distribution shifts left.</p>
-          <div id="chart-bias"></div>
-        </div>
-
-        <div class="grid grid-3 rise" style="margin-top:26px">
-          <div class="card feature">
-            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-unmeasured" /></svg></span>
-            <h3 style="color:var(--gold-200)">Not measurable before</h3>
-            <p>Human verifiers are unscalable for static corpora. While model judges are the only practical
-              alternative, their reliability has remained largely untested.</p>
-          </div>
-          <div class="card feature">
-            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-interleaved" /></svg></span>
-            <h3 style="color:var(--gold-200)">Harder than judging text</h3>
-            <p>A CUA verdict means reading a long, interleaved record of states, actions and reasoning, then
-              deciding whether the environment truly reached the goal rather than whether the agent
-              merely claims it did.</p>
-          </div>
-          <div class="card feature">
-            <span class="ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-scratch" /></svg></span>
-            <h3 style="color:var(--gold-200)">Built from scratch</h3>
-            <p>Reusing existing benchmarks' rollouts would confound judge errors with flaws in the runs. OSReward is
-              built on dedicated cross-platform infrastructure so a wrong verdict is attributable to the judge.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================== -->
-    <!-- Benchmark                                                           -->
+    <!-- Act 2 · Benchmark                                                   -->
     <!-- ================================================================== -->
     <section class="band" id="benchmark">
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow">OSReward</span>
           <h2 class="section-title">A gold set built for <span class="gilt">judging the judge</span></h2>
-          <p class="section-sub">Realistic environments on four platforms, human-vetted instructions, rollouts from
-            four agent families, and three independent annotators per trajectory — roughly 800 human hours.</p>
+          <p class="section-sub">Lived-in machines on four platforms, human-vetted instructions, rollouts from
+            four agent families, and three independent annotators per trajectory: roughly 800 human hours.</p>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">2.1</span>
+            <h3>Lived-in machines, not stock images</h3>
+          </div>
+          <div class="lead-body">
+            <p>A benchmark is only as honest as the environments behind it. Stock virtual machines are bare. Real computer use happens on machines with a history. Before collecting a single trajectory, annotators built out Windows, Ubuntu, and Android machines with twenty to thirty everyday and professional applications, signed-in accounts, real user files, seeded databases, and distractor content, alongside live websites on the open internet. Roughly 1,500 candidate instructions were written and peer-checked down to ~800 grounded tasks, rolled out across Claude, Gemini, Kimi, and Qwen agents, cleared of infrastructure crashes, and adjudicated by human readers.</p>
+          </div>
         </div>
 
         <!-- Pipeline demo: paper Figs. 3-4 as one steppable walkthrough.
@@ -565,7 +561,9 @@
           <div class="chart-head">
             <h3>From realistic environments to the gold benchmark</h3>
           </div>
-          <p class="chart-note">How each trajectory in OSReward is curated.</p>
+          <p class="chart-note">Click any stage in the diagram, or press play, to follow how a lived-in
+            environment becomes a gold trajectory. Note Stage 7: an answer the agent did not obtain or verify
+            through the environment is a FAIL, even when it happens to be right.</p>
 
           <div class="demo-stage">
             <svg class="demo-wires" aria-hidden="true"></svg>
@@ -671,8 +669,8 @@
           <ol class="demo-script" id="demoScript">
             <li data-node="dn-env">
               <h4><span class="step-n">1</span> A lived-in machine</h4>
-              <p>Stock benchmark images are extended into lived-in machines &mdash; real files, user
-                profiles, seeded databases, distractor content &mdash; and web tasks run on live sites.</p>
+              <p>Stock benchmark images are extended into lived-in machines with real files, user
+                profiles, seeded databases and distractor content. Web tasks run on live sites.</p>
               <div class="d-art d-chips">
                 <span class="d-chip">real files</span>
                 <span class="d-chip">user profiles</span>
@@ -683,17 +681,15 @@
             </li>
             <li data-node="dn-setup">
               <h4><span class="step-n">2</span> Annotators move in</h4>
-              <p>Annotators learn the apps, build profiles, and seed files and state &mdash; every task
-                starts on a machine with a history.</p>
+              <p>Annotators learn the apps, build profiles, and seed files and state, so every task starts on a machine with a history.</p>
             </li>
             <li data-node="dn-instr">
               <h4><span class="step-n">3</span> Instructions, cross-checked</h4>
-              <p>Written against what the environment can verify &mdash; grounded, answerable,
-                open-ended. Peer review cuts ~1,500 drafts to ~800 tasks.</p>
+              <p>Written against what the environment can verify: grounded, answerable, open-ended. Peer review cuts ~1,500 drafts to ~800 tasks.</p>
               <div class="d-art d-cards">
                 <span class="d-card keep">fibonacci.py &rarr; LaTeX formula, render in TeXstudio &rarr; Impress</span>
                 <span class="d-card keep">PyCharm run config: main.py, env DEBUG_MODE=False</span>
-                <span class="d-card drop">&ldquo;Make the video look better&rdquo; &mdash; no verifiable end state</span>
+                <span class="d-card drop">“Make the video look better”: no verifiable end state</span>
               </div>
             </li>
             <li data-node="dn-agents">
@@ -703,8 +699,7 @@
             </li>
             <li data-node="dn-raw">
               <h4><span class="step-n">5</span> Raw trajectories</h4>
-              <p>Each run is the trace a judge will read &mdash; screenshot, thought, action &mdash; up
-                to 100 steps long.</p>
+              <p>Each run is the trace a judge will read (screenshot, thought, action), up to 100 steps long.</p>
               <div class="d-art d-chain">
                 <img src="public/demo/traj-1.webp" alt="Trajectory frame 1: GitLab project list" loading="lazy" decoding="async">
                 <svg viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h19M15 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -715,14 +710,12 @@
             </li>
             <li data-node="dn-filter d-tray">
               <h4><span class="step-n">6</span> The pre-filter</h4>
-              <p>Runs wrecked by the environment &mdash; anti-bot blocks, network failures, frozen
-                executions &mdash; are dropped before any human time is spent.</p>
+              <p>Runs wrecked by the environment (anti-bot blocks, network failures, frozen executions) are dropped before any human time is spent.</p>
             </li>
             <li data-node="dn-annot">
               <h4><span class="step-n">7</span> Three annotators, independently</h4>
               <p>Three independent verdicts per trajectory, each with a written reason. One strict rule:
-                an answer the agent did not obtain or verify through the environment is a FAIL &mdash;
-                even when it happens to be correct.</p>
+                an answer the agent did not obtain or verify through the environment is a FAIL, even when it happens to be correct.</p>
               <div class="d-art d-chips">
                 <span class="d-verd ok">SUCCESS</span>
                 <span class="d-verd ok">SUCCESS</span>
@@ -732,13 +725,11 @@
             </li>
             <li data-node="dn-annot">
               <h4><span class="step-n">8</span> Unanimous, or escalated</h4>
-              <p>Unanimous verdicts are final. Splits escalate &mdash; no gold verdict rests on a
-                single reader.</p>
+              <p>Unanimous verdicts are final. Splits escalate. No gold verdict rests on a single reader.</p>
             </li>
             <li data-node="dn-meta">
               <h4><span class="step-n">9</span> Meta-review</h4>
-              <p>Two senior reviewers deliberate &mdash; not a vote. Extra steps that still reach the
-                goal pass; a wrong action fails; residual-quality runs are discarded.</p>
+              <p>Two senior reviewers deliberate. It is not a vote. Extra steps that still reach the goal pass. A wrong action fails. Residual-quality runs are discarded.</p>
               <div class="d-art d-cards">
                 <span class="d-card keep">extra steps, still correct</span>
                 <span class="d-card keep">goal basically reached</span>
@@ -748,8 +739,7 @@
             <li data-node="dn-gold">
               <h4><span class="step-n">10</span> The gold set</h4>
               <p>OSReward: 1,019 gold trajectories across four platforms, balanced 43 / 57
-                success / fail. SUCCESS carries alignment and efficiency grades; FAIL carries an
-                error type &mdash; action, perception, planning &amp; reasoning, memory.</p>
+                success / fail. SUCCESS carries alignment and efficiency grades. FAIL carries an error type: action, perception, planning &amp; reasoning, or memory.</p>
               <div class="d-art d-shots">
                 <figure><img src="public/demo/plat-web.webp" alt="Web trajectory screenshot" loading="lazy" decoding="async"><figcaption>Web</figcaption></figure>
                 <figure><img src="public/demo/plat-windows.webp" alt="Windows trajectory screenshot" loading="lazy" decoding="async"><figcaption>Windows</figcaption></figure>
@@ -759,8 +749,7 @@
             </li>
             <li data-node="dn-hard">
               <h4><span class="step-n">11</span> OSReward-Hard</h4>
-              <p>The cases that split the annotators, re-verified in a further review &mdash; real
-                difficulty, not annotation noise &mdash; at a 30 / 70 success / fail split.</p>
+              <p>The cases that split the annotators, re-verified in a further review (real difficulty, not annotation noise), at a 30 / 70 success / fail split.</p>
             </li>
             <li data-node="dn-multi">
               <h4><span class="step-n">12</span> OSReward-Multi</h4>
@@ -770,28 +759,38 @@
           </ol>
         </div>
 
-        <!-- Three views -->
-        <div class="grid grid-3 rise" style="margin-top:24px">
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">2.2</span>
+            <h3>One gold set, three views</h3>
+          </div>
+          <div class="lead-body">
+            <p>The full benchmark measures everyday reliability across platforms and action spaces. The challenge subset concentrates the deceptive runs that split our own annotators. The multi-axis track grades execution quality on the runs that did succeed.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-3 rise">
           <div class="card feature">
             <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-full" /></svg></div>
             <h3>OSReward</h3>
-            <p>The full set. Four platforms, four agent families, GUI-only and GUI+CLI action spaces, from
-              dozen-step chores to 100-step professional workflows. Balanced 43 / 57 success / fail, so binary
-              accuracy is not majority-driven.</p>
+            <p>The full set: 1,019 trajectories across four platforms, four agent families, and GUI-only plus
+              GUI+CLI action spaces, ranging from concise few-step chores to 100-step cross-app workflows (mean
+              30.1 steps). Balanced 43 / 57 success / fail so binary accuracy cannot coast on the majority
+              class.</p>
           </div>
           <div class="card feature">
             <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-hard" /></svg></div>
             <h3>OSReward-Hard</h3>
-            <p>A challenge subset drawn mostly from trajectories that split human annotators, rigorously re-verified
-              under meta-review to capture genuine edge cases. Comprises deceptive runs that read like completed
-              tasks, at a 30/70 success/fail split.</p>
+            <p>284 challenging trajectories drawn mostly from annotator disagreements and re-verified by senior reviewers. It keeps cases where the outcome is determinate but establishing it requires piecing
+              together subtle visual and textual evidence. Heavy on deceptive failures (30 / 70 success /
+              fail).</p>
           </div>
           <div class="card feature">
             <div class="ico ico-tile"><svg class="duo" aria-hidden="true"><use href="#i-multi" /></svg></div>
             <h3>OSReward-Multi</h3>
-            <p>The successful trajectories carry sub-labels for human <em>alignment</em> (did the actions match the
-              task intent) and <em>efficiency</em> (how free the run was of wasted steps), enabling fine-grained
-              quality grading beyond binary verdicts.</p>
+            <p>All 440 successful trajectories carry 0, 0.5, or 1 human ratings on two complete-trajectory axes:
+              <em>alignment</em> (did every action serve the user's intent without side effects) and
+              <em>efficiency</em> (how free the path was of wasted detours), quality dimensions binary verdicts miss.</p>
           </div>
         </div>
 
@@ -800,8 +799,7 @@
           <div class="card chart-card">
             <div class="chart-head"><h3>Outcome composition</h3></div>
             <p class="chart-note">The Hard set deliberately raises the share of failures, to expose how easily
-              judges are fooled by false successes. Failed runs are markedly longer — a first sign that length
-              confounds verification.</p>
+              judges are fooled by false successes. Failed runs are markedly longer, a first sign that length confounds verification.</p>
             <div id="chart-composition"></div>
           </div>
           <div class="card chart-card">
@@ -811,51 +809,118 @@
             <div id="chart-platform"></div>
           </div>
         </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">2.3</span>
+            <h3>All 1,019 trajectories, one cell each</h3>
+          </div>
+          <div class="lead-body">
+            <p>Summary plots hide what individual runs look like on the ground. Every cell below is one trajectory in OSReward. Regroup the grid by platform, executing agent, human verdict, or step length. Switch <strong>Colour</strong> to <em>Length</em> and you can see immediately how failed runs drag out far longer than clean completions. Hover any cell for its instruction and <em>action barcode</em> (one coloured tick per click, keystroke, scroll, or command). <strong>Gold-ringed cells open straight into the interactive player below.</strong></p>
+          </div>
+        </div>
+        <div class="rise" id="atlas-body"></div>
       </div>
     </section>
 
     <!-- ================================================================== -->
-    <!-- Findings                                                            -->
+    <!-- Act 3 · Be the judge                                                -->
+    <!-- ================================================================== -->
+    <section class="band" id="viewer">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Explore</span>
+          <h2 class="section-title">Be the <span class="gilt">judge</span></h2>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">3.1</span>
+            <h3>Make the call yourself</h3>
+          </div>
+          <div class="lead-body">
+            <p>Before looking at how 27 models scored, try making the call yourself. Step through a trajectory the way a reward model sees it: the instruction, every recorded screen with the agent's action drawn on top, and the agent's stated reasoning beside it. <strong>Make your call while the annotations are still hidden</strong>, then see what the human annotators decided, which frames settled it, and how the model judges voted. Ten cases are the paper's diagnostic studies. Eleven more are hard picks from the benchmark where the final screen or the agent's closing report points the wrong way.</p>
+          </div>
+        </div>
+
+        <div class="rise" id="viewer-body"></div>
+
+        <div class="handoff rise">
+          <p>Seeing a single deceptive run makes the trap obvious: an agent can narrate a convincing finish while leaving the real environment half-done. What happens when we run 27 vision-language models across all 1,019 trajectories?</p>
+          <a class="handoff-next" href="#findings"><span>Next</span> The judge study <i aria-hidden="true">↓</i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- Act 4 · The judge study and leaderboard                             -->
     <!-- ================================================================== -->
     <section class="band" id="findings">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Findings</span>
+          <span class="eyebrow">Findings &amp; Leaderboard</span>
           <h2 class="section-title">Four things the <span class="gilt">judge study</span> settles</h2>
-          <p class="section-sub">27 VLM judges under one fixed protocol: read the trajectory's last N states with
-            the per-step reasoning and action text, return a verdict. No task-specific harness, no tool access, no
-            step-level supervision.</p>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">4.1</span>
+            <h3>One protocol, 27 judges</h3>
+          </div>
+          <div class="lead-body">
+            <p>We benchmark 27 VLM judges under one shared protocol: the task instruction, the full history of agent thoughts and actions, and the last five screenshots (<code>N = 5</code>), with click locations marked on screen and no task-specific harness.</p>
+            <div class="mfam">
+              <div><span class="mfam-k">Closed frontier</span><span class="mchip"><img src="public/logos/Claude.png" alt="">Claude</span> <span class="mchip"><img src="public/logos/GPT.png" alt="">GPT</span> <span class="mchip"><img src="public/logos/Gemini.png" alt="">Gemini</span> <span class="mchip"><img src="public/logos/Doubao.png" alt="">Doubao</span></div>
+              <div><span class="mfam-k">Open weights</span><span class="mchip"><img src="public/logos/Qwen.png" alt="">Qwen</span> <span class="mchip"><img src="public/logos/Kimi.png" alt="">Kimi</span> <span class="mchip"><img src="public/logos/InternLM.png" alt="">Intern</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="grid grid-2 rise">
           <div class="takeaway">
             <span class="k">01</span>
-            <p>State-of-the-art VLMs judge CUA success at just under <strong>90%</strong> binary accuracy with no
-              clear single winner—the top three sit within 0.2 pp, and frontier open-weight models have effectively
-              closed the gap with commercial counterparts.</p>
+            <p>Closed frontier judges top out just under <strong>90%</strong> binary accuracy on the full set
+              (Claude-Opus-4-8 at 89.7%, GPT-5.5 at 89.5%), with open-weight models trailing behind. On OSReward-Hard, every judge drops by 20–43 pp, pulling the field mean down to 52%.</p>
           </div>
           <div class="takeaway">
             <span class="k">02</span>
             <p>Every judge family shares one dominant failure: <strong>accepting an incomplete task as a
-                success</strong>. It is two-thirds of all errors, and it is the leading error mode of every
-              judge at no less than 48% of its mistakes. Over-accepts outnumber over-rejects more than
-              three to one.</p>
+                success</strong>. It is two-thirds of all errors, leads every model's mistake profile at no less
+              than 48% of its errors, and outnumbers over-rejects more than three to one.</p>
           </div>
           <div class="takeaway">
             <span class="k">03</span>
-            <p>Verdict accuracy relies primarily on <strong>text history</strong> rather than visual state. Dropping
-              the per-step thought and action text costs 7.2 pp on average and flips 22.7% of verdicts, whereas
-              omitting visual inputs has minimal impact on accuracy.</p>
+            <p>The verdict leans heavily on the <strong>text history</strong>. Dropping per-step thought and
+              action text costs 7.3 pp on average and flips 22.7% of verdicts. Dropping all screenshots costs 6.0 pp, whereas swapping the last five frames for three (or first-plus-last-two) moves accuracy by
+              under 0.5 pp.</p>
           </div>
           <div class="takeaway">
             <span class="k">04</span>
-            <p>High reliability is prohibitively expensive. Judges capable of ~70% on OSReward-Hard cost
-              <strong>$45–100</strong> to evaluate the full set once, failing to scale for training-time reward.</p>
+            <p>Reliability can be bought, but not afforded. The few judges that hold ~70% on OSReward-Hard cost
+              <strong>$45–100</strong> to judge the full set once, out of reach at the millions of calls RL training issues.</p>
           </div>
         </div>
 
-        <!-- Pareto -->
-        <div class="card chart-card rise" style="margin-top:28px">
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">4.2</span>
+            <h3>The accuracy ceiling and the cost bind</h3>
+          </div>
+          <div class="lead-body">
+            <p>Clustering near 90% on the full set looks reassuring until you switch the table below to <em>OSReward-Hard</em>. Because the hard set is 70% failures, a trivial predictor that says <code>FAIL</code> to everything already gets 69.7% raw accuracy (and 50% balanced accuracy). Even the strongest frontier judge only matches that raw mark, and several open models sit at coin-flip balanced accuracy (50.1–51.4%). Plotting hard-set accuracy against API cost shows the bind: reliable judges sit at $45–$100 per pass, while every judge under $3 outside OS-Shepherd stays at or below 57%.</p>
+          </div>
+        </div>
+
+        <div class="card chart-card rise">
+          <div class="chart-head" style="margin-bottom:6px">
+            <h3>Main-setting results</h3>
+          </div>
+          <p class="chart-note">Low success recall (sRec) means a strict judge, and low failure recall (fRec) a lenient one. Balanced accuracy (BalAcc) is their mean. Toggle between Full and Hard or click any column
+            header to sort.</p>
+          <div id="table-leaderboard"></div>
+        </div>
+
+        <div class="card chart-card rise" style="margin-top:24px">
           <div class="chart-head">
             <h3>Cost against accuracy</h3>
           </div>
@@ -865,67 +930,79 @@
           <div id="chart-pareto"></div>
         </div>
 
-        <!-- Failure modes -->
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">4.3</span>
+            <h3>The whole field leans lenient</h3>
+          </div>
+          <div class="lead-body">
+            <p>Binary accuracy hides <em>how</em> a judge errs. Place every model at its recall on truly failed runs against its recall on truly successful ones, and almost every point sits above the diagonal: judges accept far more failures than they reject successes. Labelling every wrong verdict into six concrete modes pinpoints why. Across every model family, the single leading mistake is passing an incomplete task whose closing text claims success.</p>
+          </div>
+        </div>
+
+        <div class="card chart-card rise">
+          <div class="chart-head">
+            <h3>Strict–lenient plane</h3>
+          </div>
+          <p class="chart-note">Above the dashed diagonal is lenient (a failed run scored SUCCESS), below is strict. Switch to OSReward-Hard and the cloud drifts left: leniency does not just persist on hard cases, it widens. Hover any point, or click a family to mute it.</p>
+          <div id="chart-bias"></div>
+        </div>
+
         <div class="card chart-card rise" style="margin-top:24px">
           <div class="chart-head">
             <h3>What judges get wrong</h3>
           </div>
-          <p class="chart-note">Every incorrect verdict is labeled into over-accepts and over-rejects (three modes
-            each). One mode dominates every family: over-accepting incomplete tasks. This field-wide leniency bias
-            occurs because judges over-rely on the agent's own closing claims.</p>
+          <p class="chart-note">Every incorrect verdict, labeled into over-accepts and over-rejects with three
+            modes each. One mode dominates every family: over-accepting a task the agent never completed. That is
+            the mechanism behind the leniency bias: the verdict leans on the agent's own closing claim.</p>
           <div id="chart-failure"></div>
         </div>
 
-        <!-- Hard-set breakdown -->
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">4.4</span>
+            <h3>Text drives the call, so visual slips slip through</h3>
+          </div>
+          <div class="lead-body">
+            <p>Perturbing one input at a time explains why confident agent narration fools so many judges. Removing step-level text dominates every other ablation, especially on the web, where typed strings carry intent a screenshot cannot show. Visual evidence still matters (removing all screenshots costs 6.0 pp across tested judges), yet changing <em>which</em> trailing screenshots the judge sees barely moves aggregate accuracy while quietly flipping 5–7% of individual verdicts. Because judges lean on text, they struggle most where the screen is the only witness: dense Windows software, and perception or action errors that leave no trace in the agent's reasoning.</p>
+          </div>
+        </div>
+
+        <div class="card chart-card rise">
+          <div class="chart-head">
+            <h3>What actually drives a verdict</h3>
+          </div>
+          <p class="chart-note">Change in binary accuracy against the main setting, one input component perturbed
+            at a time. Removing step-level text dominates. Varying the screenshot selection or action markers barely registers on the mean, yet still flips 5–7% of individual verdicts, which matters when a
+            reward model consumes labels one by one.</p>
+          <div id="chart-ablation"></div>
+        </div>
+
         <div class="card chart-card rise" style="margin-top:24px">
           <div class="chart-head">
             <h3>Where the hard set bites</h3>
           </div>
-          <p class="chart-note">Mean per-judge binary accuracy on OSReward-Hard. Windows is the hardest platform to
-            judge and mobile the easiest. Failures dependent on visual state (perception and action) are
-            significantly harder to catch than text-legible planning and reasoning errors.</p>
+          <p class="chart-note">Mean per-judge binary accuracy on OSReward-Hard. Windows is the hardest platform to judge and mobile the easiest. Failures that hinge on reading the screen (perception, then action) are markedly harder to catch than planning-and-reasoning failures legible in text. Failure types
+            are multi-label.</p>
           <div id="chart-hard"></div>
         </div>
 
-        <!-- Ablations -->
-        <div class="card chart-card rise" style="margin-top:24px">
-          <div class="chart-head">
-            <h3>What actually drives a verdict</h3>
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">4.5</span>
+            <h3>Fine-grained grading and the limits of test-time scaling</h3>
           </div>
-          <p class="chart-note">Change in binary accuracy when perturbing one input component at a time. Removing
-            step-level text dominates, whereas visual ablations barely register on aggregate accuracy. However,
-            these seemingly harmless visual changes still flip 5–7% of individual verdicts, directly impacting
-            instance-level reward labeling.</p>
-          <div id="chart-ablation"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================== -->
-    <!-- Leaderboard                                                         -->
-    <!-- ================================================================== -->
-    <section class="band" id="leaderboard">
-      <div class="wrap wrap-wide">
-        <div class="section-head">
-          <span class="eyebrow">Leaderboard</span>
-          <h2 class="section-title">A comprehensive <span class="gilt">judge evaluation</span></h2>
-          <p class="section-sub">Low success recall means a strict judge, low fail recall a lenient one.
-            Balanced accuracy is their mean.</p>
-        </div>
-        <div class="card chart-card rise">
-          <div class="chart-head" style="margin-bottom:14px">
-            <h3>Main-setting results</h3>
+          <div class="lead-body">
+            <p>Grading alignment and efficiency on completed runs (<code>OSReward-Multi</code>) is harder still, dropping the best judges from ~90% into the low sixties. And when we try to buy reliability at inference time, by raising reasoning effort, sampling repeatedly, or pooling top judges into a majority vote, the gains stall out because different model families herd on the exact same deceptive trajectories.</p>
           </div>
-          <div id="table-leaderboard"></div>
         </div>
 
-        <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
+        <div class="grid grid-2 rise" style="align-items:start">
           <div class="card chart-card">
             <div class="chart-head"><h3>Finer-grained grading</h3></div>
-            <p class="chart-note">On OSReward-Multi, every judge additionally rates alignment and efficiency.
-              Quality grading is markedly weaker than binary outcome judging: the top model falls from ~90%
-              accuracy to the low sixties. The gap between AUC and macro-recall reveals that while judges can rank
-              quality levels effectively, their scoring thresholds remain poorly calibrated, particularly for
+            <p class="chart-note">On OSReward-Multi every judge additionally rates alignment and efficiency
+              when it predicts SUCCESS. The AUC–macro-recall gap is the diagnostic: judges rank the levels better
+              than they score them, so discrimination is there but thresholds are miscalibrated, worst on
               alignment.</p>
             <div class="table-shell">
               <div class="table-scroll">
@@ -954,28 +1031,30 @@
             <p class="chart-note">No model-side knob buys reliability.</p>
             <ul style="list-style:none;padding:0;margin:0;font-size:15.5px;line-height:1.75">
               <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
-                <b style="color:var(--gold-200);font-family:var(--font-mono)">κ ≈ 0.71</b> — pairwise agreement
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">κ ≈ 0.71</b> pairwise agreement
                 among top judges. They herd on the <em>same</em> hard trajectories, so a wider pool mostly adds
                 copies of the same mistake.</li>
               <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
-                <b style="color:var(--gold-200);font-family:var(--font-mono)">6–9%</b> — verdicts flipped by
-                re-running the same judge on the same input at T = 0.7. Aggregate accuracy is stable under
-                temperature; individual labels are not, and that is what a reward model consumes.</li>
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">6–9%</b> of verdicts flip when
+                the same judge reruns on the same input at T = 0.7. Aggregate accuracy is stable under temperature. Individual labels are not, and that is what a reward model consumes.</li>
               <li style="padding:12px 0;border-bottom:1px solid var(--hairline-cool)">
-                <b style="color:var(--gold-200);font-family:var(--font-mono)">+1 pp</b> — what a top-3 majority
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">+1 pp</b> is what a top-3 majority
                 vote buys over the best single judge, at several times the cost.</li>
               <li style="padding:12px 0">
-                <b style="color:var(--gold-200);font-family:var(--font-mono)">99.2%</b> — the oracle: accepting
-                <em>any</em> pooled judge's correct verdict. The pool almost always contains a correct answer;
-                what a vote cannot recover is <em>which</em> judge to trust on which trajectory.</li>
+                <b style="color:var(--gold-200);font-family:var(--font-mono)">99.2%</b> is the oracle, accepting
+                <em>any</em> pooled judge's correct verdict. The pool almost always contains a correct answer. What a vote cannot recover is <em>which</em> judge to trust on which trajectory.</li>
             </ul>
           </div>
+        </div>
+
+        <div class="handoff is-plain rise">
+          <a class="handoff-next" href="#shepherd"><span>Next</span> OS-Shepherd <i aria-hidden="true">↓</i></a>
         </div>
       </div>
     </section>
 
     <!-- ================================================================== -->
-    <!-- OS-Shepherd                                                         -->
+    <!-- Act 5 · OS-Shepherd                                                 -->
     <!-- ================================================================== -->
     <section class="band" id="shepherd">
       <div class="wrap">
@@ -983,18 +1062,47 @@
           <span class="eyebrow">OS-Shepherd</span>
           <h2 class="section-title">An open reward model a lab can run
             <span class="gilt">on an academic budget</span></h2>
-          <p class="section-sub">Reliable judging is unaffordable at the call volumes rejection sampling, RL and
-            trajectory mining need. OS-Shepherd is trained on a corpus we release, aimed squarely at the
-            false-success mode, and cheap enough to run at training scale.</p>
+          <p class="section-sub">Trained on an open 100K reasoning corpus built from cross-model agreement, aimed
+            squarely at false successes, and 30–60× cheaper to run.</p>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">5.1</span>
+            <h3>Turning agreement into supervision: OS-Shepherd-100K</h3>
+          </div>
+          <div class="lead-body">
+            <p>At evaluation time, majority voting disappoints because you must score every benchmark run, including the hard cases where judges herd on the wrong answer. Corpus construction has one crucial freedom evaluation lacks: <em>we can discard disagreements</em>. We roll out fresh instructions across five agent families, join them with four open trajectory corpora, and label each trajectory independently with three strong teachers: <strong>GPT-5.5, Gemini-3.1-Pro, and Kimi-K2.5</strong>. Keeping only unanimous verdicts retains ~85% of evaluated runs while raising label accuracy to <strong>94.0%</strong> on OSReward Full (and <strong>96.0%</strong> agreement with human majority labels in a 100-trajectory audit). Every kept sample pairs its verdict with an agreeing teacher's full reasoning trace.</p>
+          </div>
+        </div>
+
+        <div class="card chart-card rise">
+          <div class="chart-head">
+            <h3>How the corpus is built</h3>
+          </div>
+          <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with open-source trajectories. The pool is then ensemble-judged, and only unanimous verdicts are kept. The first four
+            columns count unique trajectories (up to 82K). After that the unit changes: a judge instance is one
+            teacher's verdict on one trajectory (321K), and the final corpus is counted in retained
+            trajectory–response training samples (~100K).</p>
+          <div id="chart-corpus-flow"></div>
+        </div>
+
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">5.2</span>
+            <h3>Two stages, two jobs</h3>
+          </div>
+          <div class="lead-body">
+            <p>Starting from Qwen3.5 (9B and 35B-A3B), stage one runs supervised fine-tuning on 96.6K agreement-filtered samples across mixed screenshot settings. SFT does the bulk of the accuracy work, lifting the 9B out of near-total leniency. What survives SFT is the hardest tail of <em>false successes</em>, runs the SFT checkpoint still waves through under greedy decoding, yet catches in some sampled rollouts. Using the one-epoch SFT checkpoint, we mine ~3.1K of these recoverable errors from the SFT pool for a short GRPO pass. RL leaves overall discrimination intact and relocates the operating point onto the balanced diagonal, driving 9B hard-set failure recall from <strong>14.1% to 57.6%</strong>.</p>
+          </div>
         </div>
 
         <div class="grid grid-2 rise" style="align-items:start">
           <div class="card chart-card">
             <div class="chart-head"><h3>OS-Shepherd-100K</h3></div>
-            <p class="chart-note">Trajectories are scored by an ensemble of strong judges under varied screenshot
-              settings, entering the final dataset only upon independent agreement. This strict consensus filter
-              retains approximately 85% of the initial pool, ensuring only robust reasoning traces are carried into
-              the training corpus.</p>
+            <p class="chart-note">The 321,631-instance judge pool across web, Windows, macOS, Ubuntu, and Android.
+              About 46% of the Ubuntu data interleaves GUI actions with CLI steps, preparing the reward model for
+              hybrid code-and-GUI agents.</p>
             <div id="chart-corpus"></div>
           </div>
           <div class="card chart-card">
@@ -1015,31 +1123,14 @@
                   <span class="step-n">R</span>
                   <h4 style="margin:0">RL stage</h4>
                 </div>
-                <p>What SFT leaves behind is the <em>false success</em> — the most harmful error for a reward
+                <p>What SFT leaves behind is the <em>false success</em>, the most harmful error for a reward
                   signal, since it directly reinforces incorrect behavior. The ability to catch it is latent
                   rather than missing, so those cases are mined and optimized with GRPO.</p>
               </div>
             </div>
-            <div class="takeaway" style="margin-top:16px">
-              <span class="k">Why</span>
-              <p>Since verdict accuracy relies heavily on text history, every sample provides the judge's
-                <em>full reasoning trace</em> to serve as a dense, direct optimization signal.</p>
-            </div>
           </div>
         </div>
 
-        <!-- Corpus pipeline (paper Fig. 10) -->
-        <div class="card chart-card rise" style="margin-top:24px">
-          <div class="chart-head">
-            <h3>How the corpus is built</h3>
-          </div>
-          <p class="chart-note">Self-collected instructions are filtered, rolled out, and joined with open-source
-            trajectories. The combined pool is then ensemble-judged, retaining only the verdicts with unanimous
-            agreement.</p>
-          <div id="chart-corpus-flow"></div>
-        </div>
-
-        <!-- Model cards -->
         <div class="grid grid-2 rise" style="margin-top:24px">
           <div class="card model-card">
             <div class="top">
@@ -1047,9 +1138,10 @@
               <h3>OS-Shepherd-9B</h3>
             </div>
             <p style="font-size:15px;color:var(--text-dim);margin:0">Moves from the bottom third of the field into
-              the mid-tier commercial band on the full set. On OSReward-Hard, it maintains a balanced strict-lenient
-              profile, catching 57.6% of deceptive false successes. At $1.36 to evaluate the full set, it operates
-              at roughly two-thirds the cost of its nearest commercial equivalent.</p>
+              the commercial band on the full set (86.1%) and holds the balanced diagonal on OSReward-Hard,
+              catching 57.6% of hard false successes where cheap open judges miss nearly all of them. At $1.36 to
+              judge the full set, it is 30–60× cheaper than frontier APIs and a third less than its nearest
+              commercial peer.</p>
             <dl>
               <dt>OSReward accuracy</dt><dd>86.1<span class="up">+9.4</span></dd>
               <dt>OSReward-Hard accuracy</dt><dd>60.2<span class="up">+20.8</span></dd>
@@ -1062,10 +1154,9 @@
               <img src="public/logos/OS-Shepherd.png" alt="">
               <h3>OS-Shepherd-35B-A3B</h3>
             </div>
-            <p style="font-size:15px;color:var(--text-dim);margin:0">Applying the identical pipeline at 4×
-              parameters yields similar outcomes: a 2.4 pp gain on OSReward-Hard balanced accuracy, comparable
-              full-set performance, and the same strict-lenient balance. While binary judging scales marginally,
-              the 35B model grades noticeably better on fine-grained quality axes.</p>
+            <p style="font-size:15px;color:var(--text-dim);margin:0">The identical recipe at four times the
+              parameters lands beside the 9B: a small further gain on OSReward-Hard, level full-set accuracy, the
+              same balanced diagonal. Scale buys 2.4 pp of hard-set balanced accuracy. What transfers is the recipe. On the fine-grained quality axes it grades noticeably better than the 9B.</p>
             <dl>
               <dt>OSReward accuracy</dt><dd>85.6<span class="up">+3.4</span></dd>
               <dt>OSReward-Hard accuracy</dt><dd>62.7<span class="up">+11.6</span></dd>
@@ -1075,12 +1166,10 @@
           </div>
         </div>
 
-        <!-- Training deltas -->
         <div class="card chart-card rise" style="margin-top:24px">
           <div class="chart-head"><h3>Against the untuned base</h3></div>
-          <p class="chart-note">Both base models are near-total accepters, with the 9B base catching only 14.1% of
-            hard failures. Training successfully shifts the operating point: it significantly boosts failure recall
-            with only a minor reduction in success recognition, yielding a higher overall balanced accuracy.</p>
+          <p class="chart-note">Both base models are near-total accepters: the 9B base catches just 14.1% of hard
+            failures. Training relocates the operating point rather than trading one error for another: far more failure recall, a modest dip in success recall, and a clear jump in balanced accuracy.</p>
           <div class="table-shell">
             <div class="table-scroll">
               <table class="data" id="table-training">
@@ -1102,60 +1191,67 @@
           </div>
         </div>
 
-        <!-- Generalization -->
-        <div class="grid grid-2 rise" style="margin-top:24px;align-items:start">
+        <div class="lead-in rise">
+          <div class="lead-k">
+            <span class="lead-n">5.3</span>
+            <h3>De-biasing that travels</h3>
+          </div>
+          <div class="lead-body">
+            <p>Does resistance to false successes hold up outside OSReward? We test OS-Shepherd two ways without touching its weights: against the programmatic verifiers of three unseen benchmarks (<strong>OSWorld, WebArena, AndroidWorld</strong>), and against independent human annotations on external desktop and web reward benchmarks (<strong>CUARewardBench</strong> and <strong>AgentRewardBench</strong>). Untuned Qwen models stay lenient at every size up to 397B. OS-Shepherd-9B keeps catching failures on data it never saw.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2 rise" style="align-items:start">
           <div class="card chart-card">
             <div class="chart-head"><h3>Held-out benchmarks</h3></div>
-            <p class="chart-note">Agreement with each benchmark's own human-written verifier, on matched subsets.
-              Agreement is platform-driven, not judge-driven: every judge does best on mobile and falls well short
-              on desktop. The OS-Shepherd models rank as the top open judges on OSWorld and AndroidWorld, and sit
-              within the frontier cluster on WebArena, outperforming general open models up to 44× the 9B's size.</p>
+            <p class="chart-note">Agreement with each benchmark's own human-written verifier on held-out subsets.
+              Agreement is platform-driven: every judge does best on mobile and drops on desktop. The OS-Shepherd
+              models are the best open judges on OSWorld and AndroidWorld and sit in the frontier cluster on WebArena, beating general open models up to ~44× the 9B's size.</p>
             <div id="chart-general"></div>
           </div>
           <div class="card chart-card">
             <div class="chart-head"><h3>Leniency resistance transfers</h3></div>
-            <p class="chart-note">Recall on truly-failed runs. General Qwen models remain lenient across all scales
-              (30B to 397B), whereas OS-Shepherd-9B consistently catches far more real failures. This leniency
-              resistance is acquired purely through our training pipeline. Furthermore, none of these benchmarks'
-              tasks or trajectories were seen during training, ensuring a strictly out-of-distribution evaluation
-              (particularly evident on OSWorld).</p>
+            <p class="chart-note">Recall on truly failed runs. General Qwen judges stay lenient at every size from 30B to 397B, while OS-Shepherd-9B catches far more real failures on all three. None of these benchmarks'
+              test tasks or trajectories enter training. OSWorld contributes neither, making it the cleanest
+              out-of-distribution test.</p>
             <div id="chart-leniency"></div>
           </div>
         </div>
 
+        <div class="card chart-card rise" style="margin-top:24px">
+            <div class="chart-head"><h3>External human-annotated benchmarks</h3></div>
+            <p class="chart-note">The same last-five-screenshot protocol, scored against independent human labels:
+              CUARewardBench (desktop, 272 runs) and AgentRewardBench (web, 1,106 runs). sPrec is the share of
+              accepted runs that truly succeeded, and fRec the share of failed runs the judge catches.</p>
+            <div class="table-shell">
+              <div class="table-scroll">
+                <table class="data">
+                  <thead>
+                    <tr>
+                      <th scope="col">Benchmark &amp; judge</th>
+                      <th scope="col">Acc</th>
+                      <th scope="col">sPrec</th>
+                      <th scope="col">fRec</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>CUARewardBench · GLM-4.5V-106B</td><td>80.1</td><td>82.9</td><td>83.5</td></tr>
+                    <tr><td>CUARewardBench · Qwen3.5-9B (base)</td><td>76.5</td><td>71.2</td><td>61.7</td></tr>
+                    <tr class="ours"><td><b>CUARewardBench · OS-Shepherd-9B</b></td><td><b>80.5</b></td><td><b>83.1</b></td><td>83.5</td></tr>
+                    <tr><td>AgentRewardBench · GPT-4o</td><td>—</td><td>69.8</td><td>86.9</td></tr>
+                    <tr><td>AgentRewardBench · WebJudge-7B</td><td>—</td><td>75.7</td><td>93.2</td></tr>
+                    <tr><td>AgentRewardBench · Qwen3.5-9B (base)</td><td>—</td><td>69.3</td><td>87.1</td></tr>
+                    <tr class="ours"><td><b>AgentRewardBench · OS-Shepherd-9B</b></td><td>—</td><td><b>81.7</b></td><td><b>95.1</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+
         <div class="takeaway rise" style="margin-top:24px">
           <span class="k">Net</span>
-          <p>A single 9B, trained on none of them, carries its de-biasing across all three at a cost that scales to
-            training-time reward. It does not yet match frontier accuracy, but closes most of the gap at a fraction
-            of the scale — the direction a scalable CUA reward signal must move.</p>
+          <p>What travels is the recipe, not the benchmark. A 9B judge trained against false successes stays strict on data it never saw, at a price that fits inside an RL loop.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ================================================================== -->
-    <!-- Case-study viewer                                                    -->
-    <!-- Native HTML viewer with full-resolution source screenshots.          -->
-    <!-- ================================================================== -->
-    <section class="band" id="viewer">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">Explore</span>
-          <h2 class="section-title">Be the <span class="gilt">judge</span></h2>
-          <p class="section-sub">Replay a trajectory exactly as a reward model sees it: the instruction, every
-            screen, the agent's action drawn on top and its reasoning beside it. Make your call, then see what
-            the annotators decided, how the model judges voted, and which states settled it. Ten are the paper's
-            case studies; eleven more are hard picks from the full benchmark, where the last screen or the agent's
-            own report points the wrong way.</p>
-        </div>
-        <div class="rise" id="viewer-body"></div>
-
-        <div class="atlas-head rise">
-          <span class="eyebrow">The whole benchmark</span>
-          <h3>All 1,019 trajectories, one cell each</h3>
-          <p>Regroup the benchmark by platform, agent, human label or length. Hover a cell for its instruction
-            and action barcode; the gold-ringed cells are the case studies above.</p>
-        </div>
-        <div class="rise" id="atlas-body"></div>
       </div>
     </section>
 
@@ -1257,10 +1353,9 @@
           <ul>
             <li><a href="#abstract">Overview</a></li>
             <li><a href="#benchmark">Benchmark</a></li>
-            <li><a href="#findings">Findings</a></li>
-            <li><a href="#leaderboard">Leaderboard</a></li>
+            <li><a href="#viewer">Be the Judge</a></li>
+            <li><a href="#findings">Judge Study</a></li>
             <li><a href="#shepherd">OS-Shepherd</a></li>
-            <li><a href="#viewer">Be the judge</a></li>
             <li><a href="#cite">Cite</a></li>
             <li><a href="https://os-copilot.github.io/OS-Hub/" target="_blank" rel="noopener">OS-Copilot Series ↗</a></li>
           </ul>
@@ -1289,11 +1384,11 @@
   <script src="static/js/osreward-data.js?v=20261116-hard"></script>
   <script src="static/js/osreward-charts.js?v=20260830-sankey-fix"></script>
   <script src="static/js/osreward-demo.js"></script>
-  <script src="static/js/main.js?v=20261116-player"></script>
+  <script src="static/js/main.js?v=20261117-flowhead"></script>
   <script src="static/js/osreward-corpus.js?v=20261116-player"></script>
-  <script src="static/js/osreward-player.js?v=20261116-hard"></script>
-  <script src="static/js/osreward-atlas.js?v=20261116-player"></script>
-  <script src="static/js/osreward-polish.js?v=20261116-icons"></script>
+  <script src="static/js/osreward-player.js?v=20261117-flowhead"></script>
+  <script src="static/js/osreward-atlas.js?v=20261117-flowhead"></script>
+  <script src="static/js/osreward-polish.js?v=20261117-flowhead"></script>
 </body>
 
 </html>

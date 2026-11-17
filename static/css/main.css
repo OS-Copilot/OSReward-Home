@@ -30,7 +30,7 @@
   --text-hi: #eaf1f9;
   --text: #bfd0e2;
   --text-dim: #8aa1bb;
-  --text-faint: #677d99;
+  --text-faint: #7d93ae;
 
   /* Semantic (charts) */
   --ok: #58c7a4;
@@ -93,7 +93,7 @@
   --text-hi: #14243c;
   --text: #34475f;
   --text-dim: #5b6d86;
-  --text-faint: #7d8ea4;
+  --text-faint: #536378;
 
   --ok: #1f8a68;
   --bad: #bf4a41;
@@ -933,8 +933,8 @@ a.card.feature:not(.pending-card):hover { transform: translateY(-2px); border-co
 
 /* Armed states (data-live is set by osreward-demo.js). Armed nodes are also
    jump targets: click one to go to its step. */
-.demo[data-live] .dnode, .demo[data-live] .d-tray { opacity: 0.3; cursor: pointer; }
-.demo[data-live] .dnode.past, .demo[data-live] .d-tray.past { opacity: 0.58; }
+.demo[data-live] .dnode, .demo[data-live] .d-tray { opacity: 0.46; cursor: pointer; }
+.demo[data-live] .dnode.past, .demo[data-live] .d-tray.past { opacity: 0.72; }
 .demo[data-live] .dnode:hover:not(.on) { opacity: 0.85; border-color: var(--dn-accent); }
 .demo[data-live] .d-tray:hover:not(.on) { opacity: 0.85; border-color: var(--bad); }
 .demo[data-live] .dnode.on {

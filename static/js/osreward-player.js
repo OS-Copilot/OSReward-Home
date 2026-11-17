@@ -523,7 +523,7 @@
     h("span", "px-tag", headMeta, (e._total || e.steps.length) + " recorded states" +
       (e.stateMeta && !e.stateMeta.showsAllStates ? " · " + e.steps.length + " shown" : ""));
     if (revealed(e)) h("span", "px-tag px-tag-gold", headMeta, e.caseType);
-    else h("span", "px-tag px-tag-blind", headMeta, "Blind replay — annotations unlock after your call");
+    else h("span", "px-tag px-tag-blind", headMeta, "Blind replay: annotations unlock after your call");
     taskText.textContent = e.instruction;
     caseIdx.textContent = (state.ci + 1) + " / " + EX.length;
     root.classList.toggle("is-portrait", e._portrait);
@@ -849,8 +849,8 @@
     h("b", null, stamp, verdictWord(e.gold));
     var you = h("p", "px-you", left);
     if (v === "skip") you.textContent = "You revealed this case without voting.";
-    else if (v === e.gold) { you.classList.add("is-ok"); you.textContent = "You called " + verdictWord(v) + " — you agree with the annotators."; }
-    else { you.classList.add("is-bad"); you.textContent = "You called " + verdictWord(v) + " — the annotators disagree."; }
+    else if (v === e.gold) { you.classList.add("is-ok"); you.textContent = "You called " + verdictWord(v) + ". You agree with the annotators."; }
+    else { you.classList.add("is-bad"); you.textContent = "You called " + verdictWord(v) + ". The annotators disagree."; }
     h("p", "px-why", left, e.goldWhy);
     if (e.reason) {
       var rs = h("div", "px-reason", left);
@@ -872,10 +872,13 @@
     if (judges.length) {
       h("strong", null, jh, agree + " of " + judges.length + " shown judges match the human verdict");
     } else {
-      h("p", "px-judges-none", right, "Model-judge responses for this trajectory are not in the page export yet. " +
-        "It was picked from the full benchmark because its final screen and the agent's own report point " +
-        (e.gold === "failure" ? "towards success while the annotators marked it a failure." :
-          "towards failure (long, noisy, self-correcting) while the annotators marked it a success."));
+      h("p", "px-judges-none", right,
+        "This run is one of the eleven extra hard picks drawn from the full benchmark (individual judge " +
+        "transcripts are bundled on the ten paper case studies). Compare your call with the human verdict on " +
+        "the left: it was selected because the closing screen and the agent's own account look " +
+        (e.gold === "failure"
+          ? "like a clean completion even though a required step or constraint was missed."
+          : "noisy and roundabout even though the agent recovered and satisfied the instruction."));
     }
     var field = parseField(e.judgeFieldSummary);
     if (field) {
